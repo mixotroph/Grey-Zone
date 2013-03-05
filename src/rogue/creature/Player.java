@@ -34,9 +34,9 @@ public class Player extends Creature implements Camera
                     expire();
                     break;
 		case 'l':
-		    System.out.println("Geschaeftsprozessmodelle");
 		    // Do not break; here, otherwise we can't move left!
                 default:
+                	System.out.println("Geschaeftsprozessmodelle");
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)
                         move(dir);
