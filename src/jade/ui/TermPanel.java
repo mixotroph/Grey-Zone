@@ -21,8 +21,8 @@ import javax.swing.JPanel;
  */
 public class TermPanel extends Terminal
 {
-    public static final int DEFAULT_COLS = 80;
-    public static final int DEFAULT_ROWS = 24;
+    public static final int DEFAULT_COLS = 101;
+    public static final int DEFAULT_ROWS = 32;
     public static final int DEFAULT_SIZE = 12;
     
     private Screen screen;
@@ -103,6 +103,11 @@ public class TermPanel extends Terminal
         screen.setBuffer(getBuffer());
         screen.repaint();
     }
+    
+    public void bufferFile(String path)
+    {
+    	this.bufferFile(path,DEFAULT_ROWS);
+    }
 
     protected static class Screen extends JPanel implements KeyListener
     {
@@ -128,7 +133,7 @@ public class TermPanel extends Terminal
             this.tileHeight = tileHeight;
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
-            setBackground(Color.black);
+            setBackground(Color.darkGray);
             setFocusable(true);
         }
 
@@ -187,5 +192,6 @@ public class TermPanel extends Terminal
         @Override
         public void keyTyped(KeyEvent e)
         {}
+        
     }
 }
