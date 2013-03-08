@@ -168,6 +168,14 @@ public class TiledTermPanel extends TermPanel
         look.add(0, ch);
         tileBuffer.put(new Coordinate(x + offX, y + offY), look);
     }
+
+
+    /**
+     * begin inner class TiledScreen
+     * @author vanhech
+     *
+     */
+
     private static class TiledScreen extends Screen
     {
         private static final long serialVersionUID = 6739172935885377439L;

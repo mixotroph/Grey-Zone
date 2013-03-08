@@ -5,6 +5,9 @@ import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -145,6 +148,33 @@ public abstract class Terminal
     {
         bufferString(coord, str, Color.white);
     }
+    
+    /**
+     * Buffers a file
+     * @param path the location of the file
+     * @param number of rows that should read from file
+     */
+	public void bufferFile(String path, int row) {
+//			bufferString(0,x,"Test "+x);
+		BufferedReader in = null;
+			try
+			{
+				in = new BufferedReader(new FileReader(path));
+				String textRow = null;
+				int currentRow=0;
+				while ((textRow = in.readLine()) != null) {
+					bufferString(0,currentRow,textRow);
+					currentRow++;
+				}
+			} catch (IOException e) {
+				System.err.println("FEHLER");
+				System.out.println(System.getProperty("user.dir"));
+			}
+			finally 
+			{
+				try {in.close(); } catch ( Exception e ) { }
+			}
+	}
 
     /**
      * Clears all contents of the buffer.
