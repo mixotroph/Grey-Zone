@@ -141,7 +141,6 @@ public class TermPanel extends Terminal
         {
             return tileHeight;
         }
-
         @Override
         protected void paintComponent(Graphics page)
         {

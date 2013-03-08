@@ -13,6 +13,8 @@ public class Player extends Creature implements Camera
 {
     private Terminal term;
     private ViewField fov;
+    private int strength;
+    private int experience;
 
     public Player(Terminal term)
     {
@@ -20,7 +22,30 @@ public class Player extends Creature implements Camera
         this.term = term;
         fov = new RayCaster();
     }
-
+    
+    ////////////////////////////////////////////////////////////////
+    //////////// get set methods  
+    ////////////////////////////////////////////////////////////////
+    public void setStrength(int s)
+    {
+    	strength = s;
+    }
+    public void setExperience(int e)
+    {
+    	experience = e;	
+    }
+    public int getStrength()
+    {
+    	return strength;
+    }
+    public int getExperience()
+    {
+    	return experience;
+    }
+    
+    ////////////////////////////////////////////////////////////////
+    //////////// Methods that were already implemented
+    ////////////////////////////////////////////////////////////////
     @Override
     public void act()
     {
@@ -36,7 +61,6 @@ public class Player extends Creature implements Camera
 		case 'l':
 		    // Do not break; here, otherwise we can't move left!
                 default:
-                	System.out.println("Geschaeftsprozessmodelle");
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)
                         move(dir);

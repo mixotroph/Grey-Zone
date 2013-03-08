@@ -27,7 +27,6 @@ public abstract class Terminal
         saved = new HashMap<Coordinate, ColoredChar>();
         cameras = new HashMap<Camera, Coordinate>();
     }
-
     /**
      * Refreshes the screen to reflect the current state of the buffer. Until this method is called,
      * no changes to the buffer should be displayed.

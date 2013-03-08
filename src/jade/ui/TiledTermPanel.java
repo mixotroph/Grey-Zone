@@ -7,7 +7,10 @@ import jade.util.datatype.Coordinate;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
+
 
 public class TiledTermPanel extends TermPanel
 {
@@ -39,20 +43,54 @@ public class TiledTermPanel extends TermPanel
         tileBuffer = new HashMap<Coordinate, List<ColoredChar>>();
         savedTile = new HashMap<Coordinate, List<ColoredChar>>();
     }
+    
+    public void fileToTerm(String filename)
+    {
+            
+            BufferedReader bufferedReader = null;
+            
+            try {
+                
+                //Construct the BufferedReader object
+                bufferedReader = new BufferedReader(new FileReader(filename));
+                
+                String line = null;
+                
+                Coordinate temp = new Coordinate(0,0);
 
+                while(((int)temp.y()) < DEFAULT_ROWS)
+                {
+
+                	line = bufferedReader.readLine();
+                	bufferString(temp, line);
+                    temp = temp.getTranslated(0, 1);
+                }
+                
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } finally {
+                //Close the BufferedReader
+                try {
+                    if (bufferedReader != null)
+                        bufferedReader.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+    }
     public static TiledTermPanel getFramedTerminal(String title)
     {
         TiledTermPanel term = new TiledTermPanel();
         frameTermPanel(term, title);
         return term;
     }
-
     @Override
     protected TiledScreen screen()
     {
         return (TiledScreen) super.screen();
     }
-
     public boolean registerTile(String tileSet, int x, int y, ColoredChar ch)
     {
         try
@@ -130,7 +168,6 @@ public class TiledTermPanel extends TermPanel
         look.add(0, ch);
         tileBuffer.put(new Coordinate(x + offX, y + offY), look);
     }
-
     private static class TiledScreen extends Screen
     {
         private static final long serialVersionUID = 6739172935885377439L;
@@ -192,6 +229,7 @@ public class TiledTermPanel extends TermPanel
                     }
                 }
             }
-        }
-    }
-}
+            
+        }// end paintComponent
+    }// end TiledScreen
+}// end TiledTermPanel
