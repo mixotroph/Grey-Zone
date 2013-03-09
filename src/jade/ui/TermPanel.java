@@ -100,8 +100,11 @@ public class TermPanel extends Terminal
     @Override
     public void refreshScreen()
     {
-        screen.setBuffer(getBuffer());
-        screen.repaint();
+    	synchronized (screen) {
+    		 screen.setBuffer(getBuffer());
+    	     screen.repaint();
+		}
+       
     }
     
     public void bufferFile(String path)

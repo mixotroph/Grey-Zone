@@ -1,6 +1,7 @@
 package rogue;
 
 import jade.core.World;
+import jade.screen.ScreenThread;
 import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
@@ -15,27 +16,22 @@ public class Rogue
 {
     public static void main(String[] args) throws InterruptedException
     {
- 
-        TermPanel term = TermPanel.getFramedTerminal("Grey Zone");
-//        term.registerTile("startscreen.png", 5, 59, ColoredChar.create('#'));
-  //      term.registerTile("startscreen.png", 3, 60, ColoredChar.create('.'));
-    //    term.registerTile("startscreen.png", 5, 20, ColoredChar.create('@'));
-      //  term.registerTile("startscreen.png", 14, 30, ColoredChar.create('D', Color.red));
+        final TermPanel term = TermPanel.getFramedTerminal("Grey Zone");
+        //term.registerTile("startscreen.png", 5, 59, ColoredChar.create('#'));
+        //term.registerTile("startscreen.png", 3, 60, ColoredChar.create('.'));
+        //term.registerTile("startscreen.png", 5, 20, ColoredChar.create('@'));
+        //term.registerTile("startscreen.png", 14, 30, ColoredChar.create('D', Color.red));
         
         Player player = new Player(term);
         World world = new Level(48,32, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         //term.registerCamera(player, 5, 5);
         
-        // hallo
-        char key = 0;
         char qKey = 0;
-        while(key!='s')
-        {
-        	term.bufferFile("title_1.txt");
-            term.refreshScreen();
-        	key=term.getKey();
-        }
+        
+        ScreenThread startScreen = new ScreenThread(term,"startscreen",4);
+        while(term.getKey()!='s'){}
+        startScreen.kill();
         
         while(!player.expired())
         {
@@ -49,9 +45,9 @@ public class Rogue
             world.tick();
         }
         	term.clearBuffer();
-        	term.bufferString(new Coordinate(20,15), "THE END");
-        	term.refreshScreen();
-        	qKey=term.getKey();
+            ScreenThread endScreen = new ScreenThread(term,"endscreen",1);
+            while(term.getKey()!='q'){}
+            endScreen.kill();
     	
         System.exit(0);
     }
