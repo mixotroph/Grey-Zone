@@ -282,9 +282,9 @@ public abstract class Terminal
         int offY = screenCenter.y() - camera.y();
         World world = camera.world();
         for(Coordinate coord : camera.getViewField())
-            bufferChar(coord.getTranslated(offX, offY), world.look(coord));
+            bufferChar(coord ,world.look(coord));
     }
-
+    
     /**
      * Calls {@code bufferCamera} for every {@code Camera} registered with the {@code Terminal}.
      */
@@ -293,7 +293,6 @@ public abstract class Terminal
         for(Camera camera : cameras.keySet())
             bufferCamera(camera);
     }
-
     /**
      * Buffers the given {@code ColoredChar} relative to the registered screen center of the {@code
      * Camera}.

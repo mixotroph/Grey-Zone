@@ -52,6 +52,6 @@ public class Player extends Creature implements Camera
     @Override
     public Collection<Coordinate> getViewField()
     {
-        return fov.getViewField(world(), pos(), 5);
+        return fov.getViewField(world(), pos(), 25);
     }
 }

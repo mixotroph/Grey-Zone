@@ -19,6 +19,8 @@ import javax.imageio.ImageIO;
 public class TiledTermPanel extends TermPanel
 {
     public static final int DEFAULT_TILESIZE = 16;
+    private static final int X_OFFSET = 0;
+    private static final int Y_OFFSET = 0;
 
     private Map<Coordinate, List<ColoredChar>> tileBuffer;
     private Map<Coordinate, List<ColoredChar>> savedTile;
@@ -60,12 +62,14 @@ public class TiledTermPanel extends TermPanel
             int w = screen().tileWidth();
             int h = screen().tileHeight();
             BufferedImage tileset = ImageIO.read(new File(tileSet));
-            BufferedImage tile = tileset.getSubimage(x * w, y * h, w, h);
+            BufferedImage tile = tileset.getSubimage(x  , y  , w, h);
+            System.out.println("x:" + x*w+" y: "+y*h);
             screen().registerTile(ch, tile);
             return true;
         }
         catch(IOException e)
         {
+        	System.err.println("Error: textures could not be loaded");
             return false;
         }
     }
@@ -115,6 +119,13 @@ public class TiledTermPanel extends TermPanel
                     world.lookAll(coord));
     }
 
+    public void bufferWorld(World world)
+    {
+    	for(int x = 0; x < world.width(); x++)
+    		for(int y = 0; y < world.height(); y++)
+    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (y+Y_OFFSET)), world.lookAll(x, y));
+    } 
+    
     @Override
     public void bufferRelative(Camera camera, ColoredChar ch, int x, int y)
     {
