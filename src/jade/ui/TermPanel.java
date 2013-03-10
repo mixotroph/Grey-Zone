@@ -23,8 +23,8 @@ import javax.swing.JPanel;
  */
 public class TermPanel extends Terminal
 {
-    public static final int DEFAULT_COLS = 60;
-    public static final int DEFAULT_ROWS = 30;
+    public static final int DEFAULT_COLS = 80;
+    public static final int DEFAULT_ROWS = 40;
     public static final int DEFAULT_SIZE = 12;
     
     private Screen screen;

@@ -103,7 +103,6 @@ public class TiledTermPanel extends TermPanel
         screen().setTileBuffer(tileBuffer);
         super.refreshScreen();
     }
-
     @Override
     public void bufferCamera(Camera camera)
     {
@@ -117,6 +116,16 @@ public class TiledTermPanel extends TermPanel
         for(Coordinate coord : camera.getViewField())
             tileBuffer.put(coord.getTranslated(offX, offY),
                     world.lookAll(coord));
+    }
+    
+    public void bufferFov(Camera camera)
+    {
+        Guard.argumentIsNotNull(camera);
+        Guard.verifyState(cameraRegistered(camera));
+        World world = camera.world();
+        
+        for(Coordinate coord : camera.getViewField())
+            tileBuffer.put(coord,world.lookAll(coord));
     }
 
     public void bufferWorld(World world)

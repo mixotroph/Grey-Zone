@@ -270,7 +270,7 @@ public abstract class Terminal
      * registered screen center. The view field will be buffered regardless of the size on screen,
      * so care should be taken with the way the view field is calculated if a certain size on screen
      * is needed.
-     * @param camera the {@code Camera} whose fiew view is being buffered
+     * @param camera the {@code Camera} whose view view is being buffered
      */
     public void bufferCamera(Camera camera)
     {
@@ -282,7 +282,7 @@ public abstract class Terminal
         int offY = screenCenter.y() - camera.y();
         World world = camera.world();
         for(Coordinate coord : camera.getViewField())
-            bufferChar(coord ,world.look(coord));
+            bufferChar(coord.getTranslated(offX, offY), world.look(coord));
     }
     
     /**
