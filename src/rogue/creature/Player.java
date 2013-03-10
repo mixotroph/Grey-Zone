@@ -34,7 +34,6 @@ public class Player extends Creature implements Camera
                     expire();
                     break;
 		case 'l':
-		    System.out.println("Geschaeftsprozessmodelle");
 		    // Do not break; here, otherwise we can't move left!
                 default:
                     Direction dir = Direction.keyToDir(key);
@@ -52,6 +51,6 @@ public class Player extends Creature implements Camera
     @Override
     public Collection<Coordinate> getViewField()
     {
-        return fov.getViewField(world(), pos(), 5);
+        return fov.getViewField(world(), pos(), 25);
     }
 }
