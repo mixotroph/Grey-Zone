@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -69,10 +71,14 @@ public class TermPanel extends Terminal
     
     protected static void frameTermPanel(TermPanel term, String title)
     {
+        //Create and set up the window.	
         JFrame frame = new JFrame(title);
-        frame.add(term.panel());
-        frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        frame.add(term.panel());
+        
+        //Display the window.
+        frame.pack();
         frame.setVisible(true);
     }
 
@@ -134,10 +140,12 @@ public class TermPanel extends Terminal
             addKeyListener(this);
             this.tileWidth = tileWidth;
             this.tileHeight = tileHeight;
+            // Sets the preferred size of this component.
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
             setBackground(Color.darkGray);
             setFocusable(true);
+            getComponentCount();
         }
 
         protected int tileWidth()
@@ -149,7 +157,8 @@ public class TermPanel extends Terminal
         {
             return tileHeight;
         }
-
+        
+        //inherited from JPanel -> JComponent
         @Override
         protected void paintComponent(Graphics page)
         {

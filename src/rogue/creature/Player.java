@@ -33,8 +33,9 @@ public class Player extends Creature implements Camera
                 case 'q':
                     expire();
                     break;
-		case 'l':
-		    // Do not break; here, otherwise we can't move left!
+                    
+                case 'l':
+                	// Do not break; here, otherwise we can't move left!
                 default:
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)

@@ -1,6 +1,5 @@
 package jade.screen;
 
-import java.awt.Color;
 import jade.ui.TermPanel;
 
 public class ScreenThread extends Thread
@@ -26,7 +25,9 @@ public class ScreenThread extends Thread
     		term.refreshScreen();
        		try {
     			Thread.sleep(500L);
-    		} catch (Exception e){
+    		} catch (InterruptedException e){
+    			interrupt();
+    			System.err.println("Unterbrechung in Sleep");
     		}
     		currentPic++;
     	} else {currentPic=1;}
