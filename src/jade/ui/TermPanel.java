@@ -117,6 +117,7 @@ public class TermPanel extends Terminal
     {
     	this.bufferFile(path,DEFAULT_ROWS);
     }
+    
 
     protected static class Screen extends JPanel implements KeyListener
     {

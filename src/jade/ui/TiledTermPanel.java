@@ -19,8 +19,8 @@ import javax.imageio.ImageIO;
 public class TiledTermPanel extends TermPanel
 {
     public static final int DEFAULT_TILESIZE = 16;
-    private static final int X_OFFSET = 0;
-    private static final int Y_OFFSET = 0;
+    private static int X_OFFSET = 0;
+    private static int Y_OFFSET = 0;
 
     private Map<Coordinate, List<ColoredChar>> tileBuffer;
     private Map<Coordinate, List<ColoredChar>> savedTile;
@@ -124,8 +124,21 @@ public class TiledTermPanel extends TermPanel
         Guard.verifyState(cameraRegistered(camera));
         World world = camera.world();
         
-        for(Coordinate coord : camera.getViewField())
-            tileBuffer.put(coord,world.lookAll(coord));
+        for(Coordinate coord : camera.getViewField()) {
+        	Coordinate newCoord = new Coordinate(coord.x() + X_OFFSET,coord.y() + Y_OFFSET);
+            tileBuffer.put(newCoord,world.lookAll(coord));
+        }
+    }
+    
+    public void bufferStatusBar() {
+    	X_OFFSET=10;
+    	this.bufferString(1,1, "MENU");
+    }
+    
+    public void bufferBoxes(World world) {
+    	this.bufferFile("screens/box.txt");
+    	screen().setTileBuffer(tileBuffer);
+    	world.setTile(ColoredChar.create('G'), true, new Coordinate(10,10));
     }
 
     public void bufferWorld(World world)
