@@ -1,10 +1,8 @@
 package rogue;
 
 import jade.core.World;
-import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Coordinate;
 import java.awt.Color;
 import java.util.HashMap;
 import rogue.creature.Monster;
@@ -47,7 +45,7 @@ public class Rogue
         
         // hallo
         char key = 0;
-        char qKey = 0;
+        //char qKey = 0;
         while(key!='s')
         {
         	term.bufferFile("title_1.txt");
