@@ -11,7 +11,7 @@ import rogue.creature.Player;
 import rogue.level.Level;
 import rogue.level.TestLevel;
 
-public class Rogue
+public class TestRogue
 {
     private static final String TeiledTermPanel = null;
 
@@ -32,38 +32,34 @@ public class Rogue
         term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
         term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
   
-        
         Player player = new Player(term);
         World world = new Level(80, 40, player);
-        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
-
-        //term.registerCamera(player, 5, 5);
-        
-        // hallo
-        char key = 0;
-        //char qKey = 0;
-        while(key!='s')
-        {
-        	term.bufferFile("screens/startscreen/1.txt");
-            term.refreshScreen();
-        	key=term.getKey();
-        }
+        Monster dragon = new Monster(ColoredChar.create('D', Color.red));
+        world.addActor(dragon);
 
         term.registerCamera(player, 40,20);
-        
-        /*
-         * buggy animated startscreen
-         * 
-        ScreenThread startScreen = new ScreenThread(term,"startscreen",4);
-        while(term.getKey()!='s'){}
-        startScreen.kill();
-        */
         
         term.bufferFile("screens/startscreen/title.txt");
         term.refreshScreen();
         while(term.getKey()!='s'){}
         
+;		int x = 0;
+        while(!player.expired())
+        {
+        	World.getActors(Monster);
+        	x = x+1;
+        	term.clearBuffer();
+            if(switches.containsKey("a")) term.bufferWorld(world);
+            term.bufferFov(player);
+            term.refreshScreen();
+            world.tick();
+        }
 
+        
+        
+        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+        term.bufferWorld(world);
+        term.registerCamera(player, 40,20);
         
         while(!player.expired())
         {
@@ -86,20 +82,9 @@ public class Rogue
         endScreen.kill();
         */
         System.exit(0);
-        /*
-         * tried to alter world with the terminal
-         * Didn't work
-     
-        TermPanel.frameTermPanel(term, "Next Level");
-        term.registerTile("dungeon.png", 1, 1, ColoredChar.create('#'));
-        term.registerTile("dungeon.png", 1, 34, ColoredChar.create('.'));
-        term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
-        term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
-            */
+
         
-        player.setTerm(term);
-        world = new TestLevel(80,40,player);
-        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+
         
         
     }

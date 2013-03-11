@@ -1,42 +1,31 @@
 package jade.gen;
 
 import jade.core.World;
-import jade.util.Dice;
+import rogue.level.TestLevel;
 import jade.util.Guard;
 
 /**
  * Represents a map generation algorithm. These generators can be chained together in decorator
  * fashion to create a new composite {@code Generator}.
  */
-public abstract class Generator
+public abstract class TestGenerator
 {
-    private Generator chained;
+    private TestGenerator chained;
 
     /**
      * Creates a new {@code Generator} with no previous chained {@code Generator}
      */
-    public Generator()
+    public TestGenerator()
     {
         this(null);
-    }
-   
-    /*
-     * Creates a new generator with the previouse generator as chained and loads a 
-     * new static text.txt from path
-
-    public Generator(Generator chained, String path)
-    {
-    	this.chained = chained;
-    	load(path);
-    }
-    */
+    }  
 
     /**
      * Creates a new {@code Generator} with the given {@code Generator} as the previous chained
      * {@code Generator}.
      * @param chained the chained {@code Generator}
      */
-    public Generator(Generator chained)
+    public TestGenerator(TestGenerator chained)
     {
         this.chained = chained;
     }
@@ -46,7 +35,7 @@ public abstract class Generator
      * @param world the {@code World} on which the generation algorithm is being performed on
      * @param dice the {@code Dice} to be used for random number generation during map generation
      */
-    protected abstract void generateStep(World world, Dice dice);
+    protected abstract void generateScreen(World world);
 
     /**
      * Calls the generation step of the {@code Generator}, after the chained {@code Generator} has
@@ -54,26 +43,12 @@ public abstract class Generator
      * @param world the {@code World} on which the generation algorithm is being performed on
      * @param dice the {@code Dice} to be used for random number generation during map generation
      */
-    public final void generate(World world, Dice dice)
-    {
-        Guard.argumentsAreNotNull(world, dice);
-
-        if(chained != null)
-            chained.generate(world, dice);
-        generateStep(world, dice);
-    }
-
-    /**
-     * Calls the generation step of the {@code Generator}, after the chained {@code Generator} has
-     * been called. The global instance of {@code Dice} is used as the default random number
-     * generator.
-     * @param world the {@code World} on which the generation algorithm is being performed on
-     */
     public final void generate(World world)
     {
-        generate(world, Dice.global);
-    }
-    
-    //public abstract void load(String path);
+        Guard.argumentsAreNotNull(world);
 
+        if(chained != null)
+            chained.generate(world);
+        generateScreen(world);
+    }
 }

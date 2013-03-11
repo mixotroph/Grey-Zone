@@ -15,6 +15,8 @@ public class Player extends Creature implements Camera
     private ViewField fov;
     private int strength;
     private int experience;
+    //private Coordinate; // this is where the player should be 
+    					// placed when he enters a new level.
 
     public Player(Terminal term)
     {
@@ -26,6 +28,14 @@ public class Player extends Creature implements Camera
     ////////////////////////////////////////////////////////////////
     //////////// get set methods  
     ////////////////////////////////////////////////////////////////
+    public Terminal getTerm()
+    {
+    	return term;	
+    }
+    public void setTerm(Terminal term)
+    {
+    	this.term = term;
+    }
     public void setStrength(int s)
     {
     	strength = s;
