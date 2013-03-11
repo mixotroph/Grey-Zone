@@ -48,7 +48,7 @@ public class Rogue
         //char qKey = 0;
         while(key!='s')
         {
-        	term.bufferFile("title_1.txt");
+        	term.bufferFile("screens/startscreen/1.txt");
             term.refreshScreen();
         	key=term.getKey();
         }
