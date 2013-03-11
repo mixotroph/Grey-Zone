@@ -58,8 +58,9 @@ public class Player extends Creature implements Camera
                 case 'q':
                     expire();
                     break;
-		case 'l':
-		    // Do not break; here, otherwise we can't move left!
+                    
+                case '1':
+                	term.bufferCamera(this);
                 default:
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)
@@ -76,6 +77,6 @@ public class Player extends Creature implements Camera
     @Override
     public Collection<Coordinate> getViewField()
     {
-        return fov.getViewField(world(), pos(), 5);
+        return fov.getViewField(world(), pos(), 25);
     }
 }
