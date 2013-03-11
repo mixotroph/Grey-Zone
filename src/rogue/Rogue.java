@@ -68,6 +68,8 @@ public class Rogue
         while(!player.expired())
         {
             term.clearBuffer();
+            term.bufferStatusBar();
+            term.bufferBoxes(world);
             if(switches.containsKey("a")) term.bufferWorld(world);
             term.bufferFov(player);
             term.refreshScreen();
