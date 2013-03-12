@@ -12,10 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 /**
  * Implements a {@code Terminal} on a {@code JPanel}, which can then be embedded into any container
@@ -26,6 +25,8 @@ public class TermPanel extends Terminal
     public static final int DEFAULT_COLS = 80;
     public static final int DEFAULT_ROWS = 40;
     public static final int DEFAULT_SIZE = 12;
+    
+    private static Map<String,Boolean> menus = new HashMap<String,Boolean>();
     
     private Screen screen;
 
@@ -80,6 +81,7 @@ public class TermPanel extends Terminal
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     /**
@@ -96,6 +98,17 @@ public class TermPanel extends Terminal
     {
         return screen;
     }
+    public void registerMenu() {
+    	menus.put("Inv", false);
+    }
+    
+    public void setMenu (String menu, boolean visible) {
+    	menus.put(menu,visible);
+    }
+    
+    public Boolean getMenu (String menu) {
+    	return menus.get(menu);
+    }
 
     @Override
     public char getKey() throws InterruptedException
@@ -108,6 +121,7 @@ public class TermPanel extends Terminal
     {
     	synchronized (screen) {
     		 screen.setBuffer(getBuffer());
+    		 screen.revalidate();
     	     screen.repaint();
 		}
        
@@ -146,6 +160,7 @@ public class TermPanel extends Terminal
             setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
             setBackground(Color.darkGray);
             setFocusable(true);
+            setLayout(new SpringLayout());
             getComponentCount();
         }
 

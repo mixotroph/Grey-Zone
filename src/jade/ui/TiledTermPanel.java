@@ -4,6 +4,8 @@ import jade.core.World;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -170,13 +172,22 @@ public class TiledTermPanel extends TermPanel
     
     public void bufferStatusBar() {
     	X_OFFSET=10;
-    	this.bufferString(1,1, "MENU");
     }
     
-    public void bufferBoxes(World world) {
+    @Override
+    public void bufferBoxes(World world) 
+    {
     	this.bufferFile("screens/box.txt");
-    	screen().setTileBuffer(tileBuffer);
-    	world.setTile(ColoredChar.create('G'), true, new Coordinate(10,10));
+    	Map<Coordinate,ColoredChar> buffer;
+    	buffer = this.getBuffer();
+    	System.out.println(buffer.keySet().toString());
+    	for (Coordinate coord : buffer.keySet())
+    	{
+    		List<ColoredChar> tileList = tileBuffer.get(coord);
+    		tileList.add(0, buffer.get(coord));
+    		tileBuffer.put(coord,tileList);
+    	}
+    	buffer.clear();
     }
 
     public void bufferWorld(World world)

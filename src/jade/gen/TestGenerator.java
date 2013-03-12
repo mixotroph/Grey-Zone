@@ -33,7 +33,6 @@ public abstract class TestGenerator
     /**
      * Performs the generation step of the {@code Generator}.
      * @param world the {@code World} on which the generation algorithm is being performed on
-     * @param dice the {@code Dice} to be used for random number generation during map generation
      */
     protected abstract void generateScreen(World world);
 
@@ -41,7 +40,6 @@ public abstract class TestGenerator
      * Calls the generation step of the {@code Generator}, after the chained {@code Generator} has
      * been called.
      * @param world the {@code World} on which the generation algorithm is being performed on
-     * @param dice the {@code Dice} to be used for random number generation during map generation
      */
     public final void generate(World world)
     {

@@ -1,8 +1,11 @@
 package rogue.level;
 
+import java.awt.Color;
+
 import jade.core.World;
 import jade.gen.TestGenerator;
 import jade.gen.map.Laboratory_1;
+import jade.util.datatype.ColoredChar;
 import rogue.creature.Player;
 
 public class TestLevel extends World

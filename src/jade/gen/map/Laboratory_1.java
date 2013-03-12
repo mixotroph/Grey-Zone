@@ -28,7 +28,6 @@ public class Laboratory_1 extends TestMapGenerator
     /**
      * Creates a new instance of {@code Maze} with a default open tile of '.' and a default closed
      * tile of '#'.
-     * @param String 
      */
     public Laboratory_1()
     {
@@ -49,38 +48,86 @@ public class Laboratory_1 extends TestMapGenerator
 
 	protected void generateScreen(World world) 
 	{
-		Set<Coordinate> cells = init(world);
-	}
+        BufferedReader bufferedReader = null;
+        try 
+        {
+	        bufferedReader = new BufferedReader(new FileReader(pathToLevelDesign));
+	        
+	        String line = null;
+	        
+	        char c;
+	        
+	        for(int x = 0; x < world.height(); x++)
+	        {
+	        	line = bufferedReader.readLine();
+	        	System.out.println("this is x");
+	        	System.out.println("this is line.length: "+ line.length());
+	        	System.out.println(line);
+	        	for(int y = 0; y < world.width(); y++)
+	            {
+	        		System.out.println("this is y");
+	        		
+	        		Coordinate temp = new Coordinate(x,y);
+	            	c = line.charAt(y);
+
+	            	if(c != '.')
+	            	{
+	            		world.setTile(wallTile, false, x, y);
+	            	}
+	            	else
+	            	{
+	            		world.setTile(floorTile, true, temp); 
+	            	}
+	            }// end for
+	        }// end for
+        bufferedReader.close();
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+        }
+	}//end generateScreen
 	
     
     private Set<Coordinate> init(World world)
     {
         Set<Coordinate> cells = new HashSet<Coordinate>();
+
         BufferedReader bufferedReader = null;
         try 
         {
         bufferedReader = new BufferedReader(new FileReader(pathToLevelDesign));
         
         String line = null;
+        
         char c;
-        Coordinate temp = new Coordinate(0,0);
+        int x = 10;
+        int y = 10;
+        
+        Coordinate temp = new Coordinate(x,y);
+        world.setTile(wallTile, false, temp);
+/*
         for(int x = 0; x < world.width(); x++)
         {
         	line = bufferedReader.readLine();
         	for(int y = 0; y < world.height(); y++)
             {
-            	c = line.charAt(y);
-            	cells.add(new Coordinate(x,y));
+        		Coordinate temp = new Coordinate(x,y);
+            	if(  (c = line.charAt(y)) == '\n')
+            	{
+            		break;
+            	}
+            	cells.add(temp);
             	if(c != '.')
             	{
-            		world.setTile(wallTile, false, x,y);
+            		world.setTile(wallTile, false, temp);
             	}
             	else
             	{
-            		world.setTile(floorTile, true, x,y); 
+            		world.setTile(floorTile, true, temp); 
             	}
             }
         }
+        */
         bufferedReader.close();
         }
         catch (IOException ex) {
