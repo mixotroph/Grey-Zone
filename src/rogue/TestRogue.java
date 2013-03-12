@@ -19,7 +19,7 @@ import rogue.creature.Player;
 import rogue.level.Level;
 import rogue.level.TestLevel;
 
-public class TestRogue
+public class Rogue
 {
     private static final String TeiledTermPanel = null;
 
@@ -40,13 +40,15 @@ public class TestRogue
         term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
         term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
 
-        //term.registerTile("dungeon.png", 17, 34, ColoredChar.create('+'));
-        //term.registerMenu();
+        term.registerTile("dungeon.png", 17, 34, ColoredChar.create('+'));
+        term.registerMenu();
         
         
         Player player = new Player(term);
-        World world = new TestLevel(80, 40, player);
+        World world = new TestLevel(75, 40, player);
+        //world.addActor(new Monster(ColoredChar.create('D', Color.red)));
 
+        //term.registerCamera(player, 5, 5);
         
 
         char key = 0;
@@ -59,7 +61,18 @@ public class TestRogue
         }
 
         term.registerCamera(player, 40,20);
+        //Box.addBox(term);
+        //Box box1 = new Box(term);
+        //box1.setContent("Ein langer Text der noch länger wird und länger");
 
+  
+        /*
+         * buggy animated startscreen
+         * 
+        ScreenThread startScreen = new ScreenThread(term,"startscreen",4);
+        while(term.getKey()!='s'){}
+        startScreen.kill();
+        */
         
         term.bufferFile("screens/startscreen/title.txt");
         term.refreshScreen();
@@ -72,10 +85,10 @@ public class TestRogue
         {
             term.clearBuffer();
             //term.bufferStatusBar();
-            term.bufferWorld(world);
+
             if(switches.containsKey("a")) term.bufferWorld(world);
             //term.bufferFov(player);
-            //if (term.getMenu("Inv")) term.bufferBoxes(world);    	
+            if (term.getMenu("Inv")) term.bufferBoxes(world);    	
             term.refreshScreen();
             world.tick();
         }
@@ -84,7 +97,13 @@ public class TestRogue
         term.bufferFile("screens/endscreen/end.txt");
         term.refreshScreen();
         while(term.getKey()!='q'){}
-
+        /*
+         * buggy animated endscreen
+         * 
+        ScreenThread endScreen = new ScreenThread(term,"endscreen",1);
+        while(term.getKey()!='q'){}
+        endScreen.kill();
+        */
         System.exit(0);
 
         

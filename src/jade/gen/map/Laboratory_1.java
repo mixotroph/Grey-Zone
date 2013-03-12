@@ -54,87 +54,45 @@ public class Laboratory_1 extends TestMapGenerator
 	        bufferedReader = new BufferedReader(new FileReader(pathToLevelDesign));
 	        
 	        String line = null;
-	        
-	        char c;
-	        
-	        for(int x = 0; x < world.height(); x++)
+	        char c;	
+	        int i = 0;
+	        int j = 0;
+	        int maxWidth = world.width();
+	        while( ((line = bufferedReader.readLine()) != null)  && (i < world.width())  )
 	        {
-	        	line = bufferedReader.readLine();
-	        	System.out.println("this is x");
-	        	System.out.println("this is line.length: "+ line.length());
-	        	System.out.println(line);
-	        	for(int y = 0; y < world.width(); y++)
-	            {
-	        		System.out.println("this is y");
-	        		
-	        		Coordinate temp = new Coordinate(x,y);
-	            	c = line.charAt(y);
 
-	            	if(c != '.')
-	            	{
-	            		world.setTile(wallTile, false, x, y);
-	            	}
-	            	else
-	            	{
-	            		world.setTile(floorTile, true, temp); 
-	            	}
+	        	// don't want to read past the end of line
+	        	if( line.length() < world.width()) maxWidth = line.length();
+	        	
+	        	//System.out.println("this is i: " +i);
+	        	System.out.println("this is world.width():" + world.width());
+	        	//System.out.println("this is line.length: "+ line.length());
+	        	System.out.println(line);
+	        	
+	        	for(j = 0; j < maxWidth; j++)
+	            {
+	        		System.out.println("this is j: "+j);
+	        		System.out.println("this is maxWidth: "+ maxWidth);
+	        		System.out.println("this is line.length():"+ line.length());
+	        		//System.out.println("this is world.height():"+ world.height());
+	        		c = line.charAt(j);
+
+		            if(c != '.')
+		            		world.setTile(wallTile, false, j, i);
+		            else
+		            		world.setTile(floorTile, true, j,i); 
 	            }// end for
-	        }// end for
+	        	
+	        	maxWidth = world.width();
+	        	i++;
+	        	
+	        }// end while
         bufferedReader.close();
-        }
+        
+        }// end try
         catch (IOException ex) {
             ex.printStackTrace();
         }
 	}//end generateScreen
 	
-    
-    private Set<Coordinate> init(World world)
-    {
-        Set<Coordinate> cells = new HashSet<Coordinate>();
-
-        BufferedReader bufferedReader = null;
-        try 
-        {
-        bufferedReader = new BufferedReader(new FileReader(pathToLevelDesign));
-        
-        String line = null;
-        
-        char c;
-        int x = 10;
-        int y = 10;
-        
-        Coordinate temp = new Coordinate(x,y);
-        world.setTile(wallTile, false, temp);
-/*
-        for(int x = 0; x < world.width(); x++)
-        {
-        	line = bufferedReader.readLine();
-        	for(int y = 0; y < world.height(); y++)
-            {
-        		Coordinate temp = new Coordinate(x,y);
-            	if(  (c = line.charAt(y)) == '\n')
-            	{
-            		break;
-            	}
-            	cells.add(temp);
-            	if(c != '.')
-            	{
-            		world.setTile(wallTile, false, temp);
-            	}
-            	else
-            	{
-            		world.setTile(floorTile, true, temp); 
-            	}
-            }
-        }
-        */
-        bufferedReader.close();
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-		return cells;
-    }
-        
-
 }
