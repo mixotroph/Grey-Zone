@@ -1,9 +1,6 @@
 package rogue;
 
 import jade.core.World;
-import jade.ui.TermPanel;
-import jade.ui.TiledTermPanel;
-import jade.util.datatype.ColoredChar;
 import jade.ui.Box;
 import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
@@ -17,16 +14,11 @@ import javax.swing.JPanel;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
-import rogue.level.TestLevel;
 
 public class Rogue
 {
-    private static final String TeiledTermPanel = null;
-
-	public static void main(String[] args) throws InterruptedException
+    public static void main(String[] args) throws InterruptedException
     {
-
-
     	HashMap<String, Boolean> switches = new HashMap<String, Boolean>();
     	
     	for (String sw : args) {
@@ -39,7 +31,6 @@ public class Rogue
         term.registerTile("dungeon.png", 1, 34, ColoredChar.create('.'));
         term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
         term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
-
         term.registerTile("dungeon.png", 17, 34, ColoredChar.create('+'));
         term.registerMenu();
         
@@ -47,19 +38,6 @@ public class Rogue
         Player player = new Player(term);
         World world = new Level(80, 40, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
-
-        term.registerCamera(player, 5, 5);
-        
-
-        char key = 0;
-        //char qKey = 0;
-        while(key!='s')
-        {
-        	term.bufferFile("screens/startscreen/1.txt");
-            term.refreshScreen();
-        	key=term.getKey();
-        }
-
         term.registerCamera(player, 40,20);
         //Box.addBox(term);
         //Box box1 = new Box(term);
@@ -79,12 +57,10 @@ public class Rogue
         
         while(term.getKey()!='s'){}
         
-
-        
         while(!player.expired())
         {
             term.clearBuffer();
-            term.bufferStatusBar();
+            //term.bufferStatusBar();
 
             if(switches.containsKey("a")) term.bufferWorld(world);
             term.bufferFov(player);
@@ -105,7 +81,5 @@ public class Rogue
         endScreen.kill();
         */
         System.exit(0);
-
-        
     }
 }
