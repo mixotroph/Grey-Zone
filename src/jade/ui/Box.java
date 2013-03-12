@@ -46,6 +46,10 @@ public class Box {
 		boxPanel.content = content;
 	}
 
+	/**
+	 * Implements a {@code Box} on a {@code JPanel}, which can then be embedded into any container
+	 * able to use a {@code JPanel}.
+	 */
 	public static class BoxPanel extends JPanel {
 		
 		private static final long serialVersionUID = 7617306256964716121L;

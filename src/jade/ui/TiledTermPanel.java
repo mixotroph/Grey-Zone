@@ -4,8 +4,6 @@ import jade.core.World;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -105,6 +103,7 @@ public class TiledTermPanel extends TermPanel
         screen().setTileBuffer(tileBuffer);
         super.refreshScreen();
     }
+    
     @Override
     public void bufferCamera(Camera camera)
     {
@@ -120,6 +119,9 @@ public class TiledTermPanel extends TermPanel
                     world.lookAll(coord));
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     public void bufferFov(Camera camera)
     {
         Guard.argumentIsNotNull(camera);
@@ -132,23 +134,39 @@ public class TiledTermPanel extends TermPanel
         }
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     public void bufferStatusBar() {
     	X_OFFSET=10;
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     @Override
-    public void bufferBoxes(World world) 
+    public void bufferBoxes(World world, String frame, String text) 
     {
-    	this.bufferFile("screens/box.txt");
+    	this.bufferFile(frame);
     	Map<Coordinate,ColoredChar> buffer;
     	buffer = this.getBuffer();
-    	System.out.println(buffer.keySet().toString());
+    	buffer.put(new Coordinate(12,12), ColoredChar.create('G'));
     	for (Coordinate coord : buffer.keySet())
     	{
     		List<ColoredChar> tileList = tileBuffer.get(coord);
     		tileList.add(0, buffer.get(coord));
     		tileBuffer.put(coord,tileList);
     	}
+    	this.bufferFile(text);
+    	buffer = this.getBuffer();
+    	for (Coordinate coord : buffer.keySet())
+    	{
+    		List<ColoredChar> tileList;
+    		tileList = tileBuffer.get(coord);
+    		char ch = buffer.get(coord).ch();
+    		tileList.add(0,ColoredChar.create(ch));
+    		tileBuffer.put(coord,tileList);
+    	}  	
     	buffer.clear();
     }
 
@@ -175,10 +193,8 @@ public class TiledTermPanel extends TermPanel
         tileBuffer.put(new Coordinate(x + offX, y + offY), look);
     }
 
-    /**
+    /*
      * begin inner class TiledScreen
-     * @author vanhech
-     *
      */
     private static class TiledScreen extends Screen
     {

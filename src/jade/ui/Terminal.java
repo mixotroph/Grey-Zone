@@ -176,7 +176,7 @@ public abstract class Terminal
 			}
 	}
 	
-	public void bufferBoxes(World world) {};
+	public void bufferBoxes(World world, String frame, String text) {};
     /**
      * Clears all contents of the buffer.
      */
