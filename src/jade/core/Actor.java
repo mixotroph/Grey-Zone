@@ -63,7 +63,7 @@ public abstract class Actor extends Messenger
      */
     public World world()
     {
-        return world;
+        return getWorld();
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class Actor extends Messenger
      */
     public final boolean bound()
     {
-        return world != null;
+        return getWorld() != null;
     }
 
     /**
@@ -84,7 +84,7 @@ public abstract class Actor extends Messenger
      */
     public final boolean bound(World world)
     {
-        return this.world == world;
+        return this.getWorld() == world;
     }
 
     /**
@@ -97,11 +97,11 @@ public abstract class Actor extends Messenger
     {
         Guard.verifyState(bound());
         Guard.verifyState(!held());
-        Guard.argumentsInsideBounds(x, y, world.width(), world.height());
+        Guard.argumentsInsideBounds(x, y, getWorld().width(), getWorld().height());
 
-        world.removeFromGrid(this);
+        getWorld().removeFromGrid(this);
         setXY(x, y);
-        world.addToGrid(this);
+        getWorld().addToGrid(this);
     }
 
     /**
@@ -217,8 +217,8 @@ public abstract class Actor extends Messenger
         propagatePos(holder.pos);
         if(holder.bound())
         {
-            setWorld(holder.world);
-            world.registerActor(this);
+            setWorld(holder.getWorld());
+            getWorld().registerActor(this);
         }
         holder.holds.add(this);
     }
@@ -233,7 +233,7 @@ public abstract class Actor extends Messenger
         Guard.verifyState(held());
 
         if(bound())
-            world.addToGrid(this);
+            getWorld().addToGrid(this);
         propagatePos(holder.pos.mutableCopy());
         holder.holds.remove(this);
         holder = null;
@@ -307,4 +307,8 @@ public abstract class Actor extends Messenger
         for(Actor held : holds)
             held.propagatePos(pos);
     }
+
+	public World getWorld() {
+		return world;
+	}
 }

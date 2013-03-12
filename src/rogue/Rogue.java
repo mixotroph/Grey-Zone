@@ -1,16 +1,16 @@
 package rogue;
 
 import jade.core.World;
-import jade.level.LevelThread;
-import jade.screen.ScreenThread;
+import jade.ui.Box;
 import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.HashMap;
-
+import javax.swing.JPanel;
 import rogue.creature.Monster;
 import rogue.creature.Player;
 import rogue.level.Level;
@@ -31,12 +31,19 @@ public class Rogue
         term.registerTile("dungeon.png", 1, 34, ColoredChar.create('.'));
         term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
         term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
+        term.registerTile("dungeon.png", 17, 34, ColoredChar.create('+'));
+        term.registerMenu();
+        
         
         Player player = new Player(term);
         World world = new Level(80, 40, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         term.registerCamera(player, 40,20);
-        
+        //Box.addBox(term);
+        //Box box1 = new Box(term);
+        //box1.setContent("Ein langer Text der noch länger wird und länger");
+
+  
         /*
          * buggy animated startscreen
          * 
@@ -47,15 +54,17 @@ public class Rogue
         
         term.bufferFile("screens/startscreen/title.txt");
         term.refreshScreen();
+        
         while(term.getKey()!='s'){}
         
         while(!player.expired())
         {
             term.clearBuffer();
-            term.bufferStatusBar();
-            term.bufferBoxes(world);
+            //term.bufferStatusBar();
+
             if(switches.containsKey("a")) term.bufferWorld(world);
             term.bufferFov(player);
+            if (term.getMenu("Inv")) term.bufferBoxes(world);    	
             term.refreshScreen();
             world.tick();
         }

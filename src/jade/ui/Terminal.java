@@ -156,7 +156,6 @@ public abstract class Terminal
      * @param number of rows that should read from file
      */
 	public void bufferFile(String path, int row) {
-//			bufferString(0,x,"Test "+x);
 		BufferedReader in = null;
 			try
 			{
@@ -176,7 +175,8 @@ public abstract class Terminal
 				try {in.close(); } catch ( Exception e ) { }
 			}
 	}
-
+	
+	public void bufferBoxes(World world) {};
     /**
      * Clears all contents of the buffer.
      */

@@ -4,6 +4,7 @@ import java.util.Collection;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
+import jade.ui.TermPanel;
 import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -11,10 +12,10 @@ import jade.util.datatype.Direction;
 
 public class Player extends Creature implements Camera
 {
-    private Terminal term;
+    private TermPanel term;
     private ViewField fov;
 
-    public Player(Terminal term)
+    public Player(TermPanel term)
     {
         super(ColoredChar.create('@'));
         this.term = term;
@@ -35,7 +36,14 @@ public class Player extends Creature implements Camera
                     break;
                     
                 case '1':
-                	term.bufferCamera(this);
+                case 'i':
+                {
+                	if(term.getMenu("Inv")==false)
+                		term.setMenu("Inv",true);
+                	else
+                		term.setMenu("Inv",false);
+                }            
+                	
                 default:
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)
