@@ -19,7 +19,7 @@ import rogue.creature.Player;
 import rogue.level.Level;
 import rogue.level.TestLevel;
 
-public class Rogue
+public class TestRogue
 {
     private static final String TeiledTermPanel = null;
 
@@ -46,9 +46,9 @@ public class Rogue
         
         Player player = new Player(term);
         World world = new TestLevel(75, 40, player);
-        //world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
 
-        //term.registerCamera(player, 5, 5);
+        term.registerCamera(player, 5, 5);
         
 
         char key = 0;
@@ -84,10 +84,10 @@ public class Rogue
         while(!player.expired())
         {
             term.clearBuffer();
-            //term.bufferStatusBar();
+            term.bufferStatusBar();
 
             if(switches.containsKey("a")) term.bufferWorld(world);
-            //term.bufferFov(player);
+            term.bufferFov(player);
             if (term.getMenu("Inv")) term.bufferBoxes(world);    	
             term.refreshScreen();
             world.tick();
