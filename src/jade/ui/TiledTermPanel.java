@@ -146,7 +146,7 @@ public class TiledTermPanel extends TermPanel
     /**
      * @author Christoph van Heteren-Frese
      */
-    @Override
+    //@Override
     public void bufferBoxes(World world, String frame, String text) 
     {
     	
@@ -271,10 +271,6 @@ public class TiledTermPanel extends TermPanel
             }
         }
     }
-<<<<<<< HEAD
 }
-=======
-
-
-}
->>>>>>> 78f3f9b6acd7fad6a475db7cca37b3b812609ca8
+    
+    

@@ -45,7 +45,7 @@ public class TestRogue
         
         
         Player player = new Player(term);
-        World world = new TestLevel(75, 40, player);
+        World world = new Level(75, 40, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
 
         term.registerCamera(player, 5, 5);
