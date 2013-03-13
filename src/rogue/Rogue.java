@@ -40,17 +40,10 @@ public class Rogue
         term.registerTile("textfield.png", 1, 50, ColoredChar.create('Ö'));
         term.registerMenu();
          
-        /*
-         * buggy animated startscreen
-         * 
-        ScreenThread startScreen = new ScreenThread(term,"startscreen",4);
-        while(term.getKey()!='s'){}
-        startScreen.kill();
-        */
+
         
         //term.bufferFile("screens/startscreen/title.txt");
-        //term.refreshScreen();
-        
+        //term.refreshScreen(); 
         //while(term.getKey()!='s'){}
         
         StoryHandler start = new StoryHandler(term);
@@ -66,21 +59,18 @@ public class Rogue
         World world = new Level(80, 40, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         term.registerCamera(player, 40,20);
-        
     	//term.clearBuffer();
-    	term.bufferBoxes(world, "text/fullscreentext/full_frame.txt","text/fullscreentext/descMade.txt"); 
-    	term.refreshScreen();;
-    	while(term.getKey()!='n'){}
+    	//term.bufferBoxes(world, "text/fullscreentext/full_frame.txt","text/fullscreentext/descMade.txt"); 
+    	//term.refreshScreen();;
+    	//while(term.getKey()!='s'){}
     	term.clearBuffer();
     	
         while(!player.expired())
         {
-
             //term.bufferStatusBar();
             if(switches.containsKey("a")) term.bufferWorld(world);
-            term.bufferFov(player);
-             
-            if (term.getMenu("Inv")) term.bufferBoxes(world, "text/itemEXP/frame_item_exp.txt","text/itemEXP/h1_item_exp.txt");    	
+            term.bufferFov(player); 
+            //if (term.getMenu("Inv")) term.bufferBoxes(world, "text/itemEXP/frame_item_exp.txt","text/itemEXP/h1_item_exp.txt");    	
             term.refreshScreen();
             world.tick();
         }
@@ -90,13 +80,13 @@ public class Rogue
        
         start = new StoryHandler(term);
         layer = new Layer(80,40, start);
+        //layer.addActor(start);
         
         while(!start.expired())
         {
             term.bufferWorld(layer);	
             term.refreshScreen();
             layer.tick();
-            System.out.println("ENDE");
         }
         
         /*
@@ -105,13 +95,7 @@ public class Rogue
         term.refreshScreen();
         while(term.getKey()!='q'){}
         */
-        /*
-         * buggy animated endscreen
-         * 
-        ScreenThread endScreen = new ScreenThread(term,"endscreen",1);
-        while(term.getKey()!='q'){}
-        endScreen.kill();
-        */
+        
         System.exit(0);
     }
 }

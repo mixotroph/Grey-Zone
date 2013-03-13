@@ -23,11 +23,12 @@ public class StoryHandler extends Creature
             key = term.getKey();
             switch(key)
             {
-                case 'q':
+                case 's':
                     expire();
                     break;
-                case 'n':
-                	
+                case 'q':
+                    expire();
+                    break;     
         
                 default:
                     break;
