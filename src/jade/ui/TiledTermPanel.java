@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
+import rogue.creature.Player;
+
 public class TiledTermPanel extends TermPanel
 {
     public static final int DEFAULT_TILESIZE = 16;
@@ -147,15 +149,26 @@ public class TiledTermPanel extends TermPanel
     @Override
     public void bufferBoxes(World world, String frame, String text) 
     {
-    	this.bufferFile(frame);
+    	
+    	//Player player = world.getActor(Player.class);
+    	
+    	// first, buffer frame and background
+    	this.recallBuffer();
+    	this.bufferFile(frame);	
+
     	Map<Coordinate,ColoredChar> buffer;
     	buffer = this.getBuffer();
     	for (Coordinate coord : buffer.keySet())
     	{
-    		List<ColoredChar> tileList = tileBuffer.get(coord);
+    		if (tileBuffer.get(coord) == null) {
+    			List<ColoredChar> tileList = tileBuffer.get(coord);
+    		}
+    		List<ColoredChar> tileList = new ArrayList<ColoredChar>();
     		tileList.add(0, buffer.get(coord));
     		tileBuffer.put(coord,tileList);
     	}
+    	
+    	// second, buffer text
     	this.bufferFile(text);
     	buffer = this.getBuffer();
     	for (Coordinate coord : buffer.keySet())
@@ -166,7 +179,7 @@ public class TiledTermPanel extends TermPanel
     		tileList.add(0,ColoredChar.create(ch));
     		tileBuffer.put(coord,tileList);
     	}  	
-    	buffer.clear();
+    	   	buffer.clear();
     }
 
     public void bufferWorld(World world)

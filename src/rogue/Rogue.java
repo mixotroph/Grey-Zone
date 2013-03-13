@@ -1,6 +1,7 @@
 package rogue;
 
 import jade.core.World;
+import jade.ui.Camera;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
 import java.awt.Color;
@@ -58,8 +59,11 @@ public class Rogue
         Player player = new Player(term);
         World world = new Level(80, 40, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+        
         term.registerCamera(player, 40,20);
-    	//term.clearBuffer();
+   	
+        
+        //term.clearBuffer();
     	//term.bufferBoxes(world, "text/fullscreentext/full_frame.txt","text/fullscreentext/descMade.txt"); 
     	//term.refreshScreen();;
     	//while(term.getKey()!='s'){}
@@ -67,10 +71,30 @@ public class Rogue
     	
         while(!player.expired())
         {
-            //term.bufferStatusBar();
-            if(switches.containsKey("a")) term.bufferWorld(world);
+            
+        	term.recallBuffer();
+        	//term.bufferStatusBar();
+        	
+        	/*
+        	 * if buffer is cleared only current fov is displayed
+        	 */
+        	//term.clearBuffer();
+           
             term.bufferFov(player); 
+        	term.saveBuffer();
+        	
+        	if (term.getMenu("Inv")) term.bufferBoxes(world, "text/itemEXP/frame_item_exp.txt","text/itemEXP/h1_item_exp.txt");    
+        	
+            if (term.getMenu("seeAll")) {
+            	//term.saveBuffer();
+            	term.bufferWorld(world);
+            }
+            
+            
+            
             //if (term.getMenu("Inv")) term.bufferBoxes(world, "text/itemEXP/frame_item_exp.txt","text/itemEXP/h1_item_exp.txt");    	
+            
+            // last but not least
             term.refreshScreen();
             world.tick();
         }
@@ -84,7 +108,8 @@ public class Rogue
         
         while(!start.expired())
         {
-            term.bufferWorld(layer);	
+            term.bufferWorld(layer);
+            term.registerCamera((Camera) start, 40,20);
             term.refreshScreen();
             layer.tick();
         }
