@@ -129,7 +129,7 @@ public class TiledTermPanel extends TermPanel
         World world = camera.world();
         
         for(Coordinate coord : camera.getViewField()) {
-        	Coordinate newCoord = new Coordinate(coord.x() + X_OFFSET,coord.y() + Y_OFFSET);
+        	Coordinate newCoord = new Coordinate(coord.x() + X_OFFSET,coord.y() + Y_OFFSET+1);
             tileBuffer.put(newCoord,world.lookAll(coord));
         }
     }
@@ -150,7 +150,6 @@ public class TiledTermPanel extends TermPanel
     	this.bufferFile(frame);
     	Map<Coordinate,ColoredChar> buffer;
     	buffer = this.getBuffer();
-    	buffer.put(new Coordinate(12,12), ColoredChar.create('G'));
     	for (Coordinate coord : buffer.keySet())
     	{
     		List<ColoredChar> tileList = tileBuffer.get(coord);
@@ -174,7 +173,7 @@ public class TiledTermPanel extends TermPanel
     {
     	for(int x = 0; x < world.width(); x++)
     		for(int y = 0; y < world.height(); y++)
-    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (y+Y_OFFSET)), world.lookAll(x, y));
+    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (1+y+Y_OFFSET)), world.lookAll(x, y));
     } 
     
     @Override
@@ -259,4 +258,6 @@ public class TiledTermPanel extends TermPanel
             }
         }
     }
+
+
 }

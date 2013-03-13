@@ -35,7 +35,6 @@ public class Player extends Creature implements Camera
                     expire();
                     break;
                     
-                case '1':
                 case 'i':
                 {
                 	if(term.getMenu("Inv")==false)

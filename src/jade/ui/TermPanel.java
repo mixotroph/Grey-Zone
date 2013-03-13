@@ -158,7 +158,8 @@ public class TermPanel extends Terminal
             // Sets the preferred size of this component.
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
-            setBackground(Color.darkGray);
+            
+            setBackground(Color.BLACK);
             setFocusable(true);
             setLayout(new SpringLayout());
             getComponentCount();
@@ -185,7 +186,7 @@ public class TermPanel extends Terminal
                 {
                     ColoredChar ch = screenBuffer.get(coord);
                     int x = tileWidth * coord.x();
-                    int y = tileHeight * (coord.y() + 1);
+                    int y = tileHeight * coord.y();
 
                     page.setColor(ch.color());
                     page.drawString(ch.toString(), x, y);
