@@ -26,7 +26,7 @@ public class Traditional extends MapGenerator
      */
     public Traditional()
     {
-        this(ColoredChar.create('#'), ColoredChar.create('.'), 4);
+        this(ColoredChar.create('#'), ColoredChar.create('¤'), 4);
     }
 
     /**

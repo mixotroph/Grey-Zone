@@ -76,6 +76,7 @@ public class TermPanel extends Terminal
         JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        // add components here
         frame.add(term.panel());
         
         //Display the window.
@@ -98,6 +99,7 @@ public class TermPanel extends Terminal
     {
         return screen;
     }
+    
     public void registerMenu() {
     	menus.put("Inv", false);
     }
@@ -121,10 +123,9 @@ public class TermPanel extends Terminal
     {
     	synchronized (screen) {
     		 screen.setBuffer(getBuffer());
-    		 screen.revalidate();
+    		 // screen.revalidate();
     	     screen.repaint();
 		}
-       
     }
     
     public void bufferFile(String path)
@@ -132,7 +133,6 @@ public class TermPanel extends Terminal
     	this.bufferFile(path,DEFAULT_ROWS);
     }
     
-
     protected static class Screen extends JPanel implements KeyListener
     {
         private static final long serialVersionUID = 7219226976524388778L;
@@ -158,7 +158,8 @@ public class TermPanel extends Terminal
             // Sets the preferred size of this component.
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
-            setBackground(Color.darkGray);
+            
+            setBackground(Color.BLACK);
             setFocusable(true);
             setLayout(new SpringLayout());
             getComponentCount();
@@ -186,7 +187,7 @@ public class TermPanel extends Terminal
                 {
                     ColoredChar ch = screenBuffer.get(coord);
                     int x = tileWidth * coord.x();
-                    int y = tileHeight * (coord.y() + 1);
+                    int y = tileHeight * coord.y();
 
                     page.setColor(ch.color());
                     page.drawString(ch.toString(), x, y);

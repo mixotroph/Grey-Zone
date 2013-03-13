@@ -4,8 +4,6 @@ import jade.core.World;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
-
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -105,6 +103,7 @@ public class TiledTermPanel extends TermPanel
         screen().setTileBuffer(tileBuffer);
         super.refreshScreen();
     }
+    
     @Override
     public void bufferCamera(Camera camera)
     {
@@ -120,6 +119,9 @@ public class TiledTermPanel extends TermPanel
                     world.lookAll(coord));
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     public void bufferFov(Camera camera)
     {
         Guard.argumentIsNotNull(camera);
@@ -127,28 +129,43 @@ public class TiledTermPanel extends TermPanel
         World world = camera.world();
         
         for(Coordinate coord : camera.getViewField()) {
-        	Coordinate newCoord = new Coordinate(coord.x() + X_OFFSET,coord.y() + Y_OFFSET);
+        	Coordinate newCoord = new Coordinate(coord.x() + X_OFFSET,coord.y() + Y_OFFSET+1);
             tileBuffer.put(newCoord,world.lookAll(coord));
         }
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     public void bufferStatusBar() {
     	X_OFFSET=10;
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     @Override
-    public void bufferBoxes(World world) 
+    public void bufferBoxes(World world, String frame, String text) 
     {
-    	this.bufferFile("screens/box.txt");
+    	this.bufferFile(frame);
     	Map<Coordinate,ColoredChar> buffer;
     	buffer = this.getBuffer();
-    	System.out.println(buffer.keySet().toString());
     	for (Coordinate coord : buffer.keySet())
     	{
     		List<ColoredChar> tileList = tileBuffer.get(coord);
     		tileList.add(0, buffer.get(coord));
     		tileBuffer.put(coord,tileList);
     	}
+    	this.bufferFile(text);
+    	buffer = this.getBuffer();
+    	for (Coordinate coord : buffer.keySet())
+    	{
+    		List<ColoredChar> tileList;
+    		tileList = tileBuffer.get(coord);
+    		char ch = buffer.get(coord).ch();
+    		tileList.add(0,ColoredChar.create(ch));
+    		tileBuffer.put(coord,tileList);
+    	}  	
     	buffer.clear();
     }
 
@@ -156,7 +173,7 @@ public class TiledTermPanel extends TermPanel
     {
     	for(int x = 0; x < world.width(); x++)
     		for(int y = 0; y < world.height(); y++)
-    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (y+Y_OFFSET)), world.lookAll(x, y));
+    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (1+y+Y_OFFSET)), world.lookAll(x, y));
     } 
     
     @Override
@@ -175,10 +192,8 @@ public class TiledTermPanel extends TermPanel
         tileBuffer.put(new Coordinate(x + offX, y + offY), look);
     }
 
-    /**
+    /*
      * begin inner class TiledScreen
-     * @author vanhech
-     *
      */
     private static class TiledScreen extends Screen
     {
@@ -243,4 +258,10 @@ public class TiledTermPanel extends TermPanel
             }
         }
     }
+<<<<<<< HEAD
 }
+=======
+
+
+}
+>>>>>>> 78f3f9b6acd7fad6a475db7cca37b3b812609ca8
