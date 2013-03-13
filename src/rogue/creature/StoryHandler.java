@@ -1,9 +1,13 @@
 package rogue.creature;
 
+import java.util.Collection;
+
+import jade.ui.Camera;
 import jade.ui.TermPanel;
 import jade.util.datatype.ColoredChar;
+import jade.util.datatype.Coordinate;
 
-public class StoryHandler extends Creature 
+public class StoryHandler extends Creature implements Camera
 {
     private TermPanel term;
 
@@ -39,4 +43,10 @@ public class StoryHandler extends Creature
             e.printStackTrace();
         }
     }
+
+	@Override
+	public Collection<Coordinate> getViewField() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

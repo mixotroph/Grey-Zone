@@ -41,7 +41,15 @@ public class Player extends Creature implements Camera
                 		term.setMenu("Inv",true);
                 	else
                 		term.setMenu("Inv",false);
-                }            
+                }          
+                
+                case '1':
+                {
+                	if(term.getMenu("seeAll")==false)
+                		term.setMenu("seeAll",true);
+                	else
+                		term.setMenu("seeAll",false);
+                }    
                 	
                 default:
                     Direction dir = Direction.keyToDir(key);
@@ -59,6 +67,6 @@ public class Player extends Creature implements Camera
     @Override
     public Collection<Coordinate> getViewField()
     {
-        return fov.getViewField(world(), pos(), 25);
+        return fov.getViewField(world(), pos(), 5);
     }
 }
