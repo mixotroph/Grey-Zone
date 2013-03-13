@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
-import rogue.creature.Player;
-
 public class TiledTermPanel extends TermPanel
 {
     public static final int DEFAULT_TILESIZE = 16;
@@ -140,7 +138,8 @@ public class TiledTermPanel extends TermPanel
      * @author Christoph van Heteren-Frese
      */
     public void bufferStatusBar() {
-    	X_OFFSET=10;
+    	X_OFFSET=8;
+    	bufferString(1, 39,"H: Help");
     }
     
     /**
@@ -155,6 +154,8 @@ public class TiledTermPanel extends TermPanel
     	// first, buffer frame and background
     	this.recallBuffer();
     	this.bufferFile(frame);	
+    	
+    	//this.bufferWorld(world);
 
     	Map<Coordinate,ColoredChar> buffer;
     	buffer = this.getBuffer();

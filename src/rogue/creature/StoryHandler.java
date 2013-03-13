@@ -1,7 +1,8 @@
 package rogue.creature;
 
 import java.util.Collection;
-
+import jade.fov.RayCaster;
+import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.TermPanel;
 import jade.util.datatype.ColoredChar;
@@ -10,11 +11,13 @@ import jade.util.datatype.Coordinate;
 public class StoryHandler extends Creature implements Camera
 {
     private TermPanel term;
+    private ViewField fov;
 
     public StoryHandler(TermPanel term)
     {
         super(ColoredChar.create(' '));
         this.term = term;
+        fov = new RayCaster();
 		//term.bufferFile("screens/startscreen/title.txt");
     }
 
@@ -27,13 +30,9 @@ public class StoryHandler extends Creature implements Camera
             key = term.getKey();
             switch(key)
             {
-                case 's':
-                    expire();
-                    break;
-                case 'q':
-                    expire();
+                case 'c':
+                    nextSlide();
                     break;     
-        
                 default:
                     break;
             }
@@ -44,9 +43,15 @@ public class StoryHandler extends Creature implements Camera
         }
     }
 
+	private void nextSlide() {
+		Coordinate slidePos = this.pos();
+		if(slidePos.y() <= 50)
+			this.move(0, 40);
+		else expire();
+	}
+
 	@Override
 	public Collection<Coordinate> getViewField() {
-		// TODO Auto-generated method stub
-		return null;
+		return fov.getViewField(world(), pos(), 19);
 	}
 }
