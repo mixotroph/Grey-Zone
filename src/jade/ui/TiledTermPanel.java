@@ -16,8 +16,6 @@ import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
 
-import rogue.creature.Player;
-
 public class TiledTermPanel extends TermPanel
 {
     public static final int DEFAULT_TILESIZE = 16;
@@ -75,6 +73,23 @@ public class TiledTermPanel extends TermPanel
             return false;
         }
     }
+ 
+    public void loadTextureSet(String path)
+    {
+    	char[] symbol={'§','^','$','[','\\',']','%','°','&'};
+    	
+        registerTile(path, 1, 1, ColoredChar.create('§'));
+        registerTile(path, 17, 1, ColoredChar.create('^'));
+        registerTile(path, 34, 1, ColoredChar.create('$'));
+        registerTile(path, 1, 17, ColoredChar.create('['));
+        registerTile(path, 17, 17, ColoredChar.create('\''));
+        registerTile(path, 34, 17, ColoredChar.create(']'));
+        registerTile(path, 1, 34, ColoredChar.create('%'));
+        registerTile(path, 17, 34, ColoredChar.create('°'));
+        registerTile(path, 34, 34, ColoredChar.create('&'));
+        registerTile(path, 1, 50, ColoredChar.create('Ö'));
+    }
+
 
     @Override
     public void clearBuffer()
@@ -140,7 +155,8 @@ public class TiledTermPanel extends TermPanel
      * @author Christoph van Heteren-Frese
      */
     public void bufferStatusBar() {
-    	X_OFFSET=10;
+    	X_OFFSET=8;
+    	bufferString(1, 39,"H: Help");
     }
     
     /**
@@ -155,6 +171,8 @@ public class TiledTermPanel extends TermPanel
     	// first, buffer frame and background
     	this.recallBuffer();
     	this.bufferFile(frame);	
+    	
+    	//this.bufferWorld(world);
 
     	Map<Coordinate,ColoredChar> buffer;
     	buffer = this.getBuffer();
