@@ -43,58 +43,44 @@ import java.util.Stack;
  * 
  */
 
-
 public class MapLoader extends MapGenerator
 {
-	// TODO:the different types of tiles have to be defined here.
-	/*
+
     private ColoredChar floorTile;
     private ColoredChar wallTile;
-*/
-	
-	
-	MapLoader()
-	{
-		
-	}
+    private static final String pathToFile = "test.txt";
 
-    /**  
-    
+	
+	
     public MapLoader()
     {
-        this(ColoredChar.create('.'), ColoredChar.create('#'));
+        this(ColoredChar.create('¤'), ColoredChar.create('#'));
     }
 
-
+    /**
      * Initializes with default parameters.
+     * 
+     * This should be exported to the specified levellaoders
+     * 
      * @param floorTile the face of the open tiles
      * @param wallTile the face of the closed tiles
-
+     */
     public MapLoader(ColoredChar floorTile, ColoredChar wallTile)
     {
         this.floorTile = floorTile;
         this.wallTile = wallTile;
     }
-         */
     
     
     
     // this calls the init(world) method which fills the world accordingly.
 	protected void generateStep(World world) 
 	{
-		System.out.println("this is in the method generateStep in MapLoader");
-		loadMap(world);
+		init(world);
 	}
 	
-	protected void loadMap(World world)
-	{
-		System.out.println("this is in the method laodMap() in MapLoader");
-		Level1 loadedLevel = new Level1();
-		//return loadedLevel;
-	}
-	
-	// fills the world according to rules defined by specified LevelLoader.
-	protected void init(World world, String pathToFile)
+	// fills the world according to rules defined by specified LevelLoader
+	protected void init(World world)
 	{
         BufferedReader bufferedReader = null;
         try 
@@ -140,8 +126,7 @@ public class MapLoader extends MapGenerator
         catch (IOException ex) {
             ex.printStackTrace();
         }
-	}//end generateScreen
-
+	}//end generateStep
 	@Override
 	protected void generateStep(World world, Dice dice) {
 		// TODO Auto-generated method stub
