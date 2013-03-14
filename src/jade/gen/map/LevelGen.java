@@ -1,4 +1,3 @@
-
 package jade.gen.map;
 
 import jade.core.World;
@@ -16,7 +15,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-
 
 public class LevelGen extends MapGenerator
 {
