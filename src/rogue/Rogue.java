@@ -20,24 +20,17 @@ public class Rogue
     	for (String sw : args) {
     		switches.put(sw, true);
     	}
-    	System.out.println(switches.toString());
+    	//System.out.println(switches.toString());
+    	
     	
         TiledTermPanel term = TiledTermPanel.getFramedTerminal("Grey Zone");
-        term.registerTile("dungeon.png", 1, 1, ColoredChar.create('#'));
-        term.registerTile("dungeon.png", 1, 34, ColoredChar.create('¤'));
-        term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
-        term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
-        term.registerTile("dungeon.png", 17, 34, ColoredChar.create('+'));
-        term.registerTile("textfield.png", 1, 1, ColoredChar.create('§'));
-        term.registerTile("textfield.png", 17, 1, ColoredChar.create('^'));
-        term.registerTile("textfield.png", 34, 1, ColoredChar.create('$'));
-        term.registerTile("textfield.png", 1, 17, ColoredChar.create('['));
-        term.registerTile("textfield.png", 17, 17, ColoredChar.create('\''));
-        term.registerTile("textfield.png", 34, 17, ColoredChar.create(']'));
-        term.registerTile("textfield.png", 1, 34, ColoredChar.create('%'));
-        term.registerTile("textfield.png", 17, 34, ColoredChar.create('°'));
-        term.registerTile("textfield.png", 34, 34, ColoredChar.create('&'));
-        term.registerTile("textfield.png", 1, 50, ColoredChar.create('Ö'));
+        term.registerTile("textures/dungeon.png", 1, 1, ColoredChar.create('#'));
+        term.registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('¤'));
+        term.registerTile("textures/dungeon.png", 1, 17, ColoredChar.create('@'));
+        term.registerTile("textures/dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
+        term.registerTile("textures/dungeon.png", 17, 34, ColoredChar.create('+'));
+        term.loadTextureSet("textures/frames.png");
+        
         term.registerMenu();
         
         Player player = new Player(term);

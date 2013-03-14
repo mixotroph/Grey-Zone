@@ -73,6 +73,23 @@ public class TiledTermPanel extends TermPanel
             return false;
         }
     }
+ 
+    public void loadTextureSet(String path)
+    {
+    	char[] symbol={'§','^','$','[','\\',']','%','°','&'};
+    	
+        registerTile(path, 1, 1, ColoredChar.create('§'));
+        registerTile(path, 17, 1, ColoredChar.create('^'));
+        registerTile(path, 34, 1, ColoredChar.create('$'));
+        registerTile(path, 1, 17, ColoredChar.create('['));
+        registerTile(path, 17, 17, ColoredChar.create('\''));
+        registerTile(path, 34, 17, ColoredChar.create(']'));
+        registerTile(path, 1, 34, ColoredChar.create('%'));
+        registerTile(path, 17, 34, ColoredChar.create('°'));
+        registerTile(path, 34, 34, ColoredChar.create('&'));
+        registerTile(path, 1, 50, ColoredChar.create('Ö'));
+    }
+
 
     @Override
     public void clearBuffer()
