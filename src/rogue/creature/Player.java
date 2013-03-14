@@ -13,12 +13,16 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
+    private int stepamount;
 
     public Player(TermPanel term)
     {
         super(ColoredChar.create('@'));
         this.term = term;
         fov = new RayCaster();
+        stepamount=10; // after stepamount many steps hp gets reduced by 1
+        setXp(0);
+        setHp(30); // hp at beginning of game
     }
 
     @Override
@@ -50,8 +54,20 @@ public class Player extends Creature implements Camera
                 default:
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)
-                        move(dir);
-                    break;
+                    {
+                    	move(dir);
+                    // HP reducing takes place here:..........................................................................
+                    	this.addStep();
+                 
+                    	if (this.getSteps() % this.stepamount == 0)
+                    	{
+                    		this.setHp(getHp() - 1);
+              
+                    	}
+                    	if (this.getHp()==0) this.expire();
+                    //........................................................................................................
+                    }
+                    	break;
             }
         }
         catch(InterruptedException e)
@@ -65,4 +81,12 @@ public class Player extends Creature implements Camera
     {
         return fov.getViewField(world(), pos(), 5);
     }
+
+	public int getStepamount() {
+		return stepamount;
+	}
+
+	public void setStepamount(int stepamount) {
+		this.stepamount = stepamount;
+	}
 }

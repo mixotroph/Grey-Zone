@@ -51,6 +51,8 @@ public class Rogue
         {
             //term.bufferWorld(layer);	
         	term.bufferCamera(story);
+        	
+        	
             term.refreshScreen();
             layer.tick();
         }   
@@ -66,6 +68,10 @@ public class Rogue
         {  
         	term.recallBuffer();
         	term.bufferStatusBar();
+        	term.bufferString(1, 5, "steps :");
+        	term.bufferString(1, 6, ""+player.getSteps());
+        	term.bufferString(1, 7, "hp :");
+        	term.bufferString(1, 8, ""+(int)player.getHp());
         	
         	//if buffer is cleared only current fov is displayed
         	//term.clearBuffer();
@@ -100,7 +106,15 @@ public class Rogue
             ///term.bufferWorld(layer);
             term.bufferCamera(story);
             term.refreshScreen();
+            
+            //..............................................................................................................
+            //for now helpfull:
+            //term.bufferString(50, 28, "steps : "+player.getSteps());
+            //term.bufferString(50, 30, "hp : "+player.getHp());
+            //..............................................................................................................
+            
             layer.tick();
+           
         }
         System.exit(0);
     }
