@@ -52,30 +52,20 @@ public class MapLoaderChris extends MapGenerator
 {
     private ColoredChar floorTile;
     private ColoredChar wallTile;
-    private ColoredChar north;
-    private ColoredChar northEast;
-    private ColoredChar east;
-    private ColoredChar southEast;
-    private ColoredChar south;
-    private ColoredChar southWest;
-    private ColoredChar west;
-    private ColoredChar eastWest;
-    
-    Map<Character,ColoredChar> pas;
-    
-    ArrayList<Character> passable;
-    Character[] pass = {'(',')','{','}','¤'}; 
-    Character[] notpass = {'§','$','%'&'}','[',']','°','^'}; 
-
-    
+  //  private Map<Character,ColoredChar> pas;
+    private Map<Character,ColoredChar> passable;
     private static final String pathToFile = "test.txt";
 
     public MapLoaderChris()
     {
-     this(ColoredChar.create('¤'), ColoredChar.create('#'));
-     passable = new ArrayList();
-     pas = new HashMap<Character, ColoredChar>();
-     pas.put('¤', ColoredChar.create('¤',Color.GRAY));
+     //this(ColoredChar.create('¤'), ColoredChar.create('#'));
+     passable = new HashMap<Character,ColoredChar>();
+    // pas = new HashMap<Character, ColoredChar>();
+     passable.put('¤', ColoredChar.create('¤'));
+     //passable.put('(', ColoredChar.create('¤'));
+     //passable.put(')', ColoredChar.create('¤'));
+     //passable.put('{', ColoredChar.create('¤'));
+     //passable.put('}', ColoredChar.create('¤'));
 
      // Read more: http://javarevisited.blogspot.com/2011/06/converting-array-to-arraylist-in-java.html#ixzz2NXUAN1KA
      
@@ -115,15 +105,16 @@ public class MapLoaderChris extends MapGenerator
 			while ((currentRow != world.height())){
 				System.out.println(currentRow);
 				textRow = "";
-				if ((textRow = in.readLine()) == null) {textRow = "##......................[........¤.........]..................................##";}
+				if ((textRow = in.readLine()) == null) {textRow = "################################################################################ 	";}
 				if ((textRow.length() < 40)) {
 					//if (((textRow = in.readLine()) != null) && !("".equals(textRow))) {
-				  textRow = "##......................[........¤.........]..................................##";
+				  textRow = "################################################################################";
 				}
 				for (int x = 0; x < world.width(); x++)
-					if (textRow.charAt(x) == '¤')
-				    //if (passable.contains(textRow.charAt(x)))
-						world.setTile(ColoredChar.create(textRow.charAt(x)), true, x, currentRow);
+					//if (textRow.charAt(x) == '¤')
+				    if (passable.containsKey(textRow.charAt(x))) {
+						world.setTile(ColoredChar.create(textRow.charAt(x)) , true, x, currentRow);
+				    }
 					else
 						world.setTile(ColoredChar.create(textRow.charAt(x)), false, x, currentRow);
 				currentRow++;
@@ -134,10 +125,7 @@ public class MapLoaderChris extends MapGenerator
 		finally 
 		{
 			try {in.close(); } catch ( Exception e ) { }
-		}
-		
-
-		
+		}		
         
 	}//end generateStep
 
