@@ -1,110 +1,121 @@
+
 package jade.gen.map;
 
 import jade.core.World;
+import jade.gen.Generator;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 
-/**
- * Uses a randomized version of Prim's algorithm to generate perfect mazes.
- */
-public class TestMaze extends MapGenerator
+
+public class LevelGen extends MapGenerator
 {
+	// TODO:the different types of tiles have to be defined here.
     private ColoredChar floorTile;
     private ColoredChar wallTile;
+    private static final String pathToLevelDesign = "simple_map_lab.txt";
 
     /**
      * Creates a new instance of {@code Maze} with a default open tile of '.' and a default closed
      * tile of '#'.
      */
-    public TestMaze()
+    public LevelGen()
     {
-        this(ColoredChar.create('¤'), ColoredChar.create('#'));
+        this(ColoredChar.create('.'), ColoredChar.create('#'));
     }
 
     /**
-     * Initializes Maze with default parameters.
+     * Initializes with default parameters.
      * @param floorTile the face of the open tiles
-     * @param wallTile the face oof the closed tiles
+     * @param wallTile the face of the closed tiles
      */
-    public TestMaze(ColoredChar floorTile, ColoredChar wallTile)
+    public LevelGen(ColoredChar floorTile, ColoredChar wallTile)
     {
         this.floorTile = floorTile;
         this.wallTile = wallTile;
     }
+    /*
+     * TODO:
+     * LevelGen so that we can call the mapLoaders
+     * for the appropriate map through this class. All the mapLoaders should
+     * inherit the methods from this class. 
 
-    @Override
-    protected void generateStep(World world, Dice dice)
+    public Laboratory_1(ColoredChar floorTile, ColoredChar wallTile, Class mapLoader)
     {
-        //Set<Coordinate> cells = 
-    	init(world);
-        
-        /*
-        Stack<Coordinate> stack = new Stack<Coordinate>();
-        stack.push(world.getOpenTile(dice));
-        cells.remove(stack.peek());
-        while(!stack.isEmpty())
+    	
+    }
+    
+     */
+	protected void generateStep(World world) 
+	{
+		System.out.println("in the LevelGenerator");
+		
+		init(world);
+	}
+	
+	protected void init(World world)
+	{
+        BufferedReader bufferedReader = null;
+        try 
         {
-            Coordinate curr = stack.peek();
-            Coordinate next = getNext(curr, cells, dice);// get random uncovered direction
-            if(next == null)// no where to go, just back trace
-                stack.pop();
-            else
-            {
-                // dig in random uncovered direction
-                Coordinate dig = curr.getTranslated(curr.directionTo(next));
-                world.setTile(floorTile, true, dig);
-                stack.push(next);// continue from where we dug
-            }
+	        bufferedReader = new BufferedReader(new FileReader(pathToLevelDesign));
+	        
+	        String line = null;
+	        char c;	
+	        int i = 0;
+	        int j = 0;
+	        int maxWidth = world.width();
+	        while( ((line = bufferedReader.readLine()) != null)  && (i < world.width())  )
+	        {
+
+	        	// don't want to read past the end of line
+	        	if( line.length() < world.width()) maxWidth = line.length();
+	        	
+	        	//System.out.println("this is i: " +i);
+	        	System.out.println("this is world.width():" + world.width());
+	        	//System.out.println("this is line.length: "+ line.length());
+	        	System.out.println(line);
+	        	
+	        	for(j = 0; j < maxWidth; j++)
+	            {
+	        		System.out.println("this is j: "+j);
+	        		System.out.println("this is maxWidth: "+ maxWidth);
+	        		System.out.println("this is line.length():"+ line.length());
+	        		//System.out.println("this is world.height():"+ world.height());
+	        		c = line.charAt(j);
+
+		            if(c != '.')
+		            		world.setTile(wallTile, false, j, i);
+		            else
+		            		world.setTile(floorTile, true, j,i); 
+	            }// end for
+	        	
+	        	maxWidth = world.width();
+	        	i++;
+	        	
+	        }// end while
+        bufferedReader.close();
+        
+        }// end try
+        catch (IOException ex) {
+            ex.printStackTrace();
         }
-        */
-    }
+	}//end generateScreen
 
-    private Coordinate getNext(Coordinate curr, Set<Coordinate> cells, Dice dice)
-    {
-        List<Coordinate> possible = new ArrayList<Coordinate>(4);
-        tryAddNext(possible, curr.getTranslated(0, 2), cells);
-        tryAddNext(possible, curr.getTranslated(0, -2), cells);
-        tryAddNext(possible, curr.getTranslated(2, 0), cells);
-        tryAddNext(possible, curr.getTranslated(-2, 0), cells);
-        if(possible.isEmpty())
-            return null;
-        Coordinate next = dice.choose(possible);
-        cells.remove(next);
-        return next;
-    }
-
-    private void tryAddNext(List<Coordinate> possible, Coordinate pos, Set<Coordinate> cells)
-    {
-        if(cells.contains(pos))
-            possible.add(pos);
-    }
-
-    private void init(World world)
-    {
-    	System.out.println("this is in testmaze");
-        Set<Coordinate> cells = new HashSet<Coordinate>();
-        for(int x = 0; x < world.width(); x++)
-            for(int y = 0; y < world.height(); y++)
-            {
-                // every other square is an open to start
-            	/*
-                if(x % 2 == 1 && y % 2 == 1 && x < world.width() - 1 && y < world.height() - 1)
-                {
-                    cells.add(new Coordinate(x, y));
-                    world.setTile(floorTile, true, x, y);
-                }
-                else
-                    world.setTile(wallTile, false, x, y);
-                    */
-                cells.add(new Coordinate(x, y));
-                world.setTile(floorTile, true, x, y);
-            }
-        //return cells;
-    }
+	@Override
+	protected void generateStep(World world, Dice dice) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
