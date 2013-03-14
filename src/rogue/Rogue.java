@@ -1,18 +1,14 @@
 package rogue;
 
 import jade.core.World;
-import jade.level.LevelThread;
-import jade.screen.ScreenThread;
-import jade.ui.TermPanel;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Coordinate;
-
 import java.awt.Color;
 import java.util.HashMap;
-
 import rogue.creature.Monster;
 import rogue.creature.Player;
+import rogue.creature.StoryHandler;
+import rogue.level.Layer;
 import rogue.level.Level;
 
 public class Rogue
@@ -24,51 +20,88 @@ public class Rogue
     	for (String sw : args) {
     		switches.put(sw, true);
     	}
-    	System.out.println(switches.toString());
+    	//System.out.println(switches.toString());
+    	
     	
         TiledTermPanel term = TiledTermPanel.getFramedTerminal("Grey Zone");
-        term.registerTile("dungeon.png", 1, 1, ColoredChar.create('#'));
-        term.registerTile("dungeon.png", 1, 34, ColoredChar.create('.'));
-        term.registerTile("dungeon.png", 1, 17, ColoredChar.create('@'));
-        term.registerTile("dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
+        term.registerTile("textures/dungeon.png", 1, 1, ColoredChar.create('#'));
+        term.registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('¤'));
+        term.registerTile("textures/dungeon.png", 1, 17, ColoredChar.create('@'));
+        term.registerTile("textures/dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
+        term.registerTile("textures/dungeon.png", 17, 34, ColoredChar.create('+'));
+        term.loadTextureSet("textures/frames.png");
+        
+        term.registerMenu();
         
         Player player = new Player(term);
-        World world = new Level(80, 40, player);
+        World world = new Level(72, 40, player);
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         term.registerCamera(player, 40,20);
         
-        /*
-         * buggy animated startscreen
-         * 
-        ScreenThread startScreen = new ScreenThread(term,"startscreen",4);
-        while(term.getKey()!='s'){}
-        startScreen.kill();
-        */
+        //term.bufferFile("screens/startscreen/title.txt");
+        //term.refreshScreen(); 
+        //while(term.getKey()!='s'){}
         
-        term.bufferFile("screens/startscreen/title.txt");
-        term.refreshScreen();
-        while(term.getKey()!='s'){}
+        StoryHandler story = new StoryHandler(term);
+        World layer = new Layer(80,200, story);
+        story.setPos(40, 19);
+        term.registerCamera(story, 40,20);
+        
+        while(!story.expired())
+        {
+            //term.bufferWorld(layer);	
+        	term.bufferCamera(story);
+            term.refreshScreen();
+            layer.tick();
+        }   
+        /*       
+        term.clearBuffer();
+    	term.bufferBoxes(world, "text/fullscreentext/full_frame.txt","text/fullscreentext/descMade.txt"); 
+    	term.refreshScreen();;
+    	while(term.getKey()!='s'){}
+        */
+        term.clearBuffer();
         
         while(!player.expired())
-        {
-            term.clearBuffer();
-            if(switches.containsKey("a")) term.bufferWorld(world);
-            term.bufferFov(player);
+        {  
+        	term.recallBuffer();
+        	term.bufferStatusBar();
+        	
+        	//if buffer is cleared only current fov is displayed
+        	//term.clearBuffer();
+           
+            term.bufferFov(player); 
+        	term.saveBuffer();
+        	
+            if (term.getMenu("seeAll")) {
+            	//term.saveBuffer();
+            	term.bufferWorld(world);
+            }
+            
+        	if (term.getMenu("Inv")){ 
+        		term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");    
+        	}
+            // last but not least
             term.refreshScreen();
             world.tick();
         }
- 
+        
         term.clearBuffer();
-        term.bufferFile("screens/endscreen/end.txt");
         term.refreshScreen();
-        while(term.getKey()!='q'){}
-        /*
-         * buggy animated endscreen
-         * 
-        ScreenThread endScreen = new ScreenThread(term,"endscreen",1);
-        while(term.getKey()!='q'){}
-        endScreen.kill();
-        */
+
+        layer = new Layer(80,110, story);
+        story = new StoryHandler(term);
+        layer.removeExpired();
+        layer.addActor(story, 40, 19);
+        term.registerCamera(story, 40,20);
+        
+        while(!story.expired())
+        {
+            ///term.bufferWorld(layer);
+            term.bufferCamera(story);
+            term.refreshScreen();
+            layer.tick();
+        }
         System.exit(0);
     }
 }

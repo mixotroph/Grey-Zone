@@ -80,7 +80,7 @@ public abstract class World extends Messenger
     {
         return height;
     }
-
+    
     /**
      * Returns the draw order for the {@code World}. This list will affect the {@code lookAll()}
      * method by changing the priority with which {@code Actor}s will be drawn. Note that if one

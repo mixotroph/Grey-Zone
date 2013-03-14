@@ -19,6 +19,17 @@ public abstract class Generator
     {
         this(null);
     }
+   
+    /*
+     * Creates a new generator with the previouse generator as chained and loads a 
+     * new static text.txt from path
+
+    public Generator(Generator chained, String path)
+    {
+    	this.chained = chained;
+    	load(path);
+    }
+    */
 
     /**
      * Creates a new {@code Generator} with the given {@code Generator} as the previous chained
@@ -62,4 +73,7 @@ public abstract class Generator
     {
         generate(world, Dice.global);
     }
+    
+    //public abstract void load(String path);
+
 }
