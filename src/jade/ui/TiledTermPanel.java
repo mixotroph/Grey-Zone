@@ -78,16 +78,20 @@ public class TiledTermPanel extends TermPanel
     {
     	char[] symbol={'§','^','$','[','\\',']','%','°','&'};
     	
-        registerTile(path, 1, 1, ColoredChar.create('§'));
-        registerTile(path, 17, 1, ColoredChar.create('^'));
-        registerTile(path, 34, 1, ColoredChar.create('$'));
-        registerTile(path, 1, 17, ColoredChar.create('['));
-        registerTile(path, 17, 17, ColoredChar.create('\''));
-        registerTile(path, 34, 17, ColoredChar.create(']'));
-        registerTile(path, 1, 34, ColoredChar.create('%'));
-        registerTile(path, 17, 34, ColoredChar.create('°'));
-        registerTile(path, 34, 34, ColoredChar.create('&'));
-        registerTile(path, 1, 50, ColoredChar.create('Ö'));
+        registerTile(path, 0, 0, ColoredChar.create('§'));
+        registerTile(path, 17, 0, ColoredChar.create('^'));
+        registerTile(path, 33, 0, ColoredChar.create('$'));
+        registerTile(path, 0, 16, ColoredChar.create('['));
+        registerTile(path, 16, 16, ColoredChar.create('\''));
+        registerTile(path, 33, 16, ColoredChar.create(']'));
+        registerTile(path, 0, 33, ColoredChar.create('%'));
+        registerTile(path, 16, 33, ColoredChar.create('°'));
+        registerTile(path, 33, 33, ColoredChar.create('&'));
+        registerTile(path, 0, 49, ColoredChar.create('Ö'));
+        registerTile(path, 66, 0, ColoredChar.create(')'));
+        registerTile(path, 50, 1, ColoredChar.create('('));
+        registerTile(path, 66, 16, ColoredChar.create('}'));
+        registerTile(path, 49, 16, ColoredChar.create('{'));
     }
 
 
@@ -162,7 +166,7 @@ public class TiledTermPanel extends TermPanel
     /**
      * @author Christoph van Heteren-Frese
      */
-    @Override
+    //@Override
     public void bufferBoxes(World world, String frame, String text) 
     {
     	
@@ -289,6 +293,6 @@ public class TiledTermPanel extends TermPanel
             }
         }
     }
-
-
 }
+    
+    

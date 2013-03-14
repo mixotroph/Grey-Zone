@@ -5,6 +5,7 @@ import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.TermPanel;
+import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -13,7 +14,14 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
+
     private int stepamount;
+
+    private int strength;
+    private int experience;
+    //private Coordinate; // this is where the player should be 
+    					// placed when he enters a new level.
+
 
     public Player(TermPanel term)
     {
@@ -24,7 +32,38 @@ public class Player extends Creature implements Camera
         setXp(0);
         setHp(30); // hp at beginning of game
     }
-
+    
+    ////////////////////////////////////////////////////////////////
+    //////////// get set methods  
+    ////////////////////////////////////////////////////////////////
+    public Terminal getTerm()
+    {
+    	return term;	
+    }
+    public void setTerm(TermPanel term)
+    {
+    	this.term = term;
+    }
+    public void setStrength(int s)
+    {
+    	strength = s;
+    }
+    public void setExperience(int e)
+    {
+    	experience = e;	
+    }
+    public int getStrength()
+    {
+    	return strength;
+    }
+    public int getExperience()
+    {
+    	return experience;
+    }
+    
+    ////////////////////////////////////////////////////////////////
+    //////////// Methods that were already implemented
+    ////////////////////////////////////////////////////////////////
     @Override
     public void act()
     {

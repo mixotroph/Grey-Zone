@@ -3,6 +3,8 @@ package rogue.level;
 import jade.core.World;
 import jade.gen.Generator;
 import jade.gen.map.Cellular;
+import jade.gen.map.MapLoader;
+import jade.gen.map.MapLoaderChris;
 import rogue.creature.Player;
 
 public class Level extends World
@@ -18,6 +20,6 @@ public class Level extends World
 
     private static Generator getLevelGenerator()
     {
-        return new Cellular();
+        return new MapLoaderChris();
     }
 }

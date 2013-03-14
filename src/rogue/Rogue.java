@@ -35,7 +35,7 @@ public class Rogue
         
         Player player = new Player(term);
         World world = new Level(72, 40, player);
-        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+        //world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         term.registerCamera(player, 40,20);
         
         //term.bufferFile("screens/startscreen/title.txt");

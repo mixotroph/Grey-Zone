@@ -175,8 +175,9 @@ public class TermPanel extends Terminal
         {
             return tileHeight;
         }
-        
+  
         //inherited from JPanel -> JComponent
+
         @Override
         protected void paintComponent(Graphics page)
         {
