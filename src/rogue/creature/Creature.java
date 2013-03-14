@@ -32,8 +32,9 @@ public abstract class Creature extends Actor
 
 
 	/**
-	 * This method simulates a fight between the player and a
+	 * This {@code attack} -method simulates a fight between the player and a
 	 * creature
+	 * @param expects the enemy as {@code Creature} -Object
 	 * @author Flo
 	 */
 	public void attack(Creature enemy){
