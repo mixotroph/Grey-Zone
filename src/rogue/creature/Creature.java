@@ -7,9 +7,62 @@ import java.util.Random;
 
 
 public abstract class Creature extends Actor
-{
+{	
+	private int steps; 
+	private int xp; // experience
+	private int hp; // hit-points
+	
+    public Creature(ColoredChar face)
+    {
+        super(face);
+        setSteps(0); // there are zero steps done at beginning
+    }
+
+    
+    public void addStep()
+    {
+    	setSteps(getSteps() + 1);
+    }
+    
+    
+    
+    @Override
+    public void setPos(int x, int y)
+    {
+        if(world().passableAt(x, y))
+            super.setPos(x, y);
+    }
 
 
+	public int getSteps() {
+		return steps;
+	}
+
+
+	public void setSteps(int steps) {
+		this.steps = steps;
+	}
+
+
+	public int getXp() {
+		return xp;
+	}
+
+
+	public void setXp(int xp) {
+		this.xp = xp;
+	}
+
+
+	public int getHp() {
+		return hp;
+	}
+
+
+	public void setHp(int hp) {
+		this.hp = hp;
+	}
+	
 	/**
 	 * This function calculates the damage of a single hit in
 	 * the {@code attack} method.
@@ -40,8 +93,8 @@ public abstract class Creature extends Actor
 	public void attack(Creature enemy){
 
 		// XP and HP of enemy
-		int enXP = enemy.getXp;
-		int enHP = enemy.getH;
+		int enXP = enemy.getXp();
+		int enHP = enemy.getHp();
 
 		//XP and HP of player
 		int ownXP = this.xp;
@@ -78,8 +131,8 @@ public abstract class Creature extends Actor
 		if (win){
 
 			enemy.expire();
-			this.xp++;
-			this.hp--;
+			setXp(getXp()+1);
+			setHp(getHp()-1);
 			//print message: "You won"
 			System.out.println("You won");
 		}
@@ -91,19 +144,4 @@ public abstract class Creature extends Actor
 			System.out.println("You lost");
 		}
 	}
-	
-	
-    public Creature(ColoredChar face)
-    {
-        super(face);
-    }
-
-    @Override
-    public void setPos(int x, int y)
-    {
-        if(world().passableAt(x, y))
-            super.setPos(x, y);
-    }
-    
-    
 }
