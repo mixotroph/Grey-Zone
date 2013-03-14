@@ -5,7 +5,6 @@ import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.TermPanel;
-import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
@@ -34,15 +33,20 @@ public class Player extends Creature implements Camera
                 case 'q':
                     expire();
                     break;
-                    
-                case 'i':
+                case 'H':
                 {
                 	if(term.getMenu("Inv")==false)
                 		term.setMenu("Inv",true);
                 	else
                 		term.setMenu("Inv",false);
-                }            
-                	
+                }          
+                case '1':
+                {
+                	if(term.getMenu("seeAll")==false)
+                		term.setMenu("seeAll",true);
+                	else
+                		term.setMenu("seeAll",false);
+                }    
                 default:
                     Direction dir = Direction.keyToDir(key);
                     if(dir != null)
@@ -59,6 +63,6 @@ public class Player extends Creature implements Camera
     @Override
     public Collection<Coordinate> getViewField()
     {
-        return fov.getViewField(world(), pos(), 25);
+        return fov.getViewField(world(), pos(), 5);
     }
 }

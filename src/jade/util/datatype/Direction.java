@@ -98,7 +98,7 @@ public enum Direction
             case '3':
             case 'n':
                 return SOUTHEAST;
-            case '1':
+            //case '1':
             case 'b':
                 return SOUTHWEST;
             case '9':
