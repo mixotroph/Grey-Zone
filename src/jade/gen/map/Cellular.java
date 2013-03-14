@@ -29,7 +29,7 @@ public class Cellular extends MapGenerator
      */
     public Cellular()
     {
-        this(ColoredChar.create('.'), ColoredChar.create('#'));
+        this(ColoredChar.create('¤'), ColoredChar.create('#'));
     }
 
     /**

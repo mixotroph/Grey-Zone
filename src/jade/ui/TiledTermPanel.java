@@ -19,8 +19,8 @@ import javax.imageio.ImageIO;
 public class TiledTermPanel extends TermPanel
 {
     public static final int DEFAULT_TILESIZE = 16;
-    private static final int X_OFFSET = 0;
-    private static final int Y_OFFSET = 0;
+    private static int X_OFFSET = 0;
+    private static int Y_OFFSET = 0;
 
     private Map<Coordinate, List<ColoredChar>> tileBuffer;
     private Map<Coordinate, List<ColoredChar>> savedTile;
@@ -73,6 +73,23 @@ public class TiledTermPanel extends TermPanel
             return false;
         }
     }
+ 
+    public void loadTextureSet(String path)
+    {
+    	char[] symbol={'§','^','$','[','\\',']','%','°','&'};
+    	
+        registerTile(path, 1, 1, ColoredChar.create('§'));
+        registerTile(path, 17, 1, ColoredChar.create('^'));
+        registerTile(path, 34, 1, ColoredChar.create('$'));
+        registerTile(path, 1, 17, ColoredChar.create('['));
+        registerTile(path, 17, 17, ColoredChar.create('\''));
+        registerTile(path, 34, 17, ColoredChar.create(']'));
+        registerTile(path, 1, 34, ColoredChar.create('%'));
+        registerTile(path, 17, 34, ColoredChar.create('°'));
+        registerTile(path, 34, 34, ColoredChar.create('&'));
+        registerTile(path, 1, 50, ColoredChar.create('Ö'));
+    }
+
 
     @Override
     public void clearBuffer()
@@ -103,6 +120,7 @@ public class TiledTermPanel extends TermPanel
         screen().setTileBuffer(tileBuffer);
         super.refreshScreen();
     }
+    
     @Override
     public void bufferCamera(Camera camera)
     {
@@ -118,21 +136,75 @@ public class TiledTermPanel extends TermPanel
                     world.lookAll(coord));
     }
     
+    /**
+     * @author Christoph van Heteren-Frese
+     */
     public void bufferFov(Camera camera)
     {
         Guard.argumentIsNotNull(camera);
         Guard.verifyState(cameraRegistered(camera));
         World world = camera.world();
         
-        for(Coordinate coord : camera.getViewField())
-            tileBuffer.put(coord,world.lookAll(coord));
+        for(Coordinate coord : camera.getViewField()) {
+        	Coordinate newCoord = new Coordinate(coord.x() + X_OFFSET,coord.y() + Y_OFFSET+1);
+            tileBuffer.put(newCoord,world.lookAll(coord));
+        }
+    }
+    
+    /**
+     * @author Christoph van Heteren-Frese
+     */
+    public void bufferStatusBar() {
+    	X_OFFSET=8;
+    	bufferString(1, 39,"H: Help");
+    }
+    
+    /**
+     * @author Christoph van Heteren-Frese
+     */
+    //@Override
+    public void bufferBoxes(World world, String frame, String text) 
+    {
+    	
+    	//Player player = world.getActor(Player.class);
+    	
+    	// first, buffer frame and background
+    	this.recallBuffer();
+    	this.bufferFile(frame);	
+    	
+    	//this.bufferWorld(world);
+
+    	Map<Coordinate,ColoredChar> buffer;
+    	buffer = this.getBuffer();
+    	for (Coordinate coord : buffer.keySet())
+    	{
+    		if (tileBuffer.get(coord) == null) {
+    			List<ColoredChar> tileList = tileBuffer.get(coord);
+    		}
+    		List<ColoredChar> tileList = new ArrayList<ColoredChar>();
+    		tileList.add(0, buffer.get(coord));
+    		tileBuffer.put(coord,tileList);
+    	}
+    	
+    	// second, buffer text
+    	this.bufferFile(text);
+    	buffer = this.getBuffer();
+    	for (Coordinate coord : buffer.keySet())
+    	{
+    		List<ColoredChar> tileList;
+    		tileList = tileBuffer.get(coord);
+    		char ch = buffer.get(coord).ch();
+    		tileList.add(0,ColoredChar.create(ch));
+    		tileBuffer.put(coord,tileList);
+    	}  	
+    	   	buffer.clear();
     }
 
     public void bufferWorld(World world)
     {
     	for(int x = 0; x < world.width(); x++)
     		for(int y = 0; y < world.height(); y++)
-    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (y+Y_OFFSET)), world.lookAll(x, y));
+    			tileBuffer.put(new Coordinate((x+X_OFFSET ), (1+y+Y_OFFSET)), world.lookAll(x, y));
     } 
     
     @Override
@@ -151,10 +223,8 @@ public class TiledTermPanel extends TermPanel
         tileBuffer.put(new Coordinate(x + offX, y + offY), look);
     }
 
-    /**
+    /*
      * begin inner class TiledScreen
-     * @author vanhech
-     *
      */
     private static class TiledScreen extends Screen
     {
@@ -220,3 +290,5 @@ public class TiledTermPanel extends TermPanel
         }
     }
 }
+    
+    

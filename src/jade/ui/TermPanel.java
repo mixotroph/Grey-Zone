@@ -12,10 +12,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
-
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.SpringLayout;
 
 /**
  * Implements a {@code Terminal} on a {@code JPanel}, which can then be embedded into any container
@@ -26,6 +25,8 @@ public class TermPanel extends Terminal
     public static final int DEFAULT_COLS = 80;
     public static final int DEFAULT_ROWS = 40;
     public static final int DEFAULT_SIZE = 12;
+    
+    private static Map<String,Boolean> menus = new HashMap<String,Boolean>();
     
     private Screen screen;
 
@@ -75,11 +76,13 @@ public class TermPanel extends Terminal
         JFrame frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        // add components here
         frame.add(term.panel());
         
         //Display the window.
         frame.pack();
         frame.setVisible(true);
+        frame.setResizable(false);
     }
 
     /**
@@ -96,6 +99,19 @@ public class TermPanel extends Terminal
     {
         return screen;
     }
+    
+    public void registerMenu() {
+    	menus.put("Inv", false);
+    	menus.put("seeAll", false);
+    }
+    
+    public void setMenu (String menu, boolean visible) {
+    	menus.put(menu,visible);
+    }
+    
+    public Boolean getMenu (String menu) {
+    	return menus.get(menu);
+    }
 
     @Override
     public char getKey() throws InterruptedException
@@ -108,16 +124,16 @@ public class TermPanel extends Terminal
     {
     	synchronized (screen) {
     		 screen.setBuffer(getBuffer());
+    		 // screen.revalidate();
     	     screen.repaint();
 		}
-       
     }
     
     public void bufferFile(String path)
     {
     	this.bufferFile(path,DEFAULT_ROWS);
     }
-
+    
     protected static class Screen extends JPanel implements KeyListener
     {
         private static final long serialVersionUID = 7219226976524388778L;
@@ -143,8 +159,10 @@ public class TermPanel extends Terminal
             // Sets the preferred size of this component.
             setPreferredSize(new Dimension(columns * tileWidth, rows * tileHeight));
             setFont(new Font(Font.MONOSPACED, Font.PLAIN, tileHeight));
-            setBackground(Color.darkGray);
+            
+            setBackground(Color.BLACK);
             setFocusable(true);
+            setLayout(new SpringLayout());
             getComponentCount();
         }
 
@@ -157,8 +175,9 @@ public class TermPanel extends Terminal
         {
             return tileHeight;
         }
-        
+  
         //inherited from JPanel -> JComponent
+
         @Override
         protected void paintComponent(Graphics page)
         {
@@ -169,7 +188,7 @@ public class TermPanel extends Terminal
                 {
                     ColoredChar ch = screenBuffer.get(coord);
                     int x = tileWidth * coord.x();
-                    int y = tileHeight * (coord.y() + 1);
+                    int y = tileHeight * coord.y();
 
                     page.setColor(ch.color());
                     page.drawString(ch.toString(), x, y);

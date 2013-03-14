@@ -30,7 +30,6 @@ public abstract class Terminal
         saved = new HashMap<Coordinate, ColoredChar>();
         cameras = new HashMap<Camera, Coordinate>();
     }
-
     /**
      * Refreshes the screen to reflect the current state of the buffer. Until this method is called,
      * no changes to the buffer should be displayed.
@@ -156,7 +155,6 @@ public abstract class Terminal
      * @param number of rows that should read from file
      */
 	public void bufferFile(String path, int row) {
-//			bufferString(0,x,"Test "+x);
 		BufferedReader in = null;
 			try
 			{
@@ -176,7 +174,8 @@ public abstract class Terminal
 				try {in.close(); } catch ( Exception e ) { }
 			}
 	}
-
+	
+	public void bufferBoxes(World world, String frame, String text) {};
     /**
      * Clears all contents of the buffer.
      */
