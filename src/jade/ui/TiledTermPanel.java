@@ -88,6 +88,10 @@ public class TiledTermPanel extends TermPanel
         registerTile(path, 17, 34, ColoredChar.create('°'));
         registerTile(path, 34, 34, ColoredChar.create('&'));
         registerTile(path, 1, 50, ColoredChar.create('Ö'));
+        registerTile(path, 67, 1, ColoredChar.create(')'));
+        registerTile(path, 84, 1, ColoredChar.create('('));
+        registerTile(path, 67, 17, ColoredChar.create('{'));
+        registerTile(path, 84, 17, ColoredChar.create('}'));
     }
 
 

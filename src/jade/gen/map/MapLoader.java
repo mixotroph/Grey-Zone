@@ -92,7 +92,7 @@ public class MapLoader extends MapGenerator
 	        int i = 0;	// 
 	        int j = 0;
 	        int maxWidth = world.width();
-	        while( ((line = bufferedReader.readLine()) != null)  && (i < world.width())  )
+	        while( ((line = bufferedReader.readLine()) != null)  && (i < world.height())  )
 	        {
 
 	        	// don't want to read past the end of line
