@@ -1,9 +1,10 @@
-package rogue.level;
+package greyzone.level;
+
+import greyzone.creature.StoryHandler;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import rogue.creature.StoryHandler;
 import jade.core.World;
 import jade.gen.Generator;
 import jade.gen.map.Story;

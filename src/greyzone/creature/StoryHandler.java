@@ -1,4 +1,4 @@
-package rogue.creature;
+package greyzone.creature;
 
 import java.util.Collection;
 import jade.fov.RayCaster;

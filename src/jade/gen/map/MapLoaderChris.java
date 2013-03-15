@@ -53,10 +53,6 @@ import org.mockito.Mockito;
 
 public class MapLoaderChris extends MapGenerator
 {
-    private ColoredChar floorTile;
-    private ColoredChar wallTile;
-    private Fence fence;
-  //  private Map<Character,ColoredChar> pas;
     private Map<Character,ColoredChar> passable;
     private String pathToFile;
     private Color color = Color.ORANGE;
@@ -64,35 +60,28 @@ public class MapLoaderChris extends MapGenerator
     public MapLoaderChris(String path)
     {
     	pathToFile = path;
-     //this(ColoredChar.create('¤'), ColoredChar.create('#'));
-     passable = new HashMap<Character,ColoredChar>();
-    // pas = new HashMap<Character, ColoredChar>();
-     passable.put('¤', ColoredChar.create('¤'));
-     passable.put('A', ColoredChar.create('('));
-     passable.put('B', ColoredChar.create(')'));
-     passable.put('C', ColoredChar.create('{'));
-     passable.put('D', ColoredChar.create('}'));
-
-     // Read more: http://javarevisited.blogspot.com/2011/06/converting-array-to-arraylist-in-java.html#ixzz2NXUAN1KA
-     
+    	passable = new HashMap<Character,ColoredChar>();
+    	passable.put('¤', ColoredChar.create('¤'));
+    	passable.put('A', ColoredChar.create('('));
+    	passable.put('B', ColoredChar.create(')'));
+    	passable.put('C', ColoredChar.create('{'));
+    	passable.put('D', ColoredChar.create('}'));
     }
 
     /**
      * Initializes with default parameters.
      * 
-     * This should be exported to the specified levellaoders
+     * This should be exported to the specified level laoders
      * 
-     * @param floorTile the face of the open tiles
-     * @param wallTile the face of the closed tiles
+     * @param passable Map with face of the open tiles
      */
     public MapLoaderChris(ColoredChar floorTile, ColoredChar wallTile)
     {
-        this.floorTile = floorTile;
-        this.wallTile = wallTile;
+
     }    
     
     // this calls the init(world) method which fills the world accordingly.
-	protected void generateStep(World world) 
+	protected void generateStep(World world, Dice dice) 
 	{
 		init(world);
 	}
@@ -100,28 +89,25 @@ public class MapLoaderChris extends MapGenerator
 	// fills the world according to rules defined by specified LevelLoader
 	protected void init(World world)
 	{
-		fence = new Fence(Mockito.mock(Generator.class));	
 		int currentRow=0;
 		BufferedReader in = null;
 		try
 		{
 			in = new BufferedReader(new FileReader(pathToFile));
 			String textRow = "";
-			
-			//while (((textRow = in.readLine()) != null)  ){
-			while ((currentRow != world.height())){
-				System.out.println(currentRow);
+			while (currentRow != world.height()){
 				textRow = "";
-				if ((textRow = in.readLine()) == null) {textRow = "##########################################################..........############ 	";}
-				if ((textRow.length() < 40)) {
-					//if (((textRow = in.readLine()) != null) && !("".equals(textRow))) {
-				  textRow = "################################################################################";
+				// if the map has not enough rows to fill the world, add some
+				if ((textRow = in.readLine()) == null) 
+					textRow = fillLine(world.width());
+				// if there are rows shorter than the worlds width, fill them up
+				if ((textRow.length() < world.width())) {
+					for (int i = textRow.length(); i < world.width(); i++) 
+						textRow+='.';			
 				}
 				for (int x = 0; x < world.width(); x++)
-					//if (textRow.charAt(x) == '¤')
-				    if (passable.containsKey(textRow.charAt(x))) {
+				    if (passable.containsKey(textRow.charAt(x))) 
 						world.setTile(passable.get(textRow.charAt(x)) , true, x, currentRow);
-				    }
 					else
 						world.setTile(ColoredChar.create(textRow.charAt(x),color), false, x, currentRow);
 				currentRow++;
@@ -133,22 +119,13 @@ public class MapLoaderChris extends MapGenerator
 		{
 			try {in.close(); } catch ( Exception e ) { }
 		}		
-        
-	}//end generateStep
+	} //end generateStep
 
-	private String fillLine(World world) {
+	private String fillLine(int width) {
 		String line="";
-		for (int x = 0; x < world.width(); x++) {
-			line += "#";
+		for (int x = 0; x < width; x++) {
+			line += ".";
 		}
-	return null;
-	}
-
-	@Override
-	protected void generateStep(World world, Dice dice) {
-		// TODO Auto-generated method stub
-		generateStep(world);
-		
-	}
-	
+	return line;
+	}	
 }

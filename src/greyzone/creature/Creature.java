@@ -1,4 +1,4 @@
-package rogue.creature;
+package greyzone.creature;
 
 import jade.core.Actor;
 import jade.util.datatype.ColoredChar;

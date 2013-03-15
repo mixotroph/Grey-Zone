@@ -14,7 +14,7 @@ public class Fence extends FeatureGenerator
     private static final ColoredChar face = ColoredChar.create('#');
 
     /**
-     * Generates a new instance of Fence, the the specified chained {@code Generator}.
+     * Generates a new instance of Fence, the specified chained {@code Generator}.
      * @param chained the chained {@code Generator}
      */
     public Fence(Generator chained)

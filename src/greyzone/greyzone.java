@@ -1,17 +1,17 @@
-package rogue;
+package greyzone;
 
+import greyzone.creature.Monster;
+import greyzone.creature.Player;
+import greyzone.creature.StoryHandler;
+import greyzone.level.Layer;
+import greyzone.level.Level;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
 import java.awt.Color;
 import java.util.HashMap;
-import rogue.creature.Monster;
-import rogue.creature.Player;
-import rogue.creature.StoryHandler;
-import rogue.level.Layer;
-import rogue.level.Level;
 
-public class Rogue
+public class greyzone
 {
     public static void main(String[] args) throws InterruptedException
     {
