@@ -1,6 +1,11 @@
 package greyzone.creature;
 
+import greyzone.trigger.Trigger;
+
+import java.util.ArrayList;
 import java.util.Collection;
+
+import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
@@ -9,6 +14,7 @@ import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
+
 
 public class Player extends Creature implements Camera
 {
@@ -66,9 +72,18 @@ public class Player extends Creature implements Camera
     ////////////////////////////////////////////////////////////////
     @Override
     public void act()
+    
     {
+    	Actor actor;
+   
+    			
+  
+
+    	
         try
         {
+        	
+        	
             char key;
             key = term.getKey();
             switch(key)
@@ -95,15 +110,23 @@ public class Player extends Creature implements Camera
                     if(dir != null)
                     {
                     	move(dir);
+                     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+                    	String messages;
+                     	
+						if (trigger != null) {
+                    		messages = trigger.retrieveMessages().toString();
+                    		System.out.println(messages);
+                    		expire();
+						}
                     // HP reducing takes place here:..........................................................................
-                    	this.addStep();
+                    	addStep();
                  
-                    	if (this.getSteps() % this.stepamount == 0)
+                    	if (getSteps() % stepamount == 0)
                     	{
-                    		this.setHp(getHp() - 1);
+                    		setHp(getHp() - 1);
               
                     	}
-                    	if (this.getHp()==0) this.expire();
+                    	if (getHp()==0) expire();
                     //........................................................................................................
                     }
                     	break;

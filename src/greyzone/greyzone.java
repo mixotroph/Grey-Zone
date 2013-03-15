@@ -5,6 +5,7 @@ import greyzone.creature.Player;
 import greyzone.creature.StoryHandler;
 import greyzone.level.Layer;
 import greyzone.level.Level;
+import greyzone.trigger.Trigger;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
@@ -22,15 +23,13 @@ public class greyzone
     	}
     	//System.out.println(switches.toString());
     	
-    	
         TiledTermPanel term = TiledTermPanel.getFramedTerminal("Grey Zone");
-
         term.loadTextureSet("textures/frames.png","textures/frames2.png");
-
-        
         term.registerMenu();
+        
         World world;
         Player player = new Player(term);
+        
         if (switches.containsKey("l")) {
             world = new Level(72, 40, "test.txt",player);
         }
@@ -38,6 +37,9 @@ public class greyzone
         	world = new Level(72, 40,player);
         }
         world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+        Trigger t1 = new Trigger(ColoredChar.create('T', Color.red));
+        t1.appendMessage("Test");
+        world.addActor(t1, 31, 4);
         term.registerCamera(player, 40,20);
         
         //term.bufferFile("screens/startscreen/title.txt");
