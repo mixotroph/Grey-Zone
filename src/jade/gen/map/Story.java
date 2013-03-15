@@ -3,6 +3,8 @@ package jade.gen.map;
 import jade.core.World;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
+
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -63,7 +65,7 @@ public class Story extends MapGenerator
 				int currentRow=0;
 				while ((textRow = in.readLine()) != null) {
 					for (int x = 0; x < world.width(); x++)
-						world.setTile(ColoredChar.create(textRow.charAt(x)), true, x, currentRow);
+						world.setTile(ColoredChar.create(textRow.charAt(x),Color.lightGray), true, x, currentRow);
 					currentRow++;
 				}
 			} catch (IOException e) {

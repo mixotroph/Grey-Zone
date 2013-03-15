@@ -4,6 +4,8 @@ import jade.core.World;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -74,24 +76,64 @@ public class TiledTermPanel extends TermPanel
         }
     }
  
-    public void loadTextureSet(String path)
+    public void loadTextureSet(String path, String path2)
     {
     	char[] symbol={'§','^','$','[','\\',']','%','°','&'};
+        registerTile("textures/dungeon.png", 1, 1, ColoredChar.create('#',Color.ORANGE));
+        registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('¤'));
+        registerTile("textures/player.png", 0, 0, ColoredChar.create('@'));
+        //registerTile("textures/player.png", 0, 0, ColoredChar.create('D', Color.red));
+        registerTile("textures/dungeon.png", 17, 34, ColoredChar.create('+'));
     	
-        registerTile(path, 0, 0, ColoredChar.create('§'));
-        registerTile(path, 17, 0, ColoredChar.create('^'));
-        registerTile(path, 33, 0, ColoredChar.create('$'));
-        registerTile(path, 0, 16, ColoredChar.create('['));
-        registerTile(path, 16, 16, ColoredChar.create('\''));
-        registerTile(path, 33, 16, ColoredChar.create(']'));
-        registerTile(path, 0, 33, ColoredChar.create('%'));
-        registerTile(path, 16, 33, ColoredChar.create('°'));
-        registerTile(path, 33, 33, ColoredChar.create('&'));
+        registerTile(path2, 81, 0, ColoredChar.create('§'));
+        registerTile(path2, 96, 0, ColoredChar.create('^'));
+        registerTile(path2, 112, 0, ColoredChar.create('$'));
+        registerTile(path2, 81, 16, ColoredChar.create('['));
+        registerTile(path2, 96, 16, ColoredChar.create('\''));
+        registerTile(path2, 112, 16, ColoredChar.create(']'));
+        registerTile(path2, 81, 32, ColoredChar.create('%'));
+        registerTile(path2, 96, 32, ColoredChar.create('°'));
+        registerTile(path2, 112, 32, ColoredChar.create('&'));
+        
+        registerTile(path2, 81, 0, ColoredChar.create('§',Color.LIGHT_GRAY));
+        registerTile(path2, 96, 0, ColoredChar.create('^',Color.LIGHT_GRAY));
+        registerTile(path2, 112, 0, ColoredChar.create('$',Color.LIGHT_GRAY));
+        registerTile(path2, 81, 16, ColoredChar.create('[',Color.LIGHT_GRAY));
+        registerTile(path2, 96, 16, ColoredChar.create('\'',Color.LIGHT_GRAY));
+        registerTile(path2, 112, 16, ColoredChar.create(']',Color.LIGHT_GRAY));
+        registerTile(path2, 81, 32, ColoredChar.create('%',Color.LIGHT_GRAY));
+        registerTile(path2, 96, 32, ColoredChar.create('°',Color.LIGHT_GRAY));
+        registerTile(path2, 112, 32, ColoredChar.create('&',Color.LIGHT_GRAY));
         registerTile(path, 0, 49, ColoredChar.create('Ö'));
         registerTile(path, 66, 0, ColoredChar.create(')'));
         registerTile(path, 50, 1, ColoredChar.create('('));
         registerTile(path, 66, 16, ColoredChar.create('}'));
         registerTile(path, 49, 16, ColoredChar.create('{'));
+        registerTile(path, 66, 0, ColoredChar.create(')',Color.BLUE));
+        registerTile(path, 50, 1, ColoredChar.create('(',Color.BLUE));
+        registerTile(path, 66, 16, ColoredChar.create('}',Color.BLUE));
+        registerTile(path, 49, 16, ColoredChar.create('{',Color.BLUE));
+       
+        registerTile("textures/dungeon.png", 1, 1, ColoredChar.create('#'));
+        registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('.'));
+        //registerTile("textures/player.png", 1, 17, ColoredChar.create('@'));
+        registerTile("textures/enemy.png", 17, 0, ColoredChar.create('D', Color.red));
+        registerTile("textures/dungeon.png", 17, 34, ColoredChar.create('+'));
+        
+        registerTile(path, 0, 0, ColoredChar.create('§',Color.ORANGE));
+        registerTile(path, 17, 0, ColoredChar.create('^',Color.ORANGE));
+        registerTile(path, 33, 0, ColoredChar.create('$',Color.ORANGE));
+        registerTile(path, 0, 16, ColoredChar.create('[',Color.ORANGE));
+        registerTile(path, 16, 16, ColoredChar.create('\'',Color.ORANGE));
+        registerTile(path, 33, 16, ColoredChar.create(']',Color.ORANGE));
+        registerTile(path, 0, 33, ColoredChar.create('%',Color.ORANGE));
+        registerTile(path, 16, 33, ColoredChar.create('°',Color.ORANGE));
+        registerTile(path, 33, 33, ColoredChar.create('&',Color.ORANGE));
+        registerTile(path, 0, 49, ColoredChar.create('Ö',Color.ORANGE));
+        registerTile(path, 66, 0, ColoredChar.create(')',Color.ORANGE));
+        registerTile(path, 50, 1, ColoredChar.create('(', Color.ORANGE));
+        registerTile(path, 66, 16, ColoredChar.create('}',Color.ORANGE));
+        registerTile(path, 49, 16, ColoredChar.create('{',Color.ORANGE));
     }
 
 

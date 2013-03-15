@@ -24,18 +24,20 @@ public class Rogue
     	
     	
         TiledTermPanel term = TiledTermPanel.getFramedTerminal("Grey Zone");
-        term.registerTile("textures/dungeon.png", 1, 1, ColoredChar.create('#'));
-        term.registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('¤'));
-        term.registerTile("textures/dungeon.png", 1, 17, ColoredChar.create('@'));
-        term.registerTile("textures/dungeon.png", 17, 17, ColoredChar.create('D', Color.red));
-        term.registerTile("textures/dungeon.png", 17, 34, ColoredChar.create('+'));
-        term.loadTextureSet("textures/frames.png");
+
+        term.loadTextureSet("textures/frames.png","textures/frames2.png");
+
         
         term.registerMenu();
-        
+        World world;
         Player player = new Player(term);
-        World world = new Level(72, 40, player);
-        //world.addActor(new Monster(ColoredChar.create('D', Color.red)));
+        if (switches.containsKey("l")) {
+            world = new Level(72, 40, "test.txt",player);
+        }
+        else {
+        	world = new Level(72, 40,player);
+        }
+        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
         term.registerCamera(player, 40,20);
         
         //term.bufferFile("screens/startscreen/title.txt");

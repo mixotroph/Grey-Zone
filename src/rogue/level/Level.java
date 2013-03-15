@@ -5,11 +5,13 @@ import jade.gen.Generator;
 import jade.gen.map.Cellular;
 import jade.gen.map.MapLoader;
 import jade.gen.map.MapLoaderChris;
+import jade.gen.map.Maze;
 import rogue.creature.Player;
 
 public class Level extends World
 {
     private final static Generator gen = getLevelGenerator();
+
 
     public Level(int width, int height, Player player)
     {
@@ -17,9 +19,21 @@ public class Level extends World
         gen.generate(this);
         addActor(player);
     }
+    
+    public Level(int width, int height, String path, Player player)
+    {
+        super(width, height);
+        getLevelLoader(path).generate(this);
+        addActor(player);
+    }
 
     private static Generator getLevelGenerator()
     {
-        return new MapLoaderChris();
+        return new Maze();
+
+    }
+    private static Generator getLevelLoader(String path)
+    {
+        return new MapLoaderChris(path);
     }
 }

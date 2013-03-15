@@ -3,6 +3,7 @@ package jade.gen.map;
 
 import jade.core.World;
 import jade.gen.Generator;
+import jade.gen.feature.Fence;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
@@ -21,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
+import org.mockito.Mockito;
 
 
 /**
@@ -52,20 +55,23 @@ public class MapLoaderChris extends MapGenerator
 {
     private ColoredChar floorTile;
     private ColoredChar wallTile;
+    private Fence fence;
   //  private Map<Character,ColoredChar> pas;
     private Map<Character,ColoredChar> passable;
-    private static final String pathToFile = "test.txt";
+    private String pathToFile;
+    private Color color = Color.ORANGE;
 
-    public MapLoaderChris()
+    public MapLoaderChris(String path)
     {
+    	pathToFile = path;
      //this(ColoredChar.create('¤'), ColoredChar.create('#'));
      passable = new HashMap<Character,ColoredChar>();
     // pas = new HashMap<Character, ColoredChar>();
      passable.put('¤', ColoredChar.create('¤'));
-     //passable.put('(', ColoredChar.create('¤'));
-     //passable.put(')', ColoredChar.create('¤'));
-     //passable.put('{', ColoredChar.create('¤'));
-     //passable.put('}', ColoredChar.create('¤'));
+     passable.put('A', ColoredChar.create('('));
+     passable.put('B', ColoredChar.create(')'));
+     passable.put('C', ColoredChar.create('{'));
+     passable.put('D', ColoredChar.create('}'));
 
      // Read more: http://javarevisited.blogspot.com/2011/06/converting-array-to-arraylist-in-java.html#ixzz2NXUAN1KA
      
@@ -94,6 +100,7 @@ public class MapLoaderChris extends MapGenerator
 	// fills the world according to rules defined by specified LevelLoader
 	protected void init(World world)
 	{
+		fence = new Fence(Mockito.mock(Generator.class));	
 		int currentRow=0;
 		BufferedReader in = null;
 		try
@@ -105,7 +112,7 @@ public class MapLoaderChris extends MapGenerator
 			while ((currentRow != world.height())){
 				System.out.println(currentRow);
 				textRow = "";
-				if ((textRow = in.readLine()) == null) {textRow = "################################################################################ 	";}
+				if ((textRow = in.readLine()) == null) {textRow = "##########################################################..........############ 	";}
 				if ((textRow.length() < 40)) {
 					//if (((textRow = in.readLine()) != null) && !("".equals(textRow))) {
 				  textRow = "################################################################################";
@@ -113,10 +120,10 @@ public class MapLoaderChris extends MapGenerator
 				for (int x = 0; x < world.width(); x++)
 					//if (textRow.charAt(x) == '¤')
 				    if (passable.containsKey(textRow.charAt(x))) {
-						world.setTile(ColoredChar.create(textRow.charAt(x)) , true, x, currentRow);
+						world.setTile(passable.get(textRow.charAt(x)) , true, x, currentRow);
 				    }
 					else
-						world.setTile(ColoredChar.create(textRow.charAt(x)), false, x, currentRow);
+						world.setTile(ColoredChar.create(textRow.charAt(x),color), false, x, currentRow);
 				currentRow++;
 			}
 		} catch (IOException e) {
