@@ -12,6 +12,7 @@ import jade.util.datatype.ColoredChar;
 import java.awt.Color;
 import java.util.HashMap;
 
+
 public class greyzone
 {
     public static void main(String[] args) throws InterruptedException
@@ -36,10 +37,8 @@ public class greyzone
         else {
         	world = new Level(72, 40,player);
         }
-        world.addActor(new Monster(ColoredChar.create('D', Color.red)));
-        Trigger t1 = new Trigger(ColoredChar.create('T', Color.red));
-        t1.appendMessage("Test");
-        world.addActor(t1, 31, 4);
+        //cworld.addActor(new Monster(ColoredChar.create('D', Color.red)));
+
         term.registerCamera(player, 40,20);
         
         //term.bufferFile("screens/startscreen/title.txt");

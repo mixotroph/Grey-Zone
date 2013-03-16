@@ -1,9 +1,11 @@
 package greyzone.creature;
 
+
 import greyzone.trigger.Trigger;
 
 import java.util.ArrayList;
 import java.util.Collection;
+
 
 import jade.core.Actor;
 import jade.fov.RayCaster;

@@ -1,6 +1,8 @@
 
 package jade.gen.map;
 
+import greyzone.trigger.Trigger;
+import jade.core.Actor;
 import jade.core.World;
 import jade.gen.Generator;
 import jade.gen.feature.Fence;
@@ -24,6 +26,7 @@ import java.util.Set;
 import java.util.Stack;
 
 import org.mockito.Mockito;
+
 
 
 /**
@@ -54,18 +57,25 @@ import org.mockito.Mockito;
 public class MapLoaderChris extends MapGenerator
 {
     private Map<Character,ColoredChar> passable;
+    private Map<Character,String> trigger;
     private String pathToFile;
     private Color color = Color.ORANGE;
 
     public MapLoaderChris(String path)
     {
     	pathToFile = path;
+    	trigger = new HashMap<Character,String>();
+    	trigger.put('E', "greyzone.trigger.Trigger");
+    	trigger.put('M', "greyzone.creature.Monster");
+    	trigger.put('S', "greyzone.trigger.Message");
     	passable = new HashMap<Character,ColoredChar>();
     	passable.put('¤', ColoredChar.create('¤'));
     	passable.put('A', ColoredChar.create('('));
     	passable.put('B', ColoredChar.create(')'));
     	passable.put('C', ColoredChar.create('{'));
     	passable.put('D', ColoredChar.create('}'));
+    	passable.put('E', ColoredChar.create('¤'));
+    	passable.put('M', ColoredChar.create('¤'));
     }
 
     /**
@@ -106,8 +116,22 @@ public class MapLoaderChris extends MapGenerator
 						textRow+='.';			
 				}
 				for (int x = 0; x < world.width(); x++)
-				    if (passable.containsKey(textRow.charAt(x))) 
-						world.setTile(passable.get(textRow.charAt(x)) , true, x, currentRow);
+				    if (passable.containsKey(textRow.charAt(x))) {
+				    	/*
+				    	 * If the current char is some kind of trigger, create a actor class 
+				    	 * depending on the char
+				    	 */
+				    	if (trigger.containsKey(textRow.charAt(x))) {
+							try {
+					    		Class<?> c = Class.forName(trigger.get(textRow.charAt(x)));
+				    			Object o = c.newInstance();
+				    			world.addActor((Actor) o, x, currentRow);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+				    	}
+				    	world.setTile(passable.get(textRow.charAt(x)) , true, x, currentRow);
+				    }
 					else
 						world.setTile(ColoredChar.create(textRow.charAt(x),color), false, x, currentRow);
 				currentRow++;
