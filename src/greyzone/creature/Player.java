@@ -2,12 +2,7 @@ package greyzone.creature;
 
 
 import greyzone.trigger.Trigger;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-
 import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
@@ -23,24 +18,28 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
-
-    private int stepamount;
-
-    private int strength;
-    private int experience;
-    //private Coordinate; // this is where the player should be 
-    					// placed when he enters a new level.
-
+    
+    private int stepCount =0;
+    private int hpDec = 10; // hp decremented every hitpointDec steps
+    private int itemsHeld=0;
+    private int bodyCount=0;
+    
 
     public Player(TermPanel term)
     {
         super(ColoredChar.create('@'));
         this.term = term;
         fov = new RayCaster();
-        stepamount=10; // after stepamount many steps hp gets reduced by 1
         setXp(0);
         setHp(30); // hp at beginning of game
     }
+    
+	// this increments @stepcount at every step
+	private void addStep()
+	{
+		setStepCount( (getStepCount() +1) % hpDec); // stepCount won't ever be larger than hpDec
+	}
+
     
     ////////////////////////////////////////////////////////////////
     //////////// get set methods  
@@ -53,32 +52,52 @@ public class Player extends Creature implements Camera
     {
     	this.term = term;
     }
-    public void setStrength(int s)
+    public void setHpDec(int newDecNum )
     {
-    	strength = s;
+    	hpDec = newDecNum;
     }
-    public void setExperience(int e)
+    public int getHpDec()
     {
-    	experience = e;	
+    	return hpDec;
     }
-    public int getStrength()
-    {
-    	return strength;
-    }
-    public int getExperience()
-    {
-    	return experience;
-    }
-    
+
+	public int getBodyCount() {
+		return bodyCount;
+	}
+
+	public void setBodyCount(int bodyCount) {
+		this.bodyCount = bodyCount;
+	}
+
+	public int getStepCount() {
+		return stepCount;
+	}
+
+	public void setStepCount(int stepCount) {
+		this.stepCount = stepCount;
+	}
+
+	public int getItemsHeld() {
+		return itemsHeld;
+	}
+
+	public void setItemsHeld(int itemsHeld) {
+		this.itemsHeld = itemsHeld;
+	}
+
     ////////////////////////////////////////////////////////////////
     //////////// Methods that were already implemented
     ////////////////////////////////////////////////////////////////
     @Override
     public void act()
     
-    {       	
+    {	
+    	Actor actor;
+   
         try
         {
+        	
+        	
             char key;
             key = term.getKey();
             switch(key)
@@ -105,57 +124,40 @@ public class Player extends Creature implements Camera
                     if(dir != null)
                     {
                     	move(dir);
-                    	
-
-                    // HP reducing takes place here:..........................................................................
+                     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+                    	String messages;
+                     	
+						if (trigger != null) {
+                    		messages = trigger.retrieveMessages().toString();
+                    		System.out.println(messages);
+                    		expire();
+						}
+ // HP reducing takes place here:..................................................
                     	addStep();
                  
-                    	if (getSteps() % stepamount == 0)
+                    	if (getStepCount() == 0)
                     	{
                     		setHp(getHp() - 1);
               
                     	}
                     	if (getHp()==0) expire();
-                    //........................................................................................................
+ //..............................................................................
                     }
-                    	break;	
-                    	
+                    	break;
             }
-            
-            contact();
         }
         catch(InterruptedException e)
         {
             e.printStackTrace();
         }
         
-        fight();
     }
-    
-    public void contact() {
-    	
-     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-    	String messages;
-     	
-		if (trigger != null) {
-    		messages = trigger.retrieveMessages().toString();
-    		System.out.println(messages);
-    		expire();
-		}
-    }
+
     @Override
     public Collection<Coordinate> getViewField()
     {
         return fov.getViewField(world(), pos(), 5);
     }
-
-	public int getStepamount() {
-		return stepamount;
-	}
-
-	public void setStepamount(int stepamount) {
-		this.stepamount = stepamount;
-	}
 	
 	/*
 	 * contact made:
@@ -167,13 +169,10 @@ public class Player extends Creature implements Camera
 	 * 
 	 */
 	
-	public void fight(){
-		
-		Collection<Monster> DraculasGang = getWorld().getActorsAt(greyzone.creature.Monster.class, pos());
-		if (DraculasGang != null){
-			for(Monster gangMember : DraculasGang){
-				attack(gangMember);
-			}
-		}
-	}
+	
+
+
+	
+	
+
 }

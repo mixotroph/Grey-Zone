@@ -71,11 +71,12 @@ public class greyzone
         {  
         	term.recallBuffer();
         	term.bufferStatusBar();
-        	term.bufferString(1, 5, "steps :");
-        	term.bufferString(1, 6, ""+player.getSteps());
-        	term.bufferString(1, 7, "hp :");
-        	term.bufferString(1, 8, ""+(int)player.getHp());
-        	
+        	term.bufferString(1, 5, "steps:");
+        	term.bufferString(1, 6, ""+player.getStepCount());
+        	term.bufferString(1, 8, "hp:");
+        	term.bufferString(1, 9, ""+(int)player.getHp());
+        	term.bufferString(1 , 11, "xp:");
+        	term.bufferString(1,  12, ""+ (int)player.getXp());
         	//if buffer is cleared only current fov is displayed
         	//term.clearBuffer();
            
