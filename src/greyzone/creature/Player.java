@@ -25,6 +25,7 @@ public class Player extends Creature implements Camera
     private int bodyCount=0;
     
 
+
     public Player(TermPanel term)
     {
         super(ColoredChar.create('@'));
@@ -84,14 +85,59 @@ public class Player extends Creature implements Camera
 	public void setItemsHeld(int itemsHeld) {
 		this.itemsHeld = itemsHeld;
 	}
+    /*
+    public void setStrength(int s)
+>>>>>>> Stashed changes
+    {
+    	hpDec = newDecNum;
+    }
+    public int getHpDec()
+    {
+    	return hpDec;
+    }
+<<<<<<< Updated upstream
 
+	public int getBodyCount() {
+		return bodyCount;
+	}
+
+	public void setBodyCount(int bodyCount) {
+		this.bodyCount = bodyCount;
+	}
+
+	public int getStepCount() {
+		return stepCount;
+	}
+
+	public void setStepCount(int stepCount) {
+		this.stepCount = stepCount;
+	}
+
+	public int getItemsHeld() {
+		return itemsHeld;
+	}
+
+	public void setItemsHeld(int itemsHeld) {
+		this.itemsHeld = itemsHeld;
+	}
+
+=======
+    public int getStrength()
+    {
+    	return strength;
+    }
+    public int getExperience()
+    {
+    	return experience;
+    }
+    */
     ////////////////////////////////////////////////////////////////
     //////////// Methods that were already implemented
     ////////////////////////////////////////////////////////////////
     @Override
     public void act()
-    
     {	
+
     	Actor actor;
    
         try
@@ -127,7 +173,8 @@ public class Player extends Creature implements Camera
                      	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
                     	String messages;
                      	
-						if (trigger != null) {
+						if (trigger != null) 
+						{
                     		messages = trigger.retrieveMessages().toString();
                     		System.out.println(messages);
                     		expire();
@@ -135,22 +182,21 @@ public class Player extends Creature implements Camera
  // HP reducing takes place here:..................................................
                     	addStep();
                  
-                    	if (getStepCount() == 0)
-                    	{
+                    	if (getStepCount() == 0)                      		
                     		setHp(getHp() - 1);
               
-                    	}
                     	if (getHp()==0) expire();
  //..............................................................................
                     }
                     	break;
             }
-        }
+        }// end try
         catch(InterruptedException e)
         {
             e.printStackTrace();
         }
         
+
     }
 
     //@Override
@@ -171,7 +217,8 @@ public class Player extends Creature implements Camera
           	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
         	String messages;
          	
-    		if (trigger != null) {
+    		if (trigger != null) 
+    		{
         		messages = trigger.retrieveMessages().toString();
         		System.out.println(messages);
         		expire();
@@ -179,7 +226,10 @@ public class Player extends Creature implements Camera
     	}
 	}
 
-	@Override
+	//@Override
+    //interaction();
+
+    @Override
     public Collection<Coordinate> getViewField()
     {
         return fov.getViewField(world(), pos(), 5);
