@@ -75,17 +75,9 @@ public class Player extends Creature implements Camera
     @Override
     public void act()
     
-    {
-    	Actor actor;
-   
-    			
-  
-
-    	
+    {       	
         try
         {
-        	
-        	
             char key;
             key = term.getKey();
             switch(key)
@@ -112,14 +104,8 @@ public class Player extends Creature implements Camera
                     if(dir != null)
                     {
                     	move(dir);
-                     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-                    	String messages;
-                     	
-						if (trigger != null) {
-                    		messages = trigger.retrieveMessages().toString();
-                    		System.out.println(messages);
-                    		expire();
-						}
+                    	
+
                     // HP reducing takes place here:..........................................................................
                     	addStep();
                  
@@ -131,15 +117,29 @@ public class Player extends Creature implements Camera
                     	if (getHp()==0) expire();
                     //........................................................................................................
                     }
-                    	break;
+                    	break;	
+                    	
             }
+            
+            contact();
         }
         catch(InterruptedException e)
         {
             e.printStackTrace();
         }
     }
-
+    
+    public void contact() {
+    	
+     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+    	String messages;
+     	
+		if (trigger != null) {
+    		messages = trigger.retrieveMessages().toString();
+    		System.out.println(messages);
+    		expire();
+		}
+    }
     @Override
     public Collection<Coordinate> getViewField()
     {
