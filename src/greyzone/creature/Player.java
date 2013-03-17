@@ -1,6 +1,9 @@
 package greyzone.creature;
 
 
+import greyzone.items.Clue;
+import greyzone.items.Food;
+import greyzone.items.Item;
 import greyzone.trigger.Trigger;
 
 import java.util.ArrayList;
@@ -190,18 +193,27 @@ public class Player extends Creature implements Camera
 	 * 
 	 */
 	
-	public void interaction(){
+	public void interaction()
+	{
 		
-		if (getWorld().getActorsAt(greyzone.creature.Monster.class , pos()) != null){
+		if (getWorld().getActorsAt(greyzone.creature.Monster.class , pos()) != null)
+		{
 			Collection<Monster> monsterCol = 
 					getWorld().getActorsAt(greyzone.creature.Monster.class , pos());
 			for (Monster monster : monsterCol){
 				attack(monster);
 			}
 		}
-		else{//if (getWorld().getActorsAt(greyzone.creature.Items.class , pos()) != null){
+		else if (getWorld().getActorAt(greyzone.items.Clue.class , pos()) != null)
+		{
+				Clue clue = getWorld().getActorAt(greyzone.items.Clue.class, pos());
+				handleClue(clue);
 		}
-	
+		// else if     the same thing for notebook
+		else if (getWorld().getActorAt(greyzone.items.Food.class , pos()) != null)
+		{
+			Food food = getWorld().getActorAt(greyzone.items.Food.class , pos());
+		}
 	}
 	
 	private void addStep()

@@ -10,7 +10,6 @@ public class Food extends Item
 	private final int nutritionLevel = setValue();
 	
 	public Food(ColoredChar face, String name) {
-		// TODO Auto-generated constructor stub
 		super(face, name);
 		maxNutrition = 5;
 	}

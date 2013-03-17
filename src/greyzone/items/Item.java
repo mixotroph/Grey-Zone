@@ -10,7 +10,6 @@ public abstract class Item extends Actor
 	
 	public Item(ColoredChar face, String name) 
 	{
-		// TODO Auto-generated constructor stub
 		super(face);
 		this.name = name;
 	}
