@@ -1,13 +1,14 @@
 package greyzone.creature;
 
 
+import greyzone.items.Clue;
+import greyzone.items.Food;
+import greyzone.items.Item;
+import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-
 import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
@@ -23,15 +24,24 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
-
-    private int stepCount;
+    
+	/*
+	 * hpDec 
+	 * hit points are to decremented every {@ hpDec} number of steps.
+	 * the number of steps are counted in {@stepCount} and the modulo operator is
+	 * used to decrement the hitpoints number accordingly
+	 */
+    private int stepCount =0;
+    private int hpDec = 10; // hp decremented every hitpointDec steps
+    private int itemsHeld=0;
+    private int bodyCount=0;
+    
 
     public Player(TermPanel term)
     {
         super(ColoredChar.create('@'));
         this.term = term;
         fov = new RayCaster();
-        stepCount=10; // after stepamount many steps hp gets reduced by 1
         setXp(0);
         setHp(30); // hp at beginning of game
     }
@@ -48,14 +58,54 @@ public class Player extends Creature implements Camera
     	this.term = term;
     }
 
-    
+    public void setHpDec(int newDecNum )
+    {
+    	hpDec = newDecNum;
+    }
+    public int getHpDec()
+    {
+    	return hpDec;
+    }
+
+	public int getBodyCount() {
+		return bodyCount;
+	}
+
+	public void setBodyCount(int bodyCount) {
+		this.bodyCount = bodyCount;
+	}
+
+	public int getStepCount() {
+		return stepCount;
+	}
+
+	public void setStepCount(int stepCount) {
+		this.stepCount = stepCount;
+	}
+
+	public int getItemsHeld() {
+		return itemsHeld;
+	}
+
+	public void setItemsHeld(int itemsHeld) {
+		this.itemsHeld = itemsHeld;
+	}
+
     ////////////////////////////////////////////////////////////////
     //////////// Methods that were already implemented
     ////////////////////////////////////////////////////////////////
+
+
+	private void addStep()
+	{	
+		// stepCount will never exceed hpDec. It reaches hpDec and
+		// is reset to zero
+		setStepCount( (getStepCount()+1) % hpDec); 
+	}
     @Override
-    public void act()
-    
-    {       	
+    public void act()      	
+    {	
+		Actor actor;
         try
         {
             char key;
@@ -86,16 +136,25 @@ public class Player extends Creature implements Camera
                     	move(dir);
                     	
 
-                    // HP reducing takes place here:..........................................................................
+// HP reducing takes place here:..........................................................................
+
+                     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+                    	String messages;
+                     	
+						if (trigger != null) 
+						{
+                    		messages = trigger.retrieveMessages().toString();
+                    		System.out.println(messages);
+                    		expire();
+						}
+// HP reducing takes place here:..................................................
                     	addStep();
                  
-                    	if (getSteps() % stepamount == 0)
-                    	{
+                    	if (getStepCount() == 0)
                     		setHp(getHp() - 1);
-              
-                    	}
+
                     	if (getHp()==0) expire();
-                    //........................................................................................................
+ //..............................................................................
                     }
                     	break;	
                     	
@@ -108,7 +167,7 @@ public class Player extends Creature implements Camera
             e.printStackTrace();
         }
         
-        fight();
+        interaction();
     }
     
     public void contact() {
@@ -127,14 +186,6 @@ public class Player extends Creature implements Camera
     {
         return fov.getViewField(world(), pos(), 5);
     }
-
-	public int getStepamount() {
-		return stepCount;
-	}
-
-	public void setStepamount(int stepCount) {
-		this.stepCount = stepCount;
-	}
 	
 	/*
 	 * contact made:
@@ -146,13 +197,72 @@ public class Player extends Creature implements Camera
 	 * 
 	 */
 	
-	public void fight(){
-		
-		Collection<Monster> DraculasGang = getWorld().getActorsAt(greyzone.creature.Monster.class, pos());
-		if (DraculasGang != null){
-			for(Monster gangMember : DraculasGang){
-				attack(gangMember);
+	public void interaction()
+	{	
+		if (getWorld().getActorsAt(greyzone.creature.Monster.class , pos()) != null){
+			Collection<Monster> monsterCol = 
+					getWorld().getActorsAt(greyzone.creature.Monster.class , pos());
+			for (Monster monster : monsterCol){
+				attack(monster);
 			}
 		}
+		else if (getWorld().getActorAt(greyzone.items.Clue.class , pos()) != null) {
+			Clue clue=getWorld().getActorAt(greyzone.items.Clue.class , pos());
+			handleClue(clue);
+		}
+		
+		else if (getWorld().getActorAt(greyzone.items.Notebook.class , pos()) != null) {
+			Notebook notebook=getWorld().getActorAt(greyzone.items.Notebook.class , pos());
+			handleNotebook(notebook);
+		}
+		else if (getWorld().getActorAt(greyzone.items.Food.class , pos()) != null) {
+			Food food=getWorld().getActorAt(greyzone.items.Food.class , pos());
+			handleFood(food);
+		}
+		
+		
+		else if (getWorld().getActorAt(Trigger.class , pos()) != null ) {
+			Trigger trigger=getWorld().getActorAt(Trigger.class , pos());
+			handleTrigger(trigger);
+		}
 	}
+	
+	private void handleClue(Clue clue)
+	{
+		this.itemsHeld += 1;
+		
+		//show text: h1_item_exp.txt
+		//quit when q is pressed
+		
+		clue.expire();
+		//if (this.itemsHeld==clue.cluesHidden) 
+	}
+	
+	private void handleNotebook(Notebook notebook)
+	{
+		this.itemsHeld += 1;
+		
+		//show text: l1_item_exp.txt
+		//quit when q is pressed
+		
+		notebook.expire();
+	}
+	
+	private void handleFood(Food food)
+	{
+		this.setHp(getHp() +food.getValue());
+		
+		//show text: uEat.txt
+		//quit when q is pressed
+		
+		food.expire();
+		}
+	
+	private void handleTrigger(Trigger trigger)
+	{
+		// is itemsHeld = numOfclues ?
+		// if yes react
+	}
+	
+
 }
