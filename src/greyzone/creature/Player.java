@@ -131,16 +131,30 @@ public class Player extends Creature implements Camera
     
     public void contact() {
     	
-     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-    	String messages;
-     	
-		if (trigger != null) {
-    		messages = trigger.retrieveMessages().toString();
-    		System.out.println(messages);
-    		expire();
-		}
+    	Iterable<Actor> actor = getWorld().getActorsAt(Actor.class, pos());
+    	
+    	for (Actor ac : actor) {
+    		
+    		react(ac.getClass().getName());
+    		
+    	}
     }
-    @Override
+    private void react(String ac) {
+    	
+    	if (ac=="greyzone.trigger.Trigger")
+    	{
+          	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+        	String messages;
+         	
+    		if (trigger != null) {
+        		messages = trigger.retrieveMessages().toString();
+        		System.out.println(messages);
+        		expire();
+    		}
+    	}
+	}
+
+	@Override
     public Collection<Coordinate> getViewField()
     {
         return fov.getViewField(world(), pos(), 5);
