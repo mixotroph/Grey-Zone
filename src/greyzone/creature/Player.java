@@ -5,6 +5,7 @@ import greyzone.trigger.Trigger;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 import jade.core.Actor;
@@ -127,6 +128,8 @@ public class Player extends Creature implements Camera
         {
             e.printStackTrace();
         }
+        
+        fight();
     }
     
     public void contact() {
@@ -152,5 +155,25 @@ public class Player extends Creature implements Camera
 
 	public void setStepamount(int stepamount) {
 		this.stepamount = stepamount;
+	}
+	
+	/*
+	 * contact made:
+	 * contactMade():
+	 * uses the trigger and finds out if the player is at the same place with
+	 * any other actors. If yes, which actor?
+	 * Use a switch to determine and act accordingly.
+	 * 
+	 * 
+	 */
+	
+	public void fight(){
+		
+		Collection<Monster> DraculasGang = getWorld().getActorsAt(greyzone.creature.Monster.class, pos());
+		if (DraculasGang != null){
+			for(Monster gangMember : DraculasGang){
+				attack(gangMember);
+			}
+		}
 	}
 }
