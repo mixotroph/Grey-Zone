@@ -23,11 +23,14 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
-
-    private int stepamount;
-
-    private int strength;
-    private int experience;
+    private int stepCount =0;
+    private int hpDec = 10; // hp decremented every hitpointDec steps
+    private int itemsHeld;
+    private int bodyCount;
+    
+    
+    //private int strength;
+    //private int experience;
     //private Coordinate; // this is where the player should be 
     					// placed when he enters a new level.
 
@@ -37,7 +40,6 @@ public class Player extends Creature implements Camera
         super(ColoredChar.create('@'));
         this.term = term;
         fov = new RayCaster();
-        stepamount=10; // after stepamount many steps hp gets reduced by 1
         setXp(0);
         setHp(30); // hp at beginning of game
     }
@@ -53,6 +55,39 @@ public class Player extends Creature implements Camera
     {
     	this.term = term;
     }
+    public void setHpDec(int newDecNum )
+    {
+    	hpDec = newDecNum;
+    }
+    public int getHpDec()
+    {
+    	return hpDec;
+    }
+
+	public int getBodyCount() {
+		return bodyCount;
+	}
+
+	public void setBodyCount(int bodyCount) {
+		this.bodyCount = bodyCount;
+	}
+
+	public int getStepCount() {
+		return stepCount;
+	}
+
+	public void setStepCount(int stepCount) {
+		this.stepCount = stepCount;
+	}
+
+	public int getItemsHeld() {
+		return itemsHeld;
+	}
+
+	public void setItemsHeld(int itemsHeld) {
+		this.itemsHeld = itemsHeld;
+	}
+    /*
     public void setStrength(int s)
     {
     	strength = s;
@@ -69,7 +104,7 @@ public class Player extends Creature implements Camera
     {
     	return experience;
     }
-    
+    */
     ////////////////////////////////////////////////////////////////
     //////////// Methods that were already implemented
     ////////////////////////////////////////////////////////////////
@@ -79,10 +114,6 @@ public class Player extends Creature implements Camera
     {
     	Actor actor;
    
-    			
-  
-
-    	
         try
         {
         	
@@ -121,16 +152,16 @@ public class Player extends Creature implements Camera
                     		System.out.println(messages);
                     		expire();
 						}
-                    // HP reducing takes place here:..........................................................................
+ // HP reducing takes place here:..................................................
                     	addStep();
                  
-                    	if (getSteps() % stepamount == 0)
+                    	if (getStepCount() % hpDec == 0)
                     	{
                     		setHp(getHp() - 1);
               
                     	}
                     	if (getHp()==0) expire();
-                    //........................................................................................................
+ //..............................................................................
                     }
                     	break;
             }
@@ -140,7 +171,7 @@ public class Player extends Creature implements Camera
             e.printStackTrace();
         }
         
-        fight();
+        interaction();
     }
 
     @Override
@@ -148,14 +179,6 @@ public class Player extends Creature implements Camera
     {
         return fov.getViewField(world(), pos(), 5);
     }
-
-	public int getStepamount() {
-		return stepamount;
-	}
-
-	public void setStepamount(int stepamount) {
-		this.stepamount = stepamount;
-	}
 	
 	/*
 	 * contact made:
@@ -167,13 +190,23 @@ public class Player extends Creature implements Camera
 	 * 
 	 */
 	
-	public void fight(){
+	public void interaction(){
 		
-		Collection<Monster> DraculasGang = getWorld().getActorsAt(greyzone.creature.Monster.class, pos());
-		if (DraculasGang != null){
-			for(Monster gangMember : DraculasGang){
-				attack(gangMember);
+		if (getWorld().getActorsAt(greyzone.creature.Monster.class , pos()) != null){
+			Collection<Monster> monsterCol = 
+					getWorld().getActorsAt(greyzone.creature.Monster.class , pos());
+			for (Monster monster : monsterCol){
+				attack(monster);
 			}
 		}
+		else{//if (getWorld().getActorsAt(greyzone.creature.Items.class , pos()) != null){
+		}
+	
 	}
+	
+	private void addStep()
+	{
+		setStepCount(getStepCount()+1);
+	}
+
 }
