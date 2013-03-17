@@ -2,7 +2,12 @@ package greyzone.creature;
 
 
 import greyzone.trigger.Trigger;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
+
 import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
@@ -18,29 +23,18 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
-    
-    private int stepCount =0;
-    private int hpDec = 10; // hp decremented every hitpointDec steps
-    private int itemsHeld=0;
-    private int bodyCount=0;
-    
 
+    private int stepCount;
 
     public Player(TermPanel term)
     {
         super(ColoredChar.create('@'));
         this.term = term;
         fov = new RayCaster();
+        stepCount=10; // after stepamount many steps hp gets reduced by 1
         setXp(0);
         setHp(30); // hp at beginning of game
     }
-    
-	// this increments @stepcount at every step
-	private void addStep()
-	{
-		setStepCount( (getStepCount() +1) % hpDec); // stepCount won't ever be larger than hpDec
-	}
-
     
     ////////////////////////////////////////////////////////////////
     //////////// get set methods  
@@ -53,97 +47,17 @@ public class Player extends Creature implements Camera
     {
     	this.term = term;
     }
-    public void setHpDec(int newDecNum )
-    {
-    	hpDec = newDecNum;
-    }
-    public int getHpDec()
-    {
-    	return hpDec;
-    }
 
-	public int getBodyCount() {
-		return bodyCount;
-	}
-
-	public void setBodyCount(int bodyCount) {
-		this.bodyCount = bodyCount;
-	}
-
-	public int getStepCount() {
-		return stepCount;
-	}
-
-	public void setStepCount(int stepCount) {
-		this.stepCount = stepCount;
-	}
-
-	public int getItemsHeld() {
-		return itemsHeld;
-	}
-
-	public void setItemsHeld(int itemsHeld) {
-		this.itemsHeld = itemsHeld;
-	}
-    /*
-    public void setStrength(int s)
->>>>>>> Stashed changes
-    {
-    	hpDec = newDecNum;
-    }
-    public int getHpDec()
-    {
-    	return hpDec;
-    }
-<<<<<<< Updated upstream
-
-	public int getBodyCount() {
-		return bodyCount;
-	}
-
-	public void setBodyCount(int bodyCount) {
-		this.bodyCount = bodyCount;
-	}
-
-	public int getStepCount() {
-		return stepCount;
-	}
-
-	public void setStepCount(int stepCount) {
-		this.stepCount = stepCount;
-	}
-
-	public int getItemsHeld() {
-		return itemsHeld;
-	}
-
-	public void setItemsHeld(int itemsHeld) {
-		this.itemsHeld = itemsHeld;
-	}
-
-=======
-    public int getStrength()
-    {
-    	return strength;
-    }
-    public int getExperience()
-    {
-    	return experience;
-    }
-    */ 
+    
     ////////////////////////////////////////////////////////////////
     //////////// Methods that were already implemented
     ////////////////////////////////////////////////////////////////
     @Override
     public void act()
-    {	
-
-    	Actor actor;
-   
+    
+    {       	
         try
         {
-        	
-        	
             char key;
             key = term.getKey();
             switch(key)
@@ -170,70 +84,57 @@ public class Player extends Creature implements Camera
                     if(dir != null)
                     {
                     	move(dir);
-                     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-                    	String messages;
-                     	
-						if (trigger != null) 
-						{
-                    		messages = trigger.retrieveMessages().toString();
-                    		System.out.println(messages);
-                    		expire();
-						}
- // HP reducing takes place here:..................................................
+                    	
+
+                    // HP reducing takes place here:..........................................................................
                     	addStep();
                  
-                    	if (getStepCount() == 0)                      		
+                    	if (getSteps() % stepamount == 0)
+                    	{
                     		setHp(getHp() - 1);
               
+                    	}
                     	if (getHp()==0) expire();
- //..............................................................................
+                    //........................................................................................................
                     }
-                    	break;
+                    	break;	
+                    	
             }
-        }// end try
+            
+            contact();
+        }
         catch(InterruptedException e)
         {
             e.printStackTrace();
         }
         
-
+        fight();
     }
-
-    //@Override
+    
     public void contact() {
     	
-    	Iterable<Actor> actor = getWorld().getActorsAt(Actor.class, pos());
-    	
-    	for (Actor ac : actor) {
-    		
-    		react(ac.getClass().getName());
-    		
-    	}
+     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+    	String messages;
+     	
+		if (trigger != null) {
+    		messages = trigger.retrieveMessages().toString();
+    		System.out.println(messages);
+    		expire();
+		}
     }
-    private void react(String ac) {
-    	
-    	if (ac=="greyzone.trigger.Trigger")
-    	{
-          	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-        	String messages;
-         	
-    		if (trigger != null) 
-    		{
-        		messages = trigger.retrieveMessages().toString();
-        		System.out.println(messages);
-        		expire();
-    		}
-    	}
-	}
-
-	//@Override
-    //interaction();
-
     @Override
     public Collection<Coordinate> getViewField()
     {
         return fov.getViewField(world(), pos(), 5);
     }
+
+	public int getStepamount() {
+		return stepCount;
+	}
+
+	public void setStepamount(int stepCount) {
+		this.stepCount = stepCount;
+	}
 	
 	/*
 	 * contact made:
@@ -244,5 +145,14 @@ public class Player extends Creature implements Camera
 	 * 
 	 * 
 	 */
-
+	
+	public void fight(){
+		
+		Collection<Monster> DraculasGang = getWorld().getActorsAt(greyzone.creature.Monster.class, pos());
+		if (DraculasGang != null){
+			for(Monster gangMember : DraculasGang){
+				attack(gangMember);
+			}
+		}
+	}
 }
