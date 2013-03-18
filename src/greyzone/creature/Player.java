@@ -241,7 +241,8 @@ public class Player extends Creature implements Camera
 	
     private void handleMonster(Monster monster)
     {
-    	// TODO: initialize boolean isMonster <- true (if monster isMonster)
+    	// TODO: initialize boolean isMonster <- true
+    	// 			if monster not Monster then isMonster <- ! isMonster
     	attack(monster);
     	// TODO: if ( ! isMonster ) bodyCount++
     }
