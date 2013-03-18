@@ -7,8 +7,6 @@ import java.util.Random;
 
 public abstract class Creature extends Actor
 {
-	
-
 	private int xp; // experience
 	private int hp; // hit-points
 	
@@ -16,9 +14,6 @@ public abstract class Creature extends Actor
     {
         super(face);
     }
-
-    
-    
     
     @Override
     public void setPos(int x, int y)
@@ -27,21 +22,15 @@ public abstract class Creature extends Actor
             super.setPos(x, y);
     }
 
-    public int getXp() {
+	public int getXp() {
 		return xp;
 	}
-
-
 	public void setXp(int xp) {
 		this.xp = xp;
 	}
-
-
 	public int getHp() {
 		return hp;
 	}
-
-
 	public void setHp(int hp) {
 		this.hp = hp;
 	} 
@@ -66,8 +55,6 @@ public abstract class Creature extends Actor
 	  //calculate amount of damage for hit
 	  return (int)Math.round((rnd.nextDouble()*weapPrec + (1/Math.exp(rnd.nextDouble()*(maxXP +1-xp)))*(1 - weapPrec))*weapDamage);
 	} 
-
-
 
 	/**
 	 * This method simulates a fight between the player and a
