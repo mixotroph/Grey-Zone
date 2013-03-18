@@ -207,43 +207,25 @@ public class Player extends Creature implements Camera
     	if (ac == "greyzone.creature.Monster")
     	{
     		Monster monster = getWorld().getActorAt(Monster.class, pos());
-
-    		if (monster != null)
-    		{
-    			//handleMonster(monster);
-    			attack(monster);
-    		}
+    		if (monster != null) handleMonster(monster);
     	}
     	if (ac == "greyzone.items.Clue"	)
     	{
     		Clue clue = getWorld().getActorAt(Clue.class, pos());
-    		if ( clue != null)
-    			handleClue(clue);
-
+    		if ( clue != null) handleClue(clue);
     	}
     	if (ac == "greyzone.items.Notebook")
     	{
-    		
     		Notebook notebook = (Notebook) getWorld().getActorsAt(Notebook.class, pos());
-    		String messages;
-    		if (notebook != null)
-    		{
-    			messages = notebook.retrieveMessages().toString();
-    			System.out.println(messages);
-    			handleNotebook(notebook);
-    		}
+    		if (notebook != null) handleNotebook(notebook);
     	}
+    	
     	if ( ac == "greyzone.item.Food")
     	{
     		Food food = getWorld().getActorAt(Food.class, pos());
-    		String messages;
-    		if (food != null )
-    		{
-    			messages = food.retrieveMessages().toString();
-    			System.out.println(messages);
-    			handleFood(food); 
-    		}
+    		if (food != null ) handleFood(food); 
     	}
+    	
     	if (ac=="greyzone.trigger.Trigger")
     	{
           	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
@@ -257,15 +239,18 @@ public class Player extends Creature implements Camera
         return fov.getViewField(world(), pos(), 5);
     }
 	
+    private void handleMonster(Monster monster)
+    {
+    	attack(monster);
+    }
+    
+    
 	/*
 	 * The string for the blockbuffer is printed to screen
 	 * The {@code Clue} is attach() to the {@code Player}
 	 * The appropriate text.txt is loaded to the screen
 	 * @param gets a clue
 	 */
-    // look in the World methods to see if an Actor has to be 
-    // removed from the world before it can be attached to 
-    // another actor
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
 		//show text: h1_item_exp.txt
@@ -310,10 +295,6 @@ public class Player extends Creature implements Camera
 	private void handleFood(Food food)
 	{
 		this.setHp(getHp() +food.getValue());
-		
-		//show text: uEat.txt
-		//quit when q is pressed
-		
 		food.expire();
 	}
 	

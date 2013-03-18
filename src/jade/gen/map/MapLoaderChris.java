@@ -68,6 +68,12 @@ public class MapLoaderChris extends MapGenerator
     	trigger.put('E', "greyzone.trigger.Trigger");
     	trigger.put('M', "greyzone.creature.Monster");
     	trigger.put('S', "greyzone.trigger.Message");
+    	
+    	// Dariush: added to test the food, clue, notebook classes
+    	trigger.put('F', "greyzone.items.Food");
+    	trigger.put('N', "greyzone.items.Notebook");
+    	trigger.put('I', "greyzone.items.Clue");    	
+    	
     	passable = new HashMap<Character,ColoredChar>();
     	passable.put('¤', ColoredChar.create('¤'));
     	passable.put('A', ColoredChar.create('('));
@@ -76,6 +82,15 @@ public class MapLoaderChris extends MapGenerator
     	passable.put('D', ColoredChar.create('}'));
     	passable.put('E', ColoredChar.create('¤'));
     	passable.put('M', ColoredChar.create('¤'));
+    	
+    	
+    	// Dariush: added to test the food, clue, notebook classes
+    	passable.put('F', ColoredChar.create('{'));
+    	passable.put('N', ColoredChar.create('}'));
+    	passable.put('I', ColoredChar.create('¤'));
+    	
+    	
+    	
     }
 
     /**

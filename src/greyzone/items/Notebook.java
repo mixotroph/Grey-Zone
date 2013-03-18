@@ -4,8 +4,20 @@ import jade.util.datatype.ColoredChar;
 
 public class Notebook extends Item
 {
-		private String pathToText = "frame_item_exp.txt";
-		private String pathToFrame = "h1_item_exp.txt";
+
+		
+		private String pathToText;
+		private String pathToFrame;
+		private static int NEXTCLUE = 0;
+		
+		
+		
+		private String[] textPaths 			= { 
+												"", 
+												" "};
+		private String[] framePaths 		= { "",
+												" "};
+		
 		
 		public Notebook(ColoredChar face, String name) 
 		{
@@ -34,5 +46,33 @@ public class Notebook extends Item
 			// TODO Auto-generated method stub
 			
 		}
+		
+		/*
+		 * {@code getNextTextPath()} 
+		 * @return the next string from the string array of texts. But if all the strings in the array have
+		 * already been used, that is, if we are on the last array, then the method will continue to return
+		 * the last string of the array.
+		 */
+		private String getNextTextPath()
+		{
+			if (NEXTCLUE <= textPaths.length) 
+				setPathToText(textPaths[NEXTCLUE]);
+			NEXTCLUE++;
+			return pathToText;
+		}
+		/*
+		 * {@code getNextFramePath()}
+		 * @return the next string from the string array of frames. But if all the strings in the array have
+		 * already been used, that is, if we are on the last array, then the method will continue to return
+		 * the last string of the array.
+		 */
+		private String getNextFramePath()
+		{
+			if (NEXTCLUE < framePaths.length) 
+				setPathToText(framePaths[NEXTCLUE]);
+			NEXTCLUE++;
+			return pathToFrame;
+		}
+
 
 }
