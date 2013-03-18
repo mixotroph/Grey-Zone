@@ -6,15 +6,12 @@ import greyzone.items.Food;
 import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
 import java.util.Collection;
-import java.util.Set;
-
 import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.TermPanel;
 import jade.ui.Terminal;
-import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
