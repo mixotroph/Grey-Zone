@@ -20,6 +20,5 @@ public class Monster extends Creature
     public void act()
     {
         move(Dice.global.choose(Arrays.asList(Direction.values())));
-       
     }
 }
