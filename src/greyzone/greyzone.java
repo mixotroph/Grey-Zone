@@ -32,10 +32,10 @@ public class greyzone
         Player player = new Player(term);
         
         if (switches.containsKey("l")) {
-            world = new Level(72, 40, "test.txt",player);
+            world = new Level(90, 40, "test1.txt",player);
         }
         else {
-        	world = new Level(72, 40,player);
+        	world = new Level(90, 40,player);
         }
         //cworld.addActor(new Monster(ColoredChar.create('D', Color.red)));
 
