@@ -152,6 +152,28 @@ public class Player extends Creature implements Camera
         		expire();
     		}
     	}
+    	if (ac == "greyzone.creature.Monster")
+    	{
+    		Monster monster = getWorld().getActorAt(Monster.class, pos());
+    		String messages;
+    		if (monster != null)
+    		{
+    			messages = monster.retrieveMessages().toString();
+    			System.out.println(messages);
+    			//attack(monster);
+    		}
+    	}
+    	if (ac == "greyzone.items.Clue"	)
+    	{
+    		Clue clue = getWorld().getActorAt(Clue.class, pos());
+    		String messages;
+    		if (clue != null)
+    		{
+    			messages = clue.retrieveMessages().toString();
+    			System.out.printlin(messages);
+    			clue.attach(this);
+    		}
+    	}
 	}
 
 	@Override
