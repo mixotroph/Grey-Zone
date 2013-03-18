@@ -6,16 +6,23 @@ import greyzone.items.Food;
 import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
 import java.util.Collection;
+import java.util.Set;
+
 import jade.core.Actor;
 import jade.fov.RayCaster;
 import jade.fov.ViewField;
 import jade.ui.Camera;
 import jade.ui.TermPanel;
 import jade.ui.Terminal;
+import jade.ui.TiledTermPanel;
 import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
-
+/*
+ * TODO: {@code handleTrigger()} 
+ * 		the player has to be attach()ed to the world again after a new level has 
+ * 		been created. 
+ */
 
 public class Player extends Creature implements Camera
 {
@@ -30,8 +37,10 @@ public class Player extends Creature implements Camera
 	 */
     private int stepCount =0;
     private int hpDec = 10; // hp decremented every hitpointDec steps
-    private int itemsHeld=0;
     private int bodyCount=0;
+    private int numOfCluesNeeded = 5;
+	private int numOfCluesFound = 0;
+
     
 
     public Player(TermPanel term)
@@ -79,19 +88,33 @@ public class Player extends Creature implements Camera
 	public void setStepCount(int stepCount) {
 		this.stepCount = stepCount;
 	}
-
-	public int getItemsHeld() {
-		return itemsHeld;
+	public void clearNumOfCluesNeeded()
+	{
+		int x = 0;
+		setNumOfCluesNeeded(x);
+	}
+	public void clearNumOfCluesFound()
+	{
+		int x = 0;
+		setNumOfCluesFound(x);
 	}
 
-	public void setItemsHeld(int itemsHeld) {
-		this.itemsHeld = itemsHeld;
-	}
+
 
     ////////////////////////////////////////////////////////////////
     //////////// Methods that were already implemented
     ////////////////////////////////////////////////////////////////
 
+
+	private void setNumOfCluesFound(int x) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void setNumOfCluesNeeded(int i) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private void addStep()
 	{	
@@ -134,7 +157,7 @@ public class Player extends Creature implements Camera
                     	
 
 // HP reducing takes place here:..........................................................................
-
+/*
                      	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
                     	String messages;
                      	
@@ -144,6 +167,7 @@ public class Player extends Creature implements Camera
                     		System.out.println(messages);
                     		expire();
 						}
+*/
 // HP reducing takes place here:..................................................
                     	addStep();
                  
@@ -167,54 +191,35 @@ public class Player extends Creature implements Camera
         //interaction();
     }
     
-    public void contact() {
-    	
+    public void contact() throws InterruptedException 
+    {
+    	System.out.println("this is in contact");
      	Collection<? extends Actor> actors =  getWorld().getActorsAt(Actor.class, pos());
-    	for(Class<? extends Actor> actor : actors)
-     	
-     	
-     	String messages;
-     	
-		if (actor != null) {
-    		messages = actor.retrieveMessages().toString();
-    		System.out.println(messages);
-    		expire();
-		}
-    }
-    private void react(String ac) {
-    	
-    	if (ac=="greyzone.trigger.Trigger")
+    	for(Actor actor : actors)
     	{
-          	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-        	String messages;
-         	
-    		if (trigger != null) {
-        		messages = trigger.retrieveMessages().toString();
-        		System.out.println(messages);
-        		expire();
-    		}
+    		String actorClass = actor.getClass().getName();
+    		react(actorClass);
     	}
+    }
+    
+    private void react(String ac) throws InterruptedException 
+    {
     	if (ac == "greyzone.creature.Monster")
     	{
     		Monster monster = getWorld().getActorAt(Monster.class, pos());
-    		String messages;
+
     		if (monster != null)
     		{
-    			messages = monster.retrieveMessages().toString();
-    			System.out.println(messages);
+    			//handleMonster(monster);
     			attack(monster);
     		}
     	}
     	if (ac == "greyzone.items.Clue"	)
     	{
     		Clue clue = getWorld().getActorAt(Clue.class, pos());
-    		String messages;
-    		if (clue != null)
-    		{
-    			messages = clue.retrieveMessages().toString();
-    			System.out.println(messages);
+    		if ( clue != null)
     			handleClue(clue);
-    		}
+
     	}
     	if (ac == "greyzone.items.Notebook")
     	{
@@ -239,7 +244,12 @@ public class Player extends Creature implements Camera
     			handleFood(food); 
     		}
     	}
-	}
+    	if (ac=="greyzone.trigger.Trigger")
+    	{
+          	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
+    		if (trigger != null) handleTrigger(trigger);
+    	}
+	}// end react
 
     @Override
     public Collection<Coordinate> getViewField()
@@ -248,68 +258,55 @@ public class Player extends Creature implements Camera
     }
 	
 	/*
-	 * contact made:
-	 * contactMade():
-	 * uses the trigger and finds out if the player is at the same place with
-	 * any other actors. If yes, which actor?
-	 * Use a switch to determine and act accordingly.
-	 * 
-	 * 
+	 * The string for the blockbuffer is printed to screen
+	 * The {@code Clue} is attach() to the {@code Player}
+	 * The appropriate text.txt is loaded to the screen
+	 * @param gets a clue
 	 */
-	
-	/*
-	public void interaction()
+    // look in the World methods to see if an Actor has to be 
+    // removed from the world before it can be attached to 
+    // another actor
+	private void handleClue(Clue clue) throws InterruptedException
 	{	
-		if (getWorld().getActorsAt(greyzone.creature.Monster.class , pos()) != null){
-			Collection<Monster> monsterCol = 
-					getWorld().getActorsAt(greyzone.creature.Monster.class , pos());
-			for (Monster monster : monsterCol){
-				attack(monster);
-			}
-		}
-		else if (getWorld().getActorAt(greyzone.items.Clue.class , pos()) != null) {
-			Clue clue=getWorld().getActorAt(greyzone.items.Clue.class , pos());
-			handleClue(clue);
-		}
-		
-		else if (getWorld().getActorAt(greyzone.items.Notebook.class , pos()) != null) {
-			Notebook notebook=getWorld().getActorAt(greyzone.items.Notebook.class , pos());
-			handleNotebook(notebook);
-		}
-		else if (getWorld().getActorAt(greyzone.items.Food.class , pos()) != null) {
-			Food food=getWorld().getActorAt(greyzone.items.Food.class , pos());
-			handleFood(food);
-		}
-		
-		
-		else if (getWorld().getActorAt(Trigger.class , pos()) != null ) {
-			Trigger trigger=getWorld().getActorAt(Trigger.class , pos());
-			handleTrigger(trigger);
-		}
-	}
-	*/
-	
-	private void handleClue(Clue clue)
-	{
-		this.itemsHeld += 1;
-		
 		//show text: h1_item_exp.txt
 		//quit when q is pressed
-		
+		Terminal term = this.getTerm();
+		while(term.getKey() != 'c'	)
+		{
+			term.bufferBoxes(getWorld(), clue.getPathToFrame(), clue.getPathToText());			
+			term.refreshScreen();
+		}
 		clue.expire();
-		//if (this.itemsHeld==clue.cluesHidden) 
+		numOfCluesFound++;
+		
 	}
 	
-	private void handleNotebook(Notebook notebook)
+	/*
+	 * The string for the {@code blockBuffer()} is printed to screen
+	 * The {@code Notebook} is attach()ed to the {@code Player}
+	 * The appropriate text.txt is loaded to the screen
+	 * @param {@code Notebook}
+	 */
+	private void handleNotebook(Notebook notebook) throws InterruptedException
 	{
-		this.itemsHeld += 1;
 		
 		//show text: l1_item_exp.txt
 		//quit when q is pressed
-		
+		Terminal term = this.getTerm();
+		while(term.getKey() != 'c'	)
+		{
+			term.bufferBoxes(getWorld(), notebook.getPathToFrame(), notebook.getPathToText());			
+			term.refreshScreen();
+		}
 		notebook.expire();
 	}
 	
+	/*
+	 * The string for the {@code blockBuffer()} is printed to screen
+	 * The the {@code Player} hit points are increased by the amount in {@code Food}
+	 * {@code Food} is expire()ed. 
+	 * @param {@code Food} 
+	 */
 	private void handleFood(Food food)
 	{
 		this.setHp(getHp() +food.getValue());
@@ -318,13 +315,32 @@ public class Player extends Creature implements Camera
 		//quit when q is pressed
 		
 		food.expire();
-		}
-	
-	private void handleTrigger(Trigger trigger)
-	{
-		// is itemsHeld = numOfclues ?
-		// if yes react
 	}
 	
+	/*
+	 * call the length() method on the {@code Player}'s held items
+	 * if this number is greater or equal to {@code Clue}s in the level
+	 * 			then: remove() {@code Player} from the {@code World} and
+	 * 					attach to the next 
+	 * param {@code Trigger}
+	 */
+	private void handleTrigger(Trigger trigger)
+	{
+		//Terminal term = this.getTerm();
+		//term.bufferBoxes(getWorld(), "frame_item_exp.txt", "h1_item_exp.txt");
+		
+		
+		//if (numOfCluesFound >= numOfCluesNeeded)
+		if ( this.getHp() <= 10 )
+		{
+			
+			//getWorld().removeActor(this);
+			//world.changeLevel(this);
 
-}
+		}
+		else
+		{
+			System.out.println("im not ready yet");
+		}
+	}// end handleTrigger()
+}// end Player Class
