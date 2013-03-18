@@ -12,13 +12,26 @@ public class Level extends World
 {
     private final static Generator gen = getLevelGenerator();
 
-
+    public Level(int width, int height)
+    {
+        super(width, height);
+        gen.generate(this);
+    }
+    
     public Level(int width, int height, Player player)
     {
         super(width, height);
         gen.generate(this);
         addActor(player);
     }
+    
+    public Level(int width, int height, String path)
+    {
+        super(width, height);
+        getLevelLoader(path).generate(this);
+
+    }
+
     
     public Level(int width, int height, String path, Player player)
     {

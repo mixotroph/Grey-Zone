@@ -134,19 +134,7 @@ public class Player extends Creature implements Camera
                     if(dir != null)
                     {
                     	move(dir);
-                    	
 
-// HP reducing takes place here:..........................................................................
-
-                     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-                    	String messages;
-                     	
-						if (trigger != null) 
-						{
-                    		messages = trigger.retrieveMessages().toString();
-                    		System.out.println(messages);
-                    		expire();
-						}
 // HP reducing takes place here:..................................................
                     	addStep();
                  
@@ -155,9 +143,8 @@ public class Player extends Creature implements Camera
 
                     	if (getHp()==0) expire();
  //..............................................................................
-                    }
-                    	break;	
-                    	
+                    	}
+                    	break;	  	
             }
             
             contact();
@@ -172,15 +159,12 @@ public class Player extends Creature implements Camera
     
     public void contact() {
     	
-     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
-    	String messages;
-     	
+     	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());     	
 		if (trigger != null) {
-    		messages = trigger.retrieveMessages().toString();
-    		System.out.println(messages);
-    		expire();
+    		term.setMenu("nextLevel",true);
 		}
     }
+    
     @Override
     public Collection<Coordinate> getViewField()
     {

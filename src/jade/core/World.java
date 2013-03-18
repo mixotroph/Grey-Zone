@@ -585,4 +585,9 @@ public abstract class World extends Messenger
             actors = new HashSet<Actor>();
         }
     }
+
+	public void nextLevel() {
+		// TODO Auto-generated method stub
+		
+	}
 }

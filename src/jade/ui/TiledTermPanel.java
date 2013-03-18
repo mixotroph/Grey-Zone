@@ -1,5 +1,6 @@
 package jade.ui;
 
+import greyzone.creature.Player;
 import jade.core.World;
 import jade.util.Guard;
 import jade.util.datatype.ColoredChar;
@@ -200,9 +201,15 @@ public class TiledTermPanel extends TermPanel
     /**
      * @author Christoph van Heteren-Frese
      */
-    public void bufferStatusBar() {
+    public void bufferStatusBar(Player player) {
     	X_OFFSET=8;
     	bufferString(1, 39,"H: Help");
+     	bufferString(1, 5, "steps:");
+     	bufferString(1, 6, ""+player.getStepCount());
+     	bufferString(1, 8, "hp:");
+     	bufferString(1, 9, ""+(int)player.getHp());
+     	bufferString(1 , 11, "xp:");
+     	bufferString(1,  12, ""+ (int)player.getXp());
     }
     
     /**

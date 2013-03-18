@@ -103,6 +103,7 @@ public class TermPanel extends Terminal
     public void registerMenu() {
     	menus.put("Inv", false);
     	menus.put("seeAll", false);
+    	menus.put("nextLevel", false);
     }
     
     public void setMenu (String menu, boolean visible) {
