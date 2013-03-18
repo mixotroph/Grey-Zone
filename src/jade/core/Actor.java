@@ -27,6 +27,7 @@ public abstract class Actor extends Messenger
     private boolean expired;
     private Actor holder;
     private Set<Actor> holds;
+    private boolean active;
 
     /**
      * Constructs a new {@code Actor} with the given face.
@@ -38,6 +39,8 @@ public abstract class Actor extends Messenger
         pos = new MutableCoordinate(0, 0);
         expired = false;
         holds = new HashSet<Actor>();
+        setActive(true);
+        
     }
 
     /**
@@ -87,7 +90,17 @@ public abstract class Actor extends Messenger
         return this.getWorld() == world;
     }
 
-    /**
+    public boolean getActive() 
+    {
+		return active;
+	}
+
+	public void setActive(boolean active) 
+	{
+		this.active = active;
+	}
+
+	/**
      * Sets the position of the {@code Actor} on its current {@code World}. The {@code Actor} must
      * be bound and not held when this method is called.
      * @param x the new x position of the {@code Actor}
