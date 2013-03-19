@@ -42,11 +42,13 @@ public class Monster extends Creature
         chaseTime = 0;
     }
     
-    Terminal term = getWorld().getActor(Player.class).getTerm();
+
 	
 	// print a message to the term.terminal
     public void printMessage() throws InterruptedException
     {
+	    Terminal term = getWorld().getActor(Player.class).getTerm();
+
     	while(term.getKey() != 'c')
     	{
 	    	term.bufferString(10, 41, "you have met a monster !!", Color.cyan);

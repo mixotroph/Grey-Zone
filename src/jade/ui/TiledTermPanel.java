@@ -212,7 +212,6 @@ public class TiledTermPanel extends TermPanel
      	bufferString(1, 9, ""+(int)player.getHp());
      	bufferString(1 , 11, "xp:");
      	bufferString(1,  12, ""+ (int)player.getXp());
-		bufferString(10, 41, "this is a test", Color.BLUE);// print a message to the term.terminal
 
     }
     
