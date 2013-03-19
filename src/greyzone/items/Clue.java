@@ -12,17 +12,17 @@ public class Clue extends Item
 	private String[] textPaths = {"",""};
 	private String[] framePaths	= {"",""};
 	
-	/*
+
 	public Clue() {
 		this(ColoredChar.create('C'),"Clue1");
 	}
-	*/
+
 	
 	public Clue(ColoredChar face, String name) 
 	{
 		super(face, name);
 	}
-
+	
 	public String getPathToText() {
 		return getNextTextPath();
 	}

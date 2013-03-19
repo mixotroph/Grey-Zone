@@ -234,14 +234,13 @@ public class Player extends Creature implements Camera
     
     
 	/*
-	 * The string for the blockbuffer is printed to screen
-	 * The {@code Clue} is attach() to the {@code Player}
-	 * The appropriate text.txt is loaded to the screen
+	 * The string for the blockbuffer is printed to screen with the appropriate text.txt provided by clue.
+	 * The {@code Clue} is at the moment NOT attach()ed, that means NOT held, to the {@code Player}, instead, it is expire()ed.
 	 * @param gets a clue
 	 */
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-		//show text: h1_item_exp.txt
+
 		//quit when q is pressed
 		Terminal term = this.getTerm();
 		while(term.getKey() != 'c'	)
@@ -255,15 +254,14 @@ public class Player extends Creature implements Camera
 	}
 	
 	/*
-	 * The string for the {@code blockBuffer()} is printed to screen
-	 * The {@code Notebook} is attach()ed to the {@code Player}
-	 * The appropriate text.txt is loaded to the screen
+	 * The appropriate text.txt is loaded to the screen 
+	 * The string for the {@code blockBoxes()} is printed to screen 
+	 * The {@code Notebook} is at the moment NOT attach()ed to, that means NOT held by, the {@code Player}
 	 * @param {@code Notebook}
 	 */
 	private void handleNotebook(Notebook notebook) throws InterruptedException
 	{
 		
-		//show text: l1_item_exp.txt
 		//quit when q is pressed
 		Terminal term = this.getTerm();
 		while(term.getKey() != 'c'	)
@@ -295,16 +293,13 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleTrigger(Trigger trigger)
 	{
-		//Terminal term = this.getTerm();
-		//term.bufferBoxes(getWorld(), "frame_item_exp.txt", "h1_item_exp.txt");
-		
+
 		
 		//if (numOfCluesFound >= numOfCluesNeeded)
 		if ( this.getHp() <= 20 )
 		{
 			term.setMenu("nextLevel",true);
-			//getWorld().removeActor(this);
-			//world.changeLevel(this);
+
 		}
 		else
 		{
