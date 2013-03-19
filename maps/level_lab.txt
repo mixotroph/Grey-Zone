@@ -1,0 +1,2 @@
+maps/test1.txt
+maps/test.txt

@@ -226,10 +226,13 @@ public class Player extends Creature implements Camera
 	
     private void handleMonster(Monster monster)
     {
-    	// TODO: initialize boolean isMonster <- true
-    	// 			if monster not Monster then isMonster <- ! isMonster
+    	boolean isScientist=false;
+    	if(monster.face().toString().equals("Z")||monster.face().toString().equals("S")){ 
+	    	isScientist=true;
+    	}
     	attack(monster);
-    	// TODO: if ( ! isMonster ) bodyCount++
+    	this.appendMessage("you");
+	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
     
     

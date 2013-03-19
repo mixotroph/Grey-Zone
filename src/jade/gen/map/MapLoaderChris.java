@@ -1,31 +1,17 @@
 
 package jade.gen.map;
 
-import greyzone.trigger.Trigger;
 import jade.core.Actor;
 import jade.core.World;
-import jade.gen.Generator;
-import jade.gen.feature.Fence;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
-import jade.util.datatype.Coordinate;
-
 import java.awt.Color;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Stack;
 
-import org.mockito.Mockito;
 
 public class MapLoaderChris extends MapGenerator
 {

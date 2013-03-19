@@ -15,7 +15,9 @@ public class Story extends MapGenerator
 	static {
 		
 	}
+	// path to the endscreen
 	private static final String END = "screens/endscreen/end.txt";
+	// path to file which contains all other story-paths 
 	private static final String PATH = "screens/story.txt";
 	private static LinkedList<String> paths = new LinkedList<String>();
 	private String path;
@@ -30,7 +32,6 @@ public class Story extends MapGenerator
     	if (!(paths.isEmpty())) {
     		path = paths.poll();
     	}
-
     	else {
     		path = END;
     	}
