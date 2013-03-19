@@ -78,9 +78,9 @@ public class greyzone
 		 * list of level is chosen here.
 		 */
 		if (term.getMenu("hell"))
-			getLevel("level_hell.txt");
+			getLevel("maps/level_hell.txt");
 		else 
-			getLevel("level_lab.txt");
+			getLevel("maps/level_lab.txt");
 		
 		/*
 		 *  initializing world and player 
@@ -127,7 +127,7 @@ public class greyzone
 					term.setMenu("nextLevel", false);
 					world.removeActor(player);
 					world = new Level(72, 40, nextLevel());
-					world.addActor(player,2,2);
+					world.addActor(player,3,3);
 					term.clearBuffer();
 					term.saveBuffer();
 					term.bufferBoxes(world, "screens/betweenLevel/btwL-frame.txt","screens/betweenLevel/btwL.txt");
@@ -146,20 +146,15 @@ public class greyzone
 
 		layer = new Layer(80,110, story);
 		story = new StoryHandler(term);
-		layer.removeExpired();
+		layer.removeExpired(); 
 		layer.addActor(story, 40, 19);
 		term.registerCamera(story, 40,20);
 
 		while(!story.expired())
 		{
-			///term.bufferWorld(layer);
+			//term.bufferWorld(layer);
 			term.bufferCamera(story);
 			term.refreshScreen();
-			//..............................................................................................................
-			//for now helpfull:
-			//term.bufferString(50, 28, "steps : "+player.getSteps());
-			//term.bufferString(50, 30, "hp : "+player.getHp());
-			//..............................................................................................................
 			layer.tick();
 		}
 		System.exit(0);

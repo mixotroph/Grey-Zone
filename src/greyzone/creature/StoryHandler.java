@@ -30,8 +30,12 @@ public class StoryHandler extends Creature implements Camera
             key = term.getKey();
             switch(key)
             {
-                case 'c':
-                    nextSlide();
+            	case 'q':
+            		expire();
+            		break;
+            		
+                	case 'c':
+                	nextSlide();
                     break;     
                     
                 case 'h':
