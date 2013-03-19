@@ -245,8 +245,8 @@ public class Player extends Creature implements Camera
 		Terminal term = this.getTerm();
 		while(term.getKey() != 'c'	)
 		{
-			term.bufferBoxes(getWorld(), clue.getPathToFrame(), clue.getPathToText());			
-			term.refreshScreen();
+			
+
 		}
 		clue.expire();
 		numOfCluesFound++;
@@ -262,13 +262,7 @@ public class Player extends Creature implements Camera
 	private void handleNotebook(Notebook notebook) throws InterruptedException
 	{
 		
-		//quit when q is pressed
-		Terminal term = this.getTerm();
-		while(term.getKey() != 'c'	)
-		{
-			term.bufferBoxes(getWorld(), notebook.getPathToFrame(), notebook.getPathToText());			
-			term.refreshScreen();
-		}
+		notebook.printMessage();
 		notebook.expire();
 	}
 	

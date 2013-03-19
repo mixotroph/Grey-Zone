@@ -2,8 +2,11 @@ package greyzone.creature;
 
 import java.awt.Color;
 import java.util.Arrays;
+import jade.path.AStar;
+import jade.ui.Terminal;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
+import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 
 /*
@@ -25,6 +28,8 @@ public class Monster extends Creature
 	int biasMax = 20;
 	int biasMin = 10;
 	
+	private static AStar pathfinder;
+	
 	public Monster() {
 		this(ColoredChar.create('D', Color.red));
 	}
@@ -37,33 +42,37 @@ public class Monster extends Creature
         chaseTime = 0;
     }
     
-    /*
-    private void setStrength()
+    Terminal term = getWorld().getActor(Player.class).getTerm();
+	
+	// print a message to the term.terminal
+    public void printMessage() throws InterruptedException
     {
-    	Player player = getWorld().getActor(Player.class);
-    	int playerHp = player.getHp();
-    	int playerXp = player.getXp();
-    	Dice dice = new Dice();
-    	
-    	this.setHp(dice.nextInt( (playerHp - 5)% playerHp, (playerHp - 10) % playerHp));
-    	this.setXp(dice.nextInt( (playerXp - 5)% playerXp, (playerXp - 10) % playerXp));
+    	while(term.getKey() != 'c')
+    	{
+	    	term.bufferString(10, 41, "you have met a monster !!", Color.cyan);
+	    	term.refreshScreen();
+    	}
     }
-    */
     
     
     @Override
     public void act()
     {
-        move(Dice.global.choose(Arrays.asList(Direction.values())));
+        
         if( isAttacked() || chaseTime > 0)
         {
-        	// use A-star Class to get next move.
-        	
+        	Coordinate coord = getWorld().getActor(Player.class).pos();	
+        	this.move(this.pos().directionTo(coord));
+        	chaseTime = (chaseTime + 1) % getAggressiveness();
+        }
+        else
+        {
+        	move(Dice.global.choose(Arrays.asList(Direction.values())));
         }
         
     }
     /*
-     * if there is a drop in Hit Points then {@code isAttacked()} returns true
+     * if there is a drop in Hit Points then {@code isAttacked} returns true
      * and sets the {@code chaseTime} to the defined level of {@code aggressiveness}
      * Otherwise, it returns a false. 
      * @author dariush
@@ -89,10 +98,5 @@ public class Monster extends Creature
 	public void setAggressiveness(int aggressiveness) {
 		this.aggressiveness = aggressiveness;
 	}
-    
-    
-    
-    
-    
-    
+        
 }
