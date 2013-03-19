@@ -33,6 +33,16 @@ public class StoryHandler extends Creature implements Camera
                 case 'c':
                     nextSlide();
                     break;     
+                    
+                case 'h':
+                	term.setMenu("hell",true);
+                	expire();
+                    break; 
+                    
+                case 'l':
+                	expire();
+                    break; 
+                    
                 default:
                     break;
             }
@@ -47,7 +57,6 @@ public class StoryHandler extends Creature implements Camera
 		Coordinate slidePos = this.pos();
 		if(slidePos.y() <= 50)
 			this.move(0, 40);
-		else expire();
 	}
 
 	@Override
