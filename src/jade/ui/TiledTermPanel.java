@@ -27,6 +27,8 @@ public class TiledTermPanel extends TermPanel
 
     private Map<Coordinate, List<ColoredChar>> tileBuffer;
     private Map<Coordinate, List<ColoredChar>> savedTile;
+    
+    
 
     public TiledTermPanel(int columns, int rows, int tile_size)
     {
@@ -216,14 +218,14 @@ public class TiledTermPanel extends TermPanel
      * @author Christoph van Heteren-Frese
      */
     //@Override
-    public void bufferBoxes(World world, String frame, String text) 
+    public void bufferBoxes(World world, String pathToframe, String pathTotext) 
     {
     	
     	//Player player = world.getActor(Player.class);
     	
     	// first, buffer frame and background
     	this.recallBuffer();
-    	this.bufferFile(frame);	
+    	this.bufferFile(pathToframe);	
     	
     	//this.bufferWorld(world);
 
@@ -240,7 +242,7 @@ public class TiledTermPanel extends TermPanel
     	}
     	
     	// second, buffer text
-    	this.bufferFile(text);
+    	this.bufferFile(pathTotext);
     	buffer = this.getBuffer();
     	for (Coordinate coord : buffer.keySet())
     	{

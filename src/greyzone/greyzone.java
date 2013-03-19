@@ -14,6 +14,7 @@ import java.util.LinkedList;
 
 public class greyzone
 {
+
 	private static LinkedList<String> levelPaths = new LinkedList<String>();
 
 	private static void getLevel() {
