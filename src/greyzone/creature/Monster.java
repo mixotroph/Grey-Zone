@@ -32,7 +32,7 @@ public class Monster extends Creature
     {
         super(face);
         this.setHp(20);
-        //setStrength();
+        this.setXp(20);
         origStrength = this.getHp();
         chaseTime = 0;
     }
