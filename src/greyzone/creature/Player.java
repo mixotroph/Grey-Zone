@@ -177,7 +177,6 @@ public class Player extends Creature implements Camera
     
     public void contact() throws InterruptedException 
     {
-    	System.out.println("this is in contact");
      	Collection<? extends Actor> actors =  getWorld().getActorsAt(Actor.class, pos());
     	for(Actor actor : actors)
     	{
@@ -226,8 +225,7 @@ public class Player extends Creature implements Camera
 	
     private void handleMonster(Monster monster)
     {
-    	// TODO: initialize boolean isMonster <- true
-    	// 			if monster not Monster then isMonster <- ! isMonster
+    	
     	attack(monster);
     	// TODO: if ( ! isMonster ) bodyCount++
     }
