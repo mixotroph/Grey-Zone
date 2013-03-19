@@ -18,12 +18,14 @@ public class greyzone
 {
 
 	private static LinkedList<String> levelPaths = new LinkedList<String>();
+	private static String decission;
 
-	private static void getLevel() {
+	private static void getLevel(String decission) {
+		
 		BufferedReader in = null;
 		try
 		{
-			in = new BufferedReader(new FileReader("level.txt"));
+			in = new BufferedReader(new FileReader(decission));
 			String textRow = null;
 			while ((textRow = in.readLine()) != null) {
 				levelPaths.add(textRow); 
@@ -46,16 +48,19 @@ public class greyzone
 
 	public static void main(String[] args) throws InterruptedException
 	{
-		getLevel();
+		/*
 		HashMap<String, Boolean> switches = new HashMap<String, Boolean>();
 
 		for (String sw : args) {
 			switches.put(sw, true);
 		}
-		//System.out.println(switches.toString());
+		System.out.println(switches.toString());
+		*/
+		
 		TiledTermPanel term = TiledTermPanel.getFramedTerminal("Grey Zone");
 		term.loadTextureSet("textures/frames.png","textures/frames2.png");
 		term.registerMenu();
+		
 		StoryHandler story = new StoryHandler(term);
 		World layer = new Layer(80,200, story);
 		story.setPos(40, 19);
@@ -69,13 +74,27 @@ public class greyzone
 			layer.tick();
 		}   
 		term.clearBuffer();
+		 
+		/*
+		 * Depending on the first decision, the corresponding  
+		 * list of level is chosen here.
+		 */
+		if (term.getMenu("hell"))
+			getLevel("maps/level_hell.txt");
+		else 
+			getLevel("maps/level_lab.txt");
 		
+		/*
+		 *  initializing world and player 
+		 */
 		Player player = new Player(term);
 		term.registerCamera(player, 40,20);
-		 
-		World world = new Level(72, 40, "test.txt");
+		World world = new Level(72, 40, nextLevel());
 		world.addActor(player, 1, 1);
-
+		
+		/*
+		 *  main game loop
+		 */
 		while(!player.expired()) 
 		{
 
@@ -85,24 +104,33 @@ public class greyzone
 			//term.clearBuffer();
 			term.bufferFov(player); 
 			term.saveBuffer();
-
+			
+			/*
+			 * handles the wish to see all
+			 */
 			if (term.getMenu("seeAll")) 
 			{
 				//term.saveBuffer();
 				term.bufferWorld(world);
 			}
 			
+			/*
+			 * displays the menue 
+			 */
 			if (term.getMenu("Inv")){ 
 				term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");   
 			}
 			
+			/*
+			 * if the exit of the current level is passed, the next level is loaded here
+			 */
 			if (term.getMenu("nextLevel"))
 			{ 
-				if (nextLevel()!=null) {
+				if (nextLevel() != null) {
 					term.setMenu("nextLevel", false);
 					world.removeActor(player);
 					world = new Level(72, 40, nextLevel());
-					world.addActor(player,2,2);
+					world.addActor(player,3,3);
 					term.clearBuffer();
 					term.saveBuffer();
 					term.bufferBoxes(world, "screens/betweenLevel/btwL-frame.txt","screens/betweenLevel/btwL.txt");
@@ -121,20 +149,15 @@ public class greyzone
 
 		layer = new Layer(80,110, story);
 		story = new StoryHandler(term);
-		layer.removeExpired();
+		layer.removeExpired(); 
 		layer.addActor(story, 40, 19);
 		term.registerCamera(story, 40,20);
 
 		while(!story.expired())
 		{
-			///term.bufferWorld(layer);
+			//term.bufferWorld(layer);
 			term.bufferCamera(story);
 			term.refreshScreen();
-			//..............................................................................................................
-			//for now helpfull:
-			//term.bufferString(50, 28, "steps : "+player.getSteps());
-			//term.bufferString(50, 30, "hp : "+player.getHp());
-			//..............................................................................................................
 			layer.tick();
 		}
 		System.exit(0);

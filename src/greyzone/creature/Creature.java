@@ -1,7 +1,10 @@
 package greyzone.creature;
 
 import jade.core.Actor;
+import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
+
+import java.awt.Color;
 import java.lang.Math;
 import java.util.Random;
 
@@ -115,5 +118,12 @@ public abstract class Creature extends Actor
 	    System.out.println("You lost");
 	  }
 	}
+	/*
+	public void printMessage(Terminal term, String string)
+	{
+	    term.bufferString(10, 41, string , Color.cyan);
+	    term.refreshScreen();
+	}
+	*/
 	
 }

@@ -95,23 +95,13 @@ public class Player extends Creature implements Camera
 		int x = 0;
 		setNumOfCluesFound(x);
 	}
-
-
-
-    ////////////////////////////////////////////////////////////////
-    //////////// Methods that were already implemented
-    ////////////////////////////////////////////////////////////////
-
-
 	private void setNumOfCluesFound(int x) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
 	private void setNumOfCluesNeeded(int i) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
+	////////////////////////////////////// end get set ////////////////
 
 	private void addStep()
 	{	
@@ -199,10 +189,10 @@ public class Player extends Creature implements Camera
     	}
     	if (ac == "greyzone.items.Notebook")
     	{
-    		Notebook notebook = (Notebook) getWorld().getActorsAt(Notebook.class, pos());
+    		Notebook notebook = (Notebook)getWorld().getActorAt(Notebook.class, this.pos());
     		if (notebook != null) handleNotebook(notebook);
+
     	}
-    	
     	if ( ac == "greyzone.item.Food")
     	{
     		Food food = getWorld().getActorAt(Food.class, pos());
@@ -225,9 +215,14 @@ public class Player extends Creature implements Camera
 	
     private void handleMonster(Monster monster)
     {
-    	
+
+    	boolean isScientist=false;
+    	if(monster.face().toString().equals("Z")||monster.face().toString().equals("S")){ 
+	    	isScientist=true;
+    	}
     	attack(monster);
-    	// TODO: if ( ! isMonster ) bodyCount++
+    	this.appendMessage("you");
+	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
     
     
@@ -238,17 +233,8 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-
-		//quit when q is pressed
-		Terminal term = this.getTerm();
-		while(term.getKey() != 'c'	)
-		{
-			
-
-		}
-		clue.expire();
-		numOfCluesFound++;
-		
+		clue.printMessage();
+		getWorld().removeActor(clue);		
 	}
 	
 	/*
@@ -258,10 +244,9 @@ public class Player extends Creature implements Camera
 	 * @param {@code Notebook}
 	 */
 	private void handleNotebook(Notebook notebook) throws InterruptedException
-	{
-		
+	{		
 		notebook.printMessage();
-		notebook.expire();
+		getWorld().removeActor(notebook);
 	}
 	
 	/*
@@ -273,7 +258,7 @@ public class Player extends Creature implements Camera
 	private void handleFood(Food food)
 	{
 		this.setHp(getHp() +food.getValue());
-		food.expire();
+		getWorld().removeActor(food);
 	}
 	
 	/*
@@ -284,14 +269,11 @@ public class Player extends Creature implements Camera
 	 * param {@code Trigger}
 	 */
 	private void handleTrigger(Trigger trigger)
-	{
-
-		
+	{		
 		//if (numOfCluesFound >= numOfCluesNeeded)
 		if ( this.getHp() <= 20 )
 		{
 			term.setMenu("nextLevel",true);
-
 		}
 		else
 		{
