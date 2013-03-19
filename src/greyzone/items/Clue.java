@@ -1,79 +1,95 @@
 package greyzone.items;
 
+import greyzone.creature.Player;
+
+import java.awt.Color;
+
+import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 
 
 public class Clue extends Item
 {
-	private String pathToText;
-	private String pathToFrame;
-	private static int NEXTCLUE = 0;
 	
-	private String[] textPaths = {"",""};
-	private String[] framePaths	= {"",""};
+	// this should be reset whenever a new level is loaded
+	private static int nextClue = 0;	// this can be set according to the number of clues in the level loaded
+	private static int totalNumOfClues = 4; // counting from 0
+	// {@code firstOrLast} is used, at the moment, to print out the first and last {@code textPaths} and {@code framePaths}
+	private static int firstOrLast = 0; 
+	// {@code messageTimer} counts the number of tick()s before a message is removed from the screen
+	private static int messageTimer = 4;
+
+	private String[] textPaths = 	{	"screens/itemEXP/hell_item_exp.txt",
+										"screens/itemEXP/hell_allItemsFound.txt"};
 	
-	/*
+	private String[] framePaths	= 	{	"screens/itemEXP/frame_item_exp.txt",
+										"screens/itemEXP/frame_allItemsFound.txt"};
+	private boolean startTime;
+	private int endTime;
+	
+	
+
 	public Clue() {
 		this(ColoredChar.create('C'),"Clue1");
+		
 	}
-	*/
-	
 	public Clue(ColoredChar face, String name) 
 	{
 		super(face, name);
+		startTime = false;
 	}
-
-	public String getPathToText() {
-		return getNextTextPath();
-	}
-
-	private void setPathToText(String pathToText) 
-	{
-		this.pathToText = pathToText;
-	}
-
-	public String getPathToFrame() 
-	{
-		return getNextFramePath();
-	}
-
-	private void setPathToFrame(String pathToFrame) {
-		this.pathToFrame = pathToFrame;
-	}
-
+	
 	@Override
-	public void act() {
-		// TODO Auto-generated method stub
+	public void act() 
+	{
+		if(startTime && endTime == messageTimer -1)
+			this.expire();
 		
+		endTime = (endTime +1) % messageTimer;		
 	}
-	/*
-	 * {@code getNextTextPath()} 
-	 * @return the next string from the string array of texts. But if all the strings in the array have
-	 * already been used, that is, if we are on the last array, then the method will continue to return
-	 * the last string of the array. 
-	 */
-	private String getNextTextPath()
+	
+	// this can be called at the end of a level
+	public void resetClueCounter()
 	{
-		if (NEXTCLUE <= textPaths.length) 
-			setPathToText(textPaths[NEXTCLUE]);
-		NEXTCLUE++;
-		return pathToText;
+		nextClue = 0;
 	}
-	/*
-	 * {@code getNextFramePath()}
-	 * @return the next string from the string array of frames. But if all the strings in the array have
-	 * already been used, that is, if we are on the last array, then the method will continue to return
-	 * the last string of the array.
-	 */
-	private String getNextFramePath()
-	{
-		if (NEXTCLUE < framePaths.length) 
-			setPathToText(framePaths[NEXTCLUE]);
-		NEXTCLUE++;
-		return pathToFrame;
-	}
-	
-	
-	
 
+	/*
+	 * @author dariush
+	 * {@code printMessage} uses the int variable {@code nextNotebook} to keep track of
+	 * the number of {@code Notebook}s found by {@code Player}. 
+	 * Only the first and last {@code Notebook}s found have file.txt to read from. These are
+	 * tracked with the int variable {@code firstOrLast}. 
+	 * this handles the output to screen for Notebook
+	 */
+	public void printMessage() throws InterruptedException
+	{
+		Terminal term = getWorld().getActor(Player.class).getTerm();
+		// TODO: 	the string messages that are printed out to the screen
+		// 			should go away by themselves after three or four moves.
+		
+		// we want to print out a from a specific file for the first and last Notebooks found
+		if(nextClue  < 1 || nextClue == totalNumOfClues)
+		{
+			while(term.getKey() != 'c')
+			{
+			term.bufferBoxes(getWorld(), framePaths[firstOrLast], textPaths[firstOrLast]);			
+			term.refreshScreen();
+			firstOrLast = (firstOrLast + 1) % 2;
+			}
+		}
+		else
+		{
+			while(term.getKey() != 'c')
+			{
+		    term.bufferString(10, 41, "You have found another Clue !!", Color.cyan);
+		    term.refreshScreen();
+			}
+		}
+		
+    	startTime = true;
+    	endTime = 0; // starts at 0 and ends at {@code messageTimer}	
+    	nextClue = (nextClue +1) % totalNumOfClues;
+    	
+	}
 }

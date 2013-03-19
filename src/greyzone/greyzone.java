@@ -6,6 +6,8 @@ import greyzone.level.Layer;
 import greyzone.level.Level;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
+
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -95,6 +97,7 @@ public class greyzone
 		 */
 		while(!player.expired()) 
 		{
+
 			term.recallBuffer();
 			term.bufferStatusBar(player);
 			//if buffer is cleared only current fov is displayed
