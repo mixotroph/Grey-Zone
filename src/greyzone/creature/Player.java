@@ -122,12 +122,12 @@ public class Player extends Creature implements Camera
                 case 'q':
                     expire();
                     break;
-                case 'H':
+                case ((char)27): // ESC-key
                 {
-                	if(term.getMenu("Inv")==false)
-                		term.setMenu("Inv",true);
+                	if(term.getMenu("menu")==false)
+                		term.setMenu("menu",true);
                 	else
-                		term.setMenu("Inv",false);
+                		term.setMenu("menu",false);
                 }          
                 case '1':
                 {
@@ -154,7 +154,6 @@ public class Player extends Creature implements Camera
                     	}
                     	break;	  	
             }
-            
             contact();
         }
         catch(InterruptedException e)
@@ -225,7 +224,6 @@ public class Player extends Creature implements Camera
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
     
-    
 	/*
 	 * The string for the blockbuffer is printed to screen with the appropriate text.txt provided by clue.
 	 * The {@code Clue} is at the moment NOT attach()ed, that means NOT held, to the {@code Player}, instead, it is expire()ed.
@@ -271,7 +269,7 @@ public class Player extends Creature implements Camera
 	private void handleTrigger(Trigger trigger)
 	{		
 		//if (numOfCluesFound >= numOfCluesNeeded)
-		if ( this.getHp() <= 20 )
+		if ( this.getHp() <= 25 )
 		{
 			term.setMenu("nextLevel",true);
 		}
