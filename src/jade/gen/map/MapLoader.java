@@ -24,23 +24,7 @@ import java.util.Stack;
  * It implements rudimentary methods needed
  * And it calls the proper LevelLoader ( i.e. the Class with the 
  * specifications for level to be loaded). 
- *  
- * TODO: 
- * We have to know which world we are in in order to load the next world.
- * 
- * TODO:
- * Camera should not throw out of bounds exception when the it gets to the
- * end of the world.
- * 
- * TODO:
- * Every Level should extend this class and do the actual loading.
- * 
- * TODO: 
- * The init(world) method 
- * Define rules and implement in a way that allows the actual level laoders
- * to implement it. 
- * 
- * 
+ * @author dariush
  */
 
 public class MapLoader extends MapGenerator

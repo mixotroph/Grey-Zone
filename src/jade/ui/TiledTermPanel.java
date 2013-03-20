@@ -229,6 +229,7 @@ public class TiledTermPanel extends TermPanel
      	bufferString(1, 9, ""+(int)player.getHp());
      	bufferString(1 , 11, "xp:");
      	bufferString(1,  12, ""+ (int)player.getXp());
+
     }
     
     /**

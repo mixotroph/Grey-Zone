@@ -6,6 +6,8 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.MutableCoordinate;
+
+import java.awt.Color;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -324,4 +326,18 @@ public abstract class Actor extends Messenger
 	public World getWorld() {
 		return world;
 	}
+	
+	/*
+	 * This prints a message if the Actor has one
+	 * @author dariush
+	 * @param x the x coordinate to where to begin the string
+	 * @param y, the y coordinate of where to begin the string
+	 * @param message, the string to print out
+	 * @param color, the color of the string
+	 */
+	
 }
+
+
+
+

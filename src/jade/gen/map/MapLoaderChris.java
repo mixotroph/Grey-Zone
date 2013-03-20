@@ -12,35 +12,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * This is called from the rogue.level.Level.
- * It creates a new instance of {@code MapLoader} 
- * It implements rudimentary methods needed
- * And it calls the proper LevelLoader ( i.e. the Class with the 
- * specifications for level to be loaded). 
- *  
- * TODO: 
- * We have to know which world we are in in order to load the next world.
- * 
- * TODO:
- * Camera should not throw out of bounds exception when the it gets to the
- * end of the world.
- * 
- * TODO:
- * Every Level should extend this class and do the actual loading.
- * 
- * TODO: 
- * The init(world) method 
- * Define rules and implement in a way that allows the actual level laoders
- * to implement it. 
- * 
- * 
- */
-
 public class MapLoaderChris extends MapGenerator
 {
     private Map<Character,ColoredChar> passable;
-    private Map<Character,String> trigger;
+    private Map<Character,String> trigger; 				// not related to the class Trigger
     private String pathToFile;
     private Color color = Color.ORANGE;
 
@@ -56,6 +31,8 @@ public class MapLoaderChris extends MapGenerator
     	trigger.put('F', "greyzone.items.Food");
     	trigger.put('N', "greyzone.items.Notebook");
     	trigger.put('I', "greyzone.items.Clue");    	
+    	
+    	
     	
     	passable = new HashMap<Character,ColoredChar>();
     	passable.put('¤', ColoredChar.create('¤')); // normal passable char
