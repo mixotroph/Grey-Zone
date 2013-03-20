@@ -1,5 +1,7 @@
 package greyzone.level;
 
+import java.awt.Color;
+
 import greyzone.creature.Player;
 import jade.core.World;
 import jade.gen.Generator;
@@ -23,18 +25,18 @@ public class Level extends World
         addActor(player);
     }
     
-    public Level(int width, int height, String path)
+    public Level(int width, int height, String path, Color color)
     {
         super(width, height);
-        getLevelLoader(path).generate(this);
+        getLevelLoader(path, color).generate(this);
 
     }
 
     
-    public Level(int width, int height, String path, Player player)
+    public Level(int width, int height, String path, Color color, Player player)
     {
         super(width, height);
-        getLevelLoader(path).generate(this);
+        getLevelLoader(path, color).generate(this);
         addActor(player);
     }
 
@@ -43,8 +45,8 @@ public class Level extends World
         return new Maze();
 
     }
-    private static Generator getLevelLoader(String path)
+    private static Generator getLevelLoader(String path, Color color)
     {
-        return new MapLoaderChris(path);
+        return new MapLoaderChris(path, color);
     }
 }

@@ -74,32 +74,36 @@ public class greyzone
 		}   
 		term.clearBuffer();
 		 
+		World world;
 		/*
 		 * Depending on the first decision, the corresponding  
 		 * list of level is chosen here.
 		 */
-		if (term.getMenu("hell"))
+		if (term.getMenu("hell")) {
 			getLevel("maps/level_hell.txt");
-		else 
+			world = new Level(72, 40, nextLevel(),Color.RED);
+		}
+		else {
 			getLevel("maps/level_lab.txt");
+			world = new Level(72, 40, nextLevel(),Color.ORANGE);
+		}
 		
 		/*
 		 *  initializing world and player 
 		 */
 		Player player = new Player(term);
 		term.registerCamera(player, 40,20);
-		World world = new Level(72, 40, nextLevel());
-		world.addActor(player, 1, 1);
+		
+		world.addActor(player, 2, 2);
 		
 		/*
 		 *  main game loop
 		 */
 		while(!player.expired()) 
 		{
-
 			term.recallBuffer();
 			//if buffer is cleared only current fov is displayed
-			//term.clearBuffer();
+			term.clearBuffer();
 			term.bufferStatusBar(player);
 			term.bufferFov(player); 
 			term.saveBuffer();
@@ -129,8 +133,11 @@ public class greyzone
 				if ( path != null) {
 					term.setMenu("nextLevel", false);
 					world.removeActor(player);
-					world = new Level(72, 40, path);
-					world.addActor(player,3,3);
+					if (term.getMenu("hell"))
+						world = new Level(72, 40, path, Color.RED);
+					else 
+						world = new Level(72, 40, path, Color.ORANGE);
+					world.addActor(player,4,4);
 					term.clearBuffer();
 					term.saveBuffer();
 					term.bufferBoxes(world, "screens/betweenLevel/btwL-frame.txt","screens/betweenLevel/btwL.txt");

@@ -19,9 +19,10 @@ public class MapLoaderChris extends MapGenerator
     private String pathToFile;
     private Color color = Color.ORANGE;
 
-    public MapLoaderChris(String path)
+    public MapLoaderChris(String path,Color color)
     {
     	pathToFile = path;
+    	this.color = color;
     	trigger = new HashMap<Character,String>();
     	trigger.put('T', "greyzone.trigger.Trigger");
     	trigger.put('M', "greyzone.creature.Monster");
@@ -31,24 +32,14 @@ public class MapLoaderChris extends MapGenerator
     	trigger.put('F', "greyzone.items.Food");
     	trigger.put('N', "greyzone.items.Notebook");
     	trigger.put('I', "greyzone.items.Clue");    	
-    	
-    	
-    	
+    	    	
     	passable = new HashMap<Character,ColoredChar>();
-    	passable.put('¤', ColoredChar.create('¤')); // normal passable char
-    	passable.put('T', ColoredChar.create('¤')); // 
-    	passable.put('M', ColoredChar.create('¤')); //
-    	passable.put('F', ColoredChar.create('¤')); //
-    	passable.put('N', ColoredChar.create('¤')); //
-    	passable.put('I', ColoredChar.create('¤')); //
-    	/*
-    	passable.put('A', ColoredChar.create('('));
-    	passable.put('B', ColoredChar.create(')'));
-    	passable.put('C', ColoredChar.create('{'));
-    	passable.put('D', ColoredChar.create('}'));
-    	*/
-    	
-    	
+    	passable.put('¤', ColoredChar.create('¤',color)); // normal passable char
+    	passable.put('T', ColoredChar.create('¤',color)); // trigger /exit
+    	passable.put('M', ColoredChar.create('¤',color)); // 
+    	passable.put('F', ColoredChar.create('¤',color)); // 
+    	passable.put('N', ColoredChar.create('¤',color)); //
+    	passable.put('I', ColoredChar.create('¤',color)); //
     }
 
     /**
@@ -94,6 +85,11 @@ public class MapLoaderChris extends MapGenerator
 				    	 * If the current char is some kind of trigger, create a actor class 
 				    	 * depending on the char
 				    	 */
+				    	if (x=='H')
+				    		color = Color.RED;
+				    	else if (x == 'L')
+				    		color = Color.ORANGE;
+				 
 				    	if (trigger.containsKey(textRow.charAt(x))) {
 							try {
 					    		Class<?> c = Class.forName(trigger.get(textRow.charAt(x)));
@@ -103,6 +99,9 @@ public class MapLoaderChris extends MapGenerator
 								e.printStackTrace();
 							}
 				    	}
+				    	/*
+				    	 * here the tile is set
+				    	 */
 				    	world.setTile(passable.get(textRow.charAt(x)) , true, x, currentRow);
 				    }
 					else

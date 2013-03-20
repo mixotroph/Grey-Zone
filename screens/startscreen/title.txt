@@ -22,7 +22,7 @@
  :                                Version0.0.1v1                               : 
  :                                                                             : 
  :                                                                             :                                                 
- :                              a rouge-like game                              :                                                           
+ :                              a rogue-like game                              :                                                           
  :                                                                             : 
  :                                                                             : 
  :                                                                             : 
@@ -32,7 +32,7 @@
  :                                                                             : 
  :                                                                             :                                                                            
  :                                                                             :   
- :                           *** PRESS c TO CONTINUE ***                          : 
+ :                          *** PRESS c TO CONTINUE ***                        : 
  :                                                                             : 
  :                                                                             : 
  :                                                                             : 
@@ -41,35 +41,35 @@
                                                                                 
  ::::::::::::::::::::§^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$::::::::::::::::::::                                                   
  :                   [                                     ]                   : 
- :                   [               Story I               ]                   : 
- :                   [            (plaseholder)            ]                   : 
- :                   [                                     ]                   :  
+ :                   [ Dr. Eisenhower's last diary entry:  ]                   : 
+ :                   [ ----------------------------------  ]                   : 
  :                   [                                     ]                   : 
- :                   [ "Soo." says the devil "Off you go.  ]                   : 
- :                   [  Hahaha ha haaaaaaaaaa haa."        ]                   : 
+ :                   [ We write the date 21st of may, 2073.]                   :  
+ :                   [ Today it will succeed. I will obtain]                   : 
+ :                   [ the final prove of the devil's exis-]                   : 
+ :                   [ tence in our universe. And more     ]                   : 
+ :                   [ shocking, I think the devil is able ]                   : 
+ :                   [ to participate in the human world.  ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ I have to find out whether this is  ]                   :  
+ :                   [ possible or not. Therefore I use my ]                   : 
+ :                   [ time-space-decoder to break the     ]                   : 
+ :                   [ space-time continuum and open my    ]                   : 
+ :                   [ mind a gate to the devil's world.   ]                   : 
+ :                   [ Finally, there are only view        ]                   : 
+ :                   [ question's left for me: Are we all  ]                   : 
+ :                   [ obsessed by daemons? Do we have our ]                   : 
+ :                   [ own will? These are my last words.  ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ I conduct the experiment now.       ]                   :
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
- :                   [ Your body starts tensing up.        ]                   :  
- :                   [ Menacing tension builds and builds. ]                   : 
  :                   [                                     ]                   : 
- :                   [ You want to scream, but cant tell   ]                   : 
- :                   [ where your jaw or throat would be   ]                   : 
- :                   [ at. Thunder is rolling through you  ]                   : 
- :                   [ and. {pause} bou flip.              ]                   : 
- :                   [ Into empty grey dimension.          ]                   : 
- :                   [ Silence. {pause/grey}               ]                   : 
- :                   [ and.                                ]                   : 
- :                   [                                     ]                   :
+ :                   [                                     ]                   : 
+ :                   [         press c to continue         ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [   press l to go to lab              ]                   : 
- :                   [                                     ]                   : 
- :                   [   or                                ]                   : 
- :                   [                                     ]                   : 
- :                   [   press h to stay in hell           ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
@@ -77,40 +77,122 @@
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  ::::::::::::::::::::%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&:::::::::::::::::::: 
+                                                                                
+                                                                                
  ::::::::::::::::::::§^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$::::::::::::::::::::                                                   
  :                   [                                     ]                   : 
- :                   [               Story II              ]                   : 
+ :                   [ "Hello colleagues,                  ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ you all know the reason for our     ]                   : 
+ :                   [ conference. Today is the day of     ]                   : 
+ :                   [ change, the inception of a new age, ]                   : 
+ :                   [ stigmatized by knowledge, nobody    ]                   : 
+ :                   [ received before. I proudly present  ]                   :  
+ :                   [ my time-space-decoder. In a view    ]                   : 
+ :                   [ minutes I will tell you about       ]                   : 
+ :                   [ a secret of live. A secret, that has]                   : 
+ :                   [ been never brought to light before. ]                   : 
+ :                   [ The secret of the world after death,]                   : 
+ :                   [ the truth about good and bad."      ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Dr. Eisenhower floats to the        ]                   : 
+ :                   [ time-space-decoder,  sits down and  ]                   :
+ :                   [ puts on the helmed."Please turn it  ]                   : 
+ :                   [ on, Victor. he new age is coming."  ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Dr. Eisenhower's assistant releases ]                   :  
+ :                   [ the lever.                          ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ A bright flash, followed by an      ]                   : 
+ :                   [ ear-splitting bang and a wave of    ]                   : 
+ :                   [ pressed air throws down the audience]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Dr Eisenhower lies on the ground    ]                   :
+ :                   [ with an twisted neck.               ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   :  
- :                   [                                     ]                   : 
+ :                   [         press c to continue         ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
+ ::::::::::::::::::::%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&:::::::::::::::::::: 
+                                                                                
+                                                                                
+ ::::::::::::::::::::§^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$::::::::::::::::::::                                                   
+ :                   [                                     ]                   : 
+ :                   [ Welcome to Hell!                    ]                   : 
+ :                   [ ----------------                    ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Dr Eisenhower was nervous, when the ]                   :  
+ :                   [ decoder started. But suddenly he    ]                   : 
+ :                   [ only felt pain. Pain that was so    ]                   : 
+ :                   [ strong he could have never imagined.]                   : 
+ :                   [ After that he felt nothing. He      ]                   : 
+ :                   [ observed his body travelling through]                   : 
+ :                   [ infinite darkness for such long time]                   : 
+ :                   [ that his feeling for space, time and]                   :  
+ :                   [ his consciousness vanished.         ]                   : 
+ :                   [ His mind fell asleep, until a raw   ]                   : 
+ :                   [ voice woke him up.                  ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ "Huh, an earthling that I did not   ]                   : 
+ :                   [  expected. How can that happen?     ]                   : 
+ :                   [  Explain it to me!"                 ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Dr Eisenhower:                      ]                   : 
+ :                   [ "I'm a scientist exploring a way to ]                   :
+ :                   [  step into hell. So, are you the    ]                   : 
+ :                   [  devil? Did my work succeed?"       ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Devil:                              ]                   : 
+ :                   [ "HAHAHA.. Are you stupid? Did You   ]                   : 
+ :                   [  throw your life away just to go    ]                   : 
+ :                   [  to hell?"                          ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ Dr Eisenhower: "I'm dead?"          ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
+ :                   [         press c to continue         ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
- :                   [                                     ]                   :
+ ::::::::::::::::::::%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&::::::::::::::::::::                                                                          
+                                                                                
+                                                                                
+ ::::::::::::::::::::§^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$::::::::::::::::::::                                                   
+ :                   [                                     ]                   : 
+ :                   [ Devil:                              ]                   : 
+ :                   [ "Yes, you are and there is no way   ]                   : 
+ :                   [  to get back to life. So you´re my  ]                   : 
+ :                   [  slave now!"                        ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ A whip appears in the devil's hand  ]                   : 
+ :                   [ and flips towards Dr Eisenhower's   ]                   :  
+ :                   [ waist. Despite shock and paralysis, ]                   : 
+ :                   [ Dr. Eisenhower is well.The devil    ]                   : 
+ :                   [ repeats it a few times but fails.   ]                   : 
+ :                   [ Again and again. And Dr. Eisenhower ]                   : 
+ :                   [ did not suffer any damage.          ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ The Devil roars:                    ]                   : 
+ :                   [ "What´s wrong with you?" He sits    ]                   : 
+ :                   [ down slowly on a massive armchair.  ]                   :
+ :                   [ "I'll give you a choice.            ]                   : 
+ :                   [ I could... give you your life back, ]                   : 
+ :                   [ of course. And I will do so, IF:    ]                   : 
+ :                   [ You bring me all your research      ]                   :  
+ :                   [ equipment."                         ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ "No! What if I don't?"              ]                   : 
+ :                   [ "HA! Stupid creature! Otherwise you ]                   : 
+ :                   [  stay alone, without any human soul.]                   : 
+ :                   [  You stay in hell for all times.    ]                   : 
+ :                   [  Is that want you want?"            ]                   :
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
+ :                   [ Will you do like the devil said?    ]                   : 
  :                   [                                     ]                   : 
- :                   [                                     ]                   :  
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   :
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
+ :                   [           ('y'es or 'n'o)           ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
