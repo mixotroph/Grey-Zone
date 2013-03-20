@@ -198,7 +198,6 @@ public class Player extends Creature implements Camera
             e.printStackTrace();
         }
         
-        //interaction();
     }
     
     public void contact() throws InterruptedException 
@@ -279,7 +278,23 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-
+		if( clue.hasText() )
+		{
+			textForGameConsole = clue.deliverTextForGameConsole();
+			gameTextConsoleActive = true;
+			resetGameTextConsoleTimer();
+		}
+		if( clue.hasFramePath() )
+		{
+			pathToCurrFrame = clue.deliverFramePath();
+			bufferedBoxesActive = true;
+			
+		}
+		if( clue.hasTextPath())
+		{
+			pathToCurrText = clue.deliverTextPath();
+		}
+		clue.expire();
 	}
 	
 	
@@ -301,7 +316,24 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleFood(Food food)
 	{
-
+		if( food.hasText() )
+		{
+			textForGameConsole = food.deliverTextForGameConsole();
+			gameTextConsoleActive = true;
+			resetGameTextConsoleTimer();
+		}
+		if( food.hasFramePath() )
+		{
+			pathToCurrFrame = food.deliverFramePath();
+			bufferedBoxesActive = true;
+			
+		}
+		if( food.hasTextPath())
+		{
+			pathToCurrText = food.deliverTextPath();
+		}
+		this.setHp(getHp() + food.getHitPointsToPlayer()); 
+		food.expire();
 	}
 	
 	
@@ -328,6 +360,33 @@ public class Player extends Creature implements Camera
 			System.out.println("im not ready yet");
 		}
 	}// end handleTrigger()
+	
+	
+	
+	
+	private void handleNotebook(Notebook notebook)
+	{
+		if( notebook.hasText() )
+		{
+			textForGameConsole = notebook.deliverTextForGameConsole();
+			gameTextConsoleActive = true;
+			resetGameTextConsoleTimer();
+		}
+		if( notebook.hasFramePath() )
+		{
+			pathToCurrFrame = notebook.deliverFramePath();
+			bufferedBoxesActive = true;
+			
+		}
+		if( notebook.hasTextPath())
+		{
+			pathToCurrText = notebook.deliverTextPath();
+		}
+		notebook.expire();
+	}
+	
+	
+	
 
 		
 	
@@ -367,31 +426,7 @@ public class Player extends Creature implements Camera
 	
 	
 	
-	
-	
-	private void handleNotebook(Notebook notebook)
-	{
-		if( notebook.hasText() )
-		{
-			textForGameConsole = notebook.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( notebook.hasFramePath() )
-		{
-			pathToCurrFrame = notebook.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( notebook.hasTextPath())
-		{
-			pathToCurrText = notebook.deliverTextPath();
-		}
-		notebook.expire();
-	}
-	
-	
-	
+
 	
 	
 	
