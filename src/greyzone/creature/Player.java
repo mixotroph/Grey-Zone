@@ -5,6 +5,8 @@ import greyzone.items.Clue;
 import greyzone.items.Food;
 import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
+
+import java.awt.Color;
 import java.util.Collection;
 import jade.core.Actor;
 import jade.fov.RayCaster;
@@ -25,6 +27,20 @@ public class Player extends Creature implements Camera
 {
     private TermPanel term;
     private ViewField fov;
+    
+    
+    /*
+     *  these are need for printing to the bufferedboxes and for printing to gameConsole for 
+     *  {@code gameTextConsoleTimer} number of {@code tick}s.
+     *  @author dariush
+     */
+    private boolean bufferedBoxesActive;
+    private boolean gameTextConsoleActive;
+    private int endGameTextConsoleTimer;
+    private int gameTextConsoleTimer;
+    private String pathToCurrFrame;
+    private String pathToCurrText;
+    private String textForGameConsole;
     
 	/*
 	 * hpDec 
@@ -143,18 +159,39 @@ public class Player extends Creature implements Camera
                     	move(dir);
 
 
-// HP reducing takes place here:..................................................
+						// HP reducing takes place here
                     	addStep();
                  
                     	if (getStepCount() == 0)
                     		setHp(getHp() - 1);
 
                     	if (getHp()==0) expire();
- //..............................................................................
                     	}
                     	break;	  	
             }
             contact();
+            
+            ///////////////////////////  handling of the items printing to console ///////
+            
+            
+            if(bufferedBoxesActive)
+            {
+            	while(this.getTerm().getKey() != 'c')
+            	{
+            		printToBufferBoxes(pathToCurrFrame, pathToCurrText);
+            		printToGameConsole("Press 'c' to continue");
+            	}
+            	bufferedBoxesActive = false;
+            }
+            if(gameTextConsoleActive)
+            {
+            	if(endGameTextConsoleTimer == gameTextConsoleTimer) gameTextConsoleActive = false;
+            	printToGameConsole(textForGameConsole);
+            	endGameTextConsoleTimer++;
+            }
+            
+            
+            ////////////////////////// end of handling of the items printing to console /////
         }
         catch(InterruptedException e)
         {
@@ -185,6 +222,7 @@ public class Player extends Creature implements Camera
     	{
     		Clue clue = getWorld().getActorAt(Clue.class, pos());
     		if ( clue != null) handleClue(clue);
+    		
     	}
     	if (ac == "greyzone.items.Notebook")
     	{
@@ -211,6 +249,11 @@ public class Player extends Creature implements Camera
     {
         return fov.getViewField(world(), pos(), 5);
     }
+    
+    
+    
+    
+    
 	
     private void handleMonster(Monster monster)
     {
@@ -224,6 +267,11 @@ public class Player extends Creature implements Camera
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
     
+    
+    
+    
+    
+    
 	/*
 	 * The string for the blockbuffer is printed to screen with the appropriate text.txt provided by clue.
 	 * The {@code Clue} is at the moment NOT attach()ed, that means NOT held, to the {@code Player}, instead, it is expire()ed.
@@ -231,9 +279,12 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-		clue.printMessage();
-		getWorld().removeActor(clue);		
+
 	}
+	
+	
+	
+	
 	
 	/*
 	 * The appropriate text.txt is loaded to the screen 
@@ -241,12 +292,7 @@ public class Player extends Creature implements Camera
 	 * The {@code Notebook} is at the moment NOT attach()ed to, that means NOT held by, the {@code Player}
 	 * @param {@code Notebook}
 	 */
-	private void handleNotebook(Notebook notebook) throws InterruptedException
-	{		
-		notebook.printMessage();
-		getWorld().removeActor(notebook);
-	}
-	
+
 	/*
 	 * The string for the {@code blockBuffer()} is printed to screen
 	 * The the {@code Player} hit points are increased by the amount in {@code Food}
@@ -255,9 +301,13 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleFood(Food food)
 	{
-		this.setHp(getHp() +food.getValue());
-		getWorld().removeActor(food);
+
 	}
+	
+	
+	
+	
+	
 	
 	/*
 	 * call the length() method on the {@code Player}'s held items
@@ -278,4 +328,117 @@ public class Player extends Creature implements Camera
 			System.out.println("im not ready yet");
 		}
 	}// end handleTrigger()
+
+		
+	
+	private void printToBufferBoxes(String framePath, String textPath)
+	{
+		if(  !(framePath == null) && !(textPath == null)  )
+		{
+			term.bufferBoxes(getWorld(), framePath, textPath);			
+			term.refreshScreen();
+		}
+			
+	}
+	
+	
+	
+	
+	/*
+	 * @author dariush
+	 * @param text is printed to the bottom of the game console for {@code gameTextConsoleTimer} number
+	 * of {@code tick}s.
+	 */
+	private void printToGameConsole(String text)
+	{
+	    term.bufferString(10, 42, text, Color.cyan);
+	    term.refreshScreen();
+	}
+	
+	
+	
+	private void resetGameTextConsoleTimer()
+	{
+		gameTextConsoleTimer = 0;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	private void handleNotebook(Notebook notebook)
+	{
+		if( notebook.hasText() )
+		{
+			textForGameConsole = notebook.deliverTextForGameConsole();
+			gameTextConsoleActive = true;
+			resetGameTextConsoleTimer();
+		}
+		if( notebook.hasFramePath() )
+		{
+			pathToCurrFrame = notebook.deliverFramePath();
+			bufferedBoxesActive = true;
+			
+		}
+		if( notebook.hasTextPath())
+		{
+			pathToCurrText = notebook.deliverTextPath();
+		}
+		notebook.expire();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+	@Override
+	public String deliverTextForGameConsole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasText() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public String deliverFramePath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deliverTextPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasTextPath() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasFramePath() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }// end Player Class
+
+
+
+
+
+
+
