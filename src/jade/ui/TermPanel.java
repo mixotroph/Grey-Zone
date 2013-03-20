@@ -23,7 +23,7 @@ import javax.swing.SpringLayout;
 public class TermPanel extends Terminal
 {
     public static final int DEFAULT_COLS = 80;
-    public static final int DEFAULT_ROWS = 42;
+    public static final int DEFAULT_ROWS = 43;
     public static final int DEFAULT_SIZE = 12;
     
     private static Map<String,Boolean> menus = new HashMap<String,Boolean>();

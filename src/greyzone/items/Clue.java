@@ -4,6 +4,7 @@ import greyzone.creature.Player;
 
 import java.awt.Color;
 
+import jade.core.Actor;
 import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 
@@ -44,8 +45,10 @@ public class Clue extends Item
 	{
 		if(startTime && endTime == messageTimer -1)
 			this.expire();
-		
-		endTime = (endTime +1) % messageTimer;		
+		Terminal term = getWorld().getActor(Player.class).getTerm();
+		endTime = (endTime +1) % messageTimer;	
+	    term.bufferString(10, 41, "You have found another Clue !!", Color.cyan);
+	    term.refreshScreen();
 	}
 	
 	// this can be called at the end of a level
@@ -91,5 +94,35 @@ public class Clue extends Item
     	endTime = 0; // starts at 0 and ends at {@code messageTimer}	
     	nextClue = (nextClue +1) % totalNumOfClues;
     	
+	}
+	@Override
+	public String deliverTextForGameConsole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean hasText() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public String deliverFramePath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String deliverTextPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean hasTextPath() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean hasFramePath() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

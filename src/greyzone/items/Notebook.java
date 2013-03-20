@@ -1,83 +1,160 @@
 package greyzone.items;
-
-import java.awt.Color;
-
-import greyzone.creature.Player;
-import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 
 public class Notebook extends Item
 {
 
 		// this should be reset whenever a new level is loaded
-		private static int nextNotebook = 0;
+		private static int nextNotebook;
 		// this can be set according to the number of clues in the level loaded
 		private static int totalNumOfNotebooks = 4; // counting from 0
 		// {@code firstOrLast} is used, at the moment, to print out the first and last {@code textPaths} and {@code framePaths}
-		private static int firstOrLast = 0; 
+		private static int firstOrLast;; 
 		// {@code messageTimer} counts the number of tick()s before a message is removed from the screen
-
-
 
 		private String[] textPaths 	= {	"screens/itemEXP/lab_item_exp.txt",
 										"screens/itemEXP/lab_allItemsFound.txt"};
 		
 		private String[] framePaths = {	"screens/itemEXP/frame_item_exp.txt",
 										"screens/itemEXP/frame_allItemsFound.txt"};
-		private int messageTimer = 4;
-		private boolean startTime;
-		private int endTime;
 		
-
+		
+		
 		public Notebook() {
 			this(ColoredChar.create('N'),"Notebook1");
 		}
 		public Notebook(ColoredChar face, String name) 
 		{
 			super(face, name);
-			startTime = false;
+			nextNotebook = 0;
+			firstOrLast = 1;
 		}
 		
+		
+		
+		/*
+		 * (non-Javadoc)
+		 * @see jade.core.Actor#hasText()
+		 * 
+		 * If this is the first notebook found on this level
+		 * 					OR
+		 * If this is the last notebook to find on this level
+		 * 					THEN
+		 * we don't print a text to the game console because 
+		 * there is a bufferedboxes that will be loaded
+		 * 
+		 * We are also tracking the value of nextNotebook in this method
+		 * because this method should be called first by player 
+		 */
 		@Override
-		public void act() 
+		public boolean hasText() 
 		{
-			if(startTime && endTime > 4)
-				this.expire();
-			endTime = (endTime +1) % messageTimer;
-			
+			System.out.println("this is in hasText() in Notebook. value of nextNotebook: " + nextNotebook);
+			nextNotebook = (nextNotebook + 1) % (totalNumOfNotebooks + 1);
+
+			if ( nextNotebook < 1 || nextNotebook == totalNumOfNotebooks)
+			{
+				return false;
+			}
+			return true;
+		}
+		
+		
+		
+		
+		/*
+		 * (non-Javadoc)
+		 * @see jade.core.Actor#hasTextPath()
+		 * 
+		 * There should never be a path for a text when there is no path for a frame
+		 * Therefore we can call hasFramePath() for a return value.
+		 */
+		@Override
+		public boolean hasTextPath() 
+		{
+			return hasFramePath();
+		}
+		
+		
+		
+		/*
+		 * @see jade.core.Actor#hasFramePath()
+		 * 
+		 * if this isn't the first or last notebook on the level then we don't have a path to return 
+		 */
+		@Override
+		public boolean hasFramePath() 
+		{
+			if(   (nextNotebook > 0)  &&  (nextNotebook < totalNumOfNotebooks)    )
+			{
+				return false;
+			}
+			return true;
+		}	
+		
+		
+		/*
+		 * (non-Javadoc)
+		 * @see jade.core.Actor#deliverTextForGameConsole()
+		 * 
+		 * 
+		 * 
+		 */
+		@Override
+		public String deliverTextForGameConsole() 
+		{
+			return "You have found another Notebook !!";
 		}
 		
 		/*
-		 * @author dariush
-		 * {@code printMessage} uses the int variable {@code nextNotebook} to keep track of
-		 * the number of {@code Notebook}s found by {@code Player}. 
-		 * Only the first and last {@code Notebook}s found have file.txt to read from. These are
-		 * tracked with the int variable {@code firstOrLast}. 
-		 * this handles the output to screen for Notebook
+		 * (non-Javadoc)
+		 * @see jade.core.Actor#deliverFramePath()
+		 * 
+		 * we are also tracking the variable firstOrLast (see top for info) in this method.
+		 * 
+		 * 
 		 */
-		public void printMessage() throws InterruptedException
+		
+		@Override
+		public String deliverFramePath() 
 		{
-			Terminal term = getWorld().getActor(Player.class).getTerm();
-			
-			// we want to print out a from a specific file for the first and last Notebooks found
-			if(nextNotebook  < 1 || nextNotebook == totalNumOfNotebooks)
-			{
-				while(term.getKey() != 'c')
-				{
-				term.bufferBoxes(getWorld(), framePaths[firstOrLast], textPaths[firstOrLast]);			
-				term.refreshScreen();
-				firstOrLast = (firstOrLast + 1) % 2;
-				}
-			}
-			else
-			{
-				System.out.println("this is in notebook");
-			    term.bufferString(10, 42, "You have found another Notebook !!", Color.cyan);
-			    term.refreshScreen();
+			firstOrLast = (firstOrLast + 1) % framePaths.length; 
+			return framePaths[firstOrLast];
+		}
+		
+		
+		
+		
+		/*
+		 * (non-Javadoc)
+		 * @see jade.core.Actor#deliverTextPath()
+		 * 
+		 * 
+		 * Use the string array textPaths[] and the firstOrLast index to return the correct 
+		 * path.
+		 * 
+		 */
+		@Override
+		public String deliverTextPath() 
+		{
+			return textPaths[firstOrLast];
+		}
+		
+		
+		
+		
 
-			}
-	    	startTime = true;
-	    	endTime = 0; // starts at 0 and ends at {@code messageTimer}
-	    	nextNotebook = (nextNotebook + 1) % totalNumOfNotebooks; // auto reset if always the same number of notebooks
-		}		
+		
+		@Override
+		public void act()
+		{
+
+		}
+		public static int getTotalNumOfNotebooks() {
+			return totalNumOfNotebooks;
+		}
+		public static void setTotalNumOfNotebooks(int totalNumOfNotebooks) {
+			Notebook.totalNumOfNotebooks = totalNumOfNotebooks;
+		}
+
 }
