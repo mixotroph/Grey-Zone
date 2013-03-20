@@ -40,6 +40,7 @@ public class MapLoaderChris extends MapGenerator
     	passable.put('F', ColoredChar.create('¤',color)); // 
     	passable.put('N', ColoredChar.create('¤',color)); //
     	passable.put('I', ColoredChar.create('¤',color)); //
+    	passable.put('S', ColoredChar.create('S',color)); //
     }
 
     /**

@@ -95,11 +95,12 @@ public class greyzone
 		term.registerCamera(player, 40,20);
 		
 		world.addActor(player, 2, 2);
-		
 		term.clearBuffer();
-		while(term.getKey()!='c'){
-			term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");   
+		
+		if (term.getMenu("hell")) {
+			term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/hell1.txt",Color.lightGray);   
 			term.refreshScreen();
+			while(term.getKey()!='c'){}
 		}
 		/*
 		 *  main game loop
