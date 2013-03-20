@@ -6,12 +6,15 @@ import jade.util.datatype.ColoredChar;
 public class Food extends Item
 {
 
-	private final int maxNutrition;
-	private final int nutritionLevel = setValue();
+	private int maxNutrition = 15;
+	private final int nutritionLevel = 10;
 	
 	public Food(ColoredChar face, String name) {
 		super(face, name);
-		maxNutrition = 5;
+
+	}
+	public Food() {
+		this(ColoredChar.create('F'),"Food");
 	}
 	
 	public Food(ColoredChar face, String name, int maxNutrition)
