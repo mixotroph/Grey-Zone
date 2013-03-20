@@ -327,14 +327,12 @@ public abstract class Actor extends Messenger
 		return world;
 	}
 	
-	/*
-	 * This prints a message if the Actor has one
-	 * @author dariush
-	 * @param x the x coordinate to where to begin the string
-	 * @param y, the y coordinate of where to begin the string
-	 * @param message, the string to print out
-	 * @param color, the color of the string
-	 */
+	public abstract String deliverFramePath();
+	public abstract String deliverTextPath();
+	public abstract String deliverTextForGameConsole();
+	public abstract boolean hasText();
+	public abstract boolean hasTextPath();
+	public abstract boolean hasFramePath();
 	
 }
 
