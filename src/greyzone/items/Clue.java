@@ -31,7 +31,7 @@ public class Clue extends Item
 	
 
 	public Clue() {
-		this(ColoredChar.create('C'),"Clue1");
+		this(ColoredChar.create('I'),"Clue1");
 		
 	}
 	public Clue(ColoredChar face, String name) 
