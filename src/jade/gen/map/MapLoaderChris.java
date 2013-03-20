@@ -23,7 +23,7 @@ public class MapLoaderChris extends MapGenerator
     {
     	pathToFile = path;
     	trigger = new HashMap<Character,String>();
-    	trigger.put('E', "greyzone.trigger.Trigger");
+    	trigger.put('T', "greyzone.trigger.Trigger");
     	trigger.put('M', "greyzone.creature.Monster");
     	trigger.put('S', "greyzone.trigger.Message");
     	
@@ -35,20 +35,18 @@ public class MapLoaderChris extends MapGenerator
     	
     	
     	passable = new HashMap<Character,ColoredChar>();
-    	passable.put('¤', ColoredChar.create('¤'));
+    	passable.put('¤', ColoredChar.create('¤')); // normal passable char
+    	passable.put('T', ColoredChar.create('¤')); // 
+    	passable.put('M', ColoredChar.create('¤')); //
+    	passable.put('F', ColoredChar.create('¤')); //
+    	passable.put('N', ColoredChar.create('¤')); //
+    	passable.put('I', ColoredChar.create('¤')); //
+    	/*
     	passable.put('A', ColoredChar.create('('));
     	passable.put('B', ColoredChar.create(')'));
     	passable.put('C', ColoredChar.create('{'));
     	passable.put('D', ColoredChar.create('}'));
-    	passable.put('E', ColoredChar.create('¤'));
-    	passable.put('M', ColoredChar.create('¤'));
-    	
-    	
-    	// Dariush: added to test the food, clue, notebook classes
-    	passable.put('F', ColoredChar.create('¤'));
-    	passable.put('N', ColoredChar.create('¤'));
-    	passable.put('I', ColoredChar.create('¤'));
-    	
+    	*/
     	
     	
     }

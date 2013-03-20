@@ -3,8 +3,6 @@ package greyzone.level;
 import greyzone.creature.Player;
 import jade.core.World;
 import jade.gen.Generator;
-import jade.gen.map.Cellular;
-import jade.gen.map.MapLoader;
 import jade.gen.map.MapLoaderChris;
 import jade.gen.map.Maze;
 

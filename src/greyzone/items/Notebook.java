@@ -71,11 +71,10 @@ public class Notebook extends Item
 			}
 			else
 			{
-				while(term.getKey() != 'c')
-				{
-			    term.bufferString(10, 41, "You have found another Notebook !!", Color.cyan);
+				System.out.println("this is in notebook");
+			    term.bufferString(10, 42, "You have found another Notebook !!", Color.cyan);
 			    term.refreshScreen();
-				}
+
 			}
 	    	startTime = true;
 	    	endTime = 0; // starts at 0 and ends at {@code messageTimer}

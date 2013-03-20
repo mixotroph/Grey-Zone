@@ -117,7 +117,7 @@ public class greyzone
 			/*
 			 * displays the menue 
 			 */
-			if (term.getMenu("Inv")){ 
+			if (term.getMenu("menu")){ 
 				term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");   
 			}
 			
