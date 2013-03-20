@@ -95,23 +95,13 @@ public class Player extends Creature implements Camera
 		int x = 0;
 		setNumOfCluesFound(x);
 	}
-
-
-
-    ////////////////////////////////////////////////////////////////
-    //////////// Methods that were already implemented
-    ////////////////////////////////////////////////////////////////
-
-
 	private void setNumOfCluesFound(int x) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
 	private void setNumOfCluesNeeded(int i) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
+	////////////////////////////////////// end get set ////////////////
 
 	private void addStep()
 	{	
@@ -177,7 +167,6 @@ public class Player extends Creature implements Camera
     
     public void contact() throws InterruptedException 
     {
-    	System.out.println("this is in contact");
      	Collection<? extends Actor> actors =  getWorld().getActorsAt(Actor.class, pos());
     	for(Actor actor : actors)
     	{
@@ -200,10 +189,10 @@ public class Player extends Creature implements Camera
     	}
     	if (ac == "greyzone.items.Notebook")
     	{
-    		Notebook notebook = (Notebook) getWorld().getActorsAt(Notebook.class, pos());
+    		Notebook notebook = (Notebook)getWorld().getActorAt(Notebook.class, this.pos());
     		if (notebook != null) handleNotebook(notebook);
+
     	}
-    	
     	if ( ac == "greyzone.item.Food")
     	{
     		Food food = getWorld().getActorAt(Food.class, pos());
@@ -226,6 +215,7 @@ public class Player extends Creature implements Camera
 	
     private void handleMonster(Monster monster)
     {
+
     	boolean isScientist=false;
     	if(monster.face().toString().equals("Z")||monster.face().toString().equals("S")){ 
 	    	isScientist=true;
@@ -237,44 +227,26 @@ public class Player extends Creature implements Camera
     
     
 	/*
-	 * The string for the blockbuffer is printed to screen
-	 * The {@code Clue} is attach() to the {@code Player}
-	 * The appropriate text.txt is loaded to the screen
+	 * The string for the blockbuffer is printed to screen with the appropriate text.txt provided by clue.
+	 * The {@code Clue} is at the moment NOT attach()ed, that means NOT held, to the {@code Player}, instead, it is expire()ed.
 	 * @param gets a clue
 	 */
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-		//show text: h1_item_exp.txt
-		//quit when q is pressed
-		Terminal term = this.getTerm();
-		while(term.getKey() != 'c'	)
-		{
-			term.bufferBoxes(getWorld(), clue.getPathToFrame(), clue.getPathToText());			
-			term.refreshScreen();
-		}
-		clue.expire();
-		numOfCluesFound++;
-		
+		clue.printMessage();
+		getWorld().removeActor(clue);		
 	}
 	
 	/*
-	 * The string for the {@code blockBuffer()} is printed to screen
-	 * The {@code Notebook} is attach()ed to the {@code Player}
-	 * The appropriate text.txt is loaded to the screen
+	 * The appropriate text.txt is loaded to the screen 
+	 * The string for the {@code blockBoxes()} is printed to screen 
+	 * The {@code Notebook} is at the moment NOT attach()ed to, that means NOT held by, the {@code Player}
 	 * @param {@code Notebook}
 	 */
 	private void handleNotebook(Notebook notebook) throws InterruptedException
-	{
-		
-		//show text: l1_item_exp.txt
-		//quit when q is pressed
-		Terminal term = this.getTerm();
-		while(term.getKey() != 'c'	)
-		{
-			term.bufferBoxes(getWorld(), notebook.getPathToFrame(), notebook.getPathToText());			
-			term.refreshScreen();
-		}
-		notebook.expire();
+	{		
+		notebook.printMessage();
+		getWorld().removeActor(notebook);
 	}
 	
 	/*
@@ -286,7 +258,7 @@ public class Player extends Creature implements Camera
 	private void handleFood(Food food)
 	{
 		this.setHp(getHp() +food.getValue());
-		food.expire();
+		getWorld().removeActor(food);
 	}
 	
 	/*
@@ -297,17 +269,11 @@ public class Player extends Creature implements Camera
 	 * param {@code Trigger}
 	 */
 	private void handleTrigger(Trigger trigger)
-	{
-		//Terminal term = this.getTerm();
-		//term.bufferBoxes(getWorld(), "frame_item_exp.txt", "h1_item_exp.txt");
-		
-		
+	{		
 		//if (numOfCluesFound >= numOfCluesNeeded)
 		if ( this.getHp() <= 20 )
 		{
 			term.setMenu("nextLevel",true);
-			//getWorld().removeActor(this);
-			//world.changeLevel(this);
 		}
 		else
 		{
