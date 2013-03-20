@@ -132,12 +132,12 @@ public class Player extends Creature implements Camera
                 case 'q':
                     expire();
                     break;
-                case 'H':
+                case ((char)27): // ESC-key
                 {
-                	if(term.getMenu("Inv")==false)
-                		term.setMenu("Inv",true);
+                	if(term.getMenu("menu")==false)
+                		term.setMenu("menu",true);
                 	else
-                		term.setMenu("Inv",false);
+                		term.setMenu("menu",false);
                 }          
                 case '1':
                 {
@@ -164,7 +164,6 @@ public class Player extends Creature implements Camera
                     	}
                     	break;	  	
             }
-            
             contact();
         }
         catch(InterruptedException e)
@@ -177,7 +176,7 @@ public class Player extends Creature implements Camera
     
     public void contact() throws InterruptedException 
     {
-    	System.out.println("this is in contact");
+    	//System.out.println("this is in contact");
      	Collection<? extends Actor> actors =  getWorld().getActorsAt(Actor.class, pos());
     	for(Actor actor : actors)
     	{
@@ -234,7 +233,6 @@ public class Player extends Creature implements Camera
     	this.appendMessage("you");
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
-    
     
 	/*
 	 * The string for the blockbuffer is printed to screen
@@ -303,7 +301,7 @@ public class Player extends Creature implements Camera
 		
 		
 		//if (numOfCluesFound >= numOfCluesNeeded)
-		if ( this.getHp() <= 20 )
+		if ( this.getHp() <= 25 )
 		{
 			term.setMenu("nextLevel",true);
 			//getWorld().removeActor(this);

@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -154,7 +155,23 @@ public class TiledTermPanel extends TermPanel
         savedTile.clear();
         savedTile.putAll(tileBuffer);
     }
-
+    
+    /**
+     * @author Christoph van Heteren-Frese
+     */
+    public void saveFovBuffer()
+    {
+        super.saveBuffer();
+        savedTile.clear();
+        savedTile.putAll(tileBuffer);
+        for (Coordinate coord : savedTile.keySet()) {
+        	List<ColoredChar> list = savedTile.get(coord);
+        	//list.remove(ColoredChar.create('¤'));
+        	list.remove(ColoredChar.create('D',Color.RED));      	
+        }    
+ 
+    }
+    
     @Override
     public void recallBuffer()
     {
@@ -220,9 +237,7 @@ public class TiledTermPanel extends TermPanel
     //@Override
     public void bufferBoxes(World world, String pathToframe, String pathTotext) 
     {
-    	
     	//Player player = world.getActor(Player.class);
-    	
     	// first, buffer frame and background
     	this.recallBuffer();
     	this.bufferFile(pathToframe);	
