@@ -96,6 +96,11 @@ public class greyzone
 		
 		world.addActor(player, 2, 2);
 		
+		term.clearBuffer();
+		while(term.getKey()!='c'){
+			term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");   
+			term.refreshScreen();
+		}
 		/*
 		 *  main game loop
 		 */
