@@ -11,18 +11,21 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class greyzone
 {
-	private static LinkedList<String> levelPaths = new LinkedList<String>();
 
-	private static void getLevel(String decision) {
+	private static LinkedList<String> levelPaths = new LinkedList<String>();
+	private static String decission;
+
+	private static void getLevel(String decission) {
 		
 		BufferedReader in = null;
 		try
 		{
-			in = new BufferedReader(new FileReader(decision));
+			in = new BufferedReader(new FileReader(decission));
 			String textRow = null;
 			while ((textRow = in.readLine()) != null) {
 				levelPaths.add(textRow); 
@@ -39,10 +42,8 @@ public class greyzone
 	private static String nextLevel() {
 		if (levelPaths.isEmpty())
 			return null;
-		else 
-		{
+		else
 			return levelPaths.poll();
-		}
 	}
 
 	public static void main(String[] args) throws InterruptedException
@@ -98,9 +99,9 @@ public class greyzone
 		{
 
 			term.recallBuffer();
+			term.bufferStatusBar(player);
 			//if buffer is cleared only current fov is displayed
 			//term.clearBuffer();
-			term.bufferStatusBar(player);
 			term.bufferFov(player); 
 			term.saveBuffer();
 			
@@ -125,11 +126,10 @@ public class greyzone
 			 */
 			if (term.getMenu("nextLevel"))
 			{ 
-				String path = nextLevel();
-				if ( path != null) {
+				if (nextLevel() != null) {
 					term.setMenu("nextLevel", false);
 					world.removeActor(player);
-					world = new Level(72, 40, path);
+					world = new Level(72, 40, nextLevel());
 					world.addActor(player,3,3);
 					term.clearBuffer();
 					term.saveBuffer();
