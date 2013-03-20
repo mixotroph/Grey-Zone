@@ -337,6 +337,26 @@ public class Player extends Creature implements Camera
 	}
 	
 	
+	private void handleNotebook(Notebook notebook)
+	{
+		if( notebook.hasText() )
+		{
+			textForGameConsole = notebook.deliverTextForGameConsole();
+			gameTextConsoleActive = true;
+			resetGameTextConsoleTimer();
+		}
+		if( notebook.hasFramePath() )
+		{
+			pathToCurrFrame = notebook.deliverFramePath();
+			bufferedBoxesActive = true;
+			
+		}
+		if( notebook.hasTextPath())
+		{
+			pathToCurrText = notebook.deliverTextPath();
+		}
+		notebook.expire();
+	}
 	
 	
 	
@@ -362,42 +382,14 @@ public class Player extends Creature implements Camera
 	}// end handleTrigger()
 	
 	
-	
-	
-	private void handleNotebook(Notebook notebook)
-	{
-		if( notebook.hasText() )
-		{
-			textForGameConsole = notebook.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( notebook.hasFramePath() )
-		{
-			pathToCurrFrame = notebook.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( notebook.hasTextPath())
-		{
-			pathToCurrText = notebook.deliverTextPath();
-		}
-		notebook.expire();
-	}
-	
-	
-	
-
 		
 	
 	private void printToBufferBoxes(String framePath, String textPath)
 	{
-		if(  !(framePath == null) && !(textPath == null)  )
 		{
 			term.bufferBoxes(getWorld(), framePath, textPath);			
 			term.refreshScreen();
 		}
-			
 	}
 	
 	
@@ -420,15 +412,6 @@ public class Player extends Creature implements Camera
 	{
 		gameTextConsoleTimer = 0;
 	}
-	
-	
-	
-	
-	
-	
-
-	
-	
 	
 	
 	
