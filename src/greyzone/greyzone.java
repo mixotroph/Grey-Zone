@@ -101,7 +101,6 @@ public class greyzone
 		 */
 		while(!player.expired()) 
 		{
-
 			term.recallBuffer();
 			//if buffer is cleared only current fov is displayed
 			term.clearBuffer();
