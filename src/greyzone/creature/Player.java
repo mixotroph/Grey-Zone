@@ -220,7 +220,7 @@ public class Player extends Creature implements Camera
 	    	isScientist=true;
     	}
     	attack(monster);
-    	this.appendMessage("you");
+    
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
     
