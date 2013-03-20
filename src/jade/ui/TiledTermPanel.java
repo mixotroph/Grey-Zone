@@ -82,9 +82,8 @@ public class TiledTermPanel extends TermPanel
  
     public void loadTextureSet(String path, String path2)
     {
-    	char[] symbol={'§','^','$','[','\\',']','%','°','&'};
         registerTile("textures/dungeon.png", 1, 1, ColoredChar.create('#',Color.ORANGE));
-        registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('¤'));
+        registerTile("textures/dungeon.png", 1, 34, ColoredChar.create('¤',Color.ORANGE));
         registerTile("textures/player.png", 0, 0, ColoredChar.create('@'));
         //registerTile("textures/player.png", 0, 0, ColoredChar.create('D', Color.red));
         registerTile("textures/dungeon.png", 17, 34, ColoredChar.create('+'));
@@ -138,6 +137,24 @@ public class TiledTermPanel extends TermPanel
         registerTile(path, 50, 1, ColoredChar.create('(', Color.ORANGE));
         registerTile(path, 66, 16, ColoredChar.create('}',Color.ORANGE));
         registerTile(path, 49, 16, ColoredChar.create('{',Color.ORANGE));
+        
+        
+        registerTile("textures/hell.png", 0, 0, ColoredChar.create('§',Color.RED));
+        registerTile("textures/hell.png", 16, 0, ColoredChar.create('^',Color.RED));
+        registerTile("textures/hell.png", 32, 0, ColoredChar.create('$',Color.RED));
+        registerTile("textures/hell.png", 0, 16, ColoredChar.create('[',Color.RED));
+        registerTile("textures/hell.png", 16, 16, ColoredChar.create('\'',Color.RED));
+        registerTile("textures/hell.png", 32, 16, ColoredChar.create(']',Color.RED));
+        registerTile("textures/hell.png", 0, 32, ColoredChar.create('%',Color.RED));
+        registerTile("textures/hell.png", 16, 32, ColoredChar.create('°',Color.RED));
+        registerTile("textures/hell.png", 32, 32, ColoredChar.create('&',Color.RED));
+        registerTile("textures/hell.png", 0, 48, ColoredChar.create('Ö',Color.RED));
+        registerTile("textures/hell.png", 64, 0, ColoredChar.create(')',Color.RED));
+        registerTile("textures/hell.png", 48, 1, ColoredChar.create('(', Color.RED));
+        registerTile("textures/hell.png", 64, 16, ColoredChar.create('}',Color.RED));
+        registerTile("textures/hell.png", 48, 16, ColoredChar.create('{',Color.RED));
+        registerTile("textures/hell.png", 16, 16, ColoredChar.create('¤',Color.RED));
+        
     }
 
 
