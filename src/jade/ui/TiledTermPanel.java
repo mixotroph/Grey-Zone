@@ -154,6 +154,7 @@ public class TiledTermPanel extends TermPanel
         registerTile("textures/hell.png", 64, 16, ColoredChar.create('}',Color.RED));
         registerTile("textures/hell.png", 48, 16, ColoredChar.create('{',Color.RED));
         registerTile("textures/hell.png", 16, 16, ColoredChar.create('¤',Color.RED));
+        registerTile("textures/hell.png", 80, 0, ColoredChar.create('S',Color.RED));
         
     }
 
@@ -253,7 +254,7 @@ public class TiledTermPanel extends TermPanel
      * @author Christoph van Heteren-Frese
      */
     //@Override
-    public void bufferBoxes(World world, String pathToframe, String pathTotext) 
+    public void bufferBoxes(World world, String pathToframe, String pathTotext, Color color) 
     {
     	//Player player = world.getActor(Player.class);
     	// first, buffer frame and background
@@ -282,7 +283,7 @@ public class TiledTermPanel extends TermPanel
     		List<ColoredChar> tileList;
     		tileList = tileBuffer.get(coord);
     		char ch = buffer.get(coord).ch();
-    		tileList.add(0,ColoredChar.create(ch));
+    		tileList.add(0,ColoredChar.create(ch,color));
     		tileBuffer.put(coord,tileList);
     	}  	
     	   	buffer.clear();

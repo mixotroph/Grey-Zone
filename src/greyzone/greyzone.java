@@ -6,7 +6,6 @@ import greyzone.level.Layer;
 import greyzone.level.Level;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
-
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -15,6 +14,7 @@ import java.util.LinkedList;
 
 public class greyzone
 {
+
 	private static LinkedList<String> levelPaths = new LinkedList<String>();
 
 	private static void getLevel(String decision) {
@@ -39,10 +39,8 @@ public class greyzone
 	private static String nextLevel() {
 		if (levelPaths.isEmpty())
 			return null;
-		else 
-		{
+		else
 			return levelPaths.poll();
-		}
 	}
 
 	public static void main(String[] args) throws InterruptedException
@@ -95,21 +93,28 @@ public class greyzone
 		term.registerCamera(player, 40,20);
 		
 		world.addActor(player, 2, 2);
-		
 		term.clearBuffer();
-		while(term.getKey()!='c'){
-			term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");   
+		
+		if (term.getMenu("hell")) {
+			term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/hell1.txt",Color.lightGray);   
 			term.refreshScreen();
+			while(term.getKey()!='c'){}
 		}
 		/*
 		 *  main game loop
 		 */
+		int c = 0;
+		String messageBuffer = ""; 
 		while(!player.expired()) 
 		{
 			term.recallBuffer();
+			term.bufferStatusBar(player);
+			term.bufferString(10,40,world.retrieveMessages().toString());
 			//if buffer is cleared only current fov is displayed
+
 			term.clearBuffer();
 			term.bufferStatusBar(player);
+
 			term.bufferFov(player); 
 			term.saveBuffer();
 			
@@ -135,14 +140,16 @@ public class greyzone
 			if (term.getMenu("nextLevel"))
 			{ 
 				String path = nextLevel();
-				if ( path != null) {
+				if (path != null) {
 					term.setMenu("nextLevel", false);
 					world.removeActor(player);
+
 					if (term.getMenu("hell"))
 						world = new Level(72, 40, path, Color.RED);
 					else 
 						world = new Level(72, 40, path, Color.ORANGE);
 					world.addActor(player,4,4);
+
 					term.clearBuffer();
 					term.saveBuffer();
 					term.bufferBoxes(world, "screens/betweenLevel/btwL-frame.txt","screens/betweenLevel/btwL.txt");
@@ -151,6 +158,12 @@ public class greyzone
 					player.expire();
 				}	
 			}
+		
+			String messages = player.retrieveMessages().toString();
+			messageBuffer = messages; 
+			term.bufferString(8,41,messageBuffer,Color.CYAN);
+
+			
 			// last but not least
 			term.refreshScreen();
 			world.tick();
