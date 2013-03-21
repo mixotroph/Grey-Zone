@@ -21,14 +21,14 @@ import jade.util.datatype.Direction;
 public class Monster extends Creature
 {
 	private int chaseTime; 				// how long the {@code Monster} has left to chase {@code Player} since last fight	
-	private int aggressiveness = 5; 	// number of {@code tick()}s the monster will chase after a fight
-	
-	private int biasMax = 20;
-	private int biasMin = 10;
+	private int aggressiveness = 1; 	// number of {@code tick()}s the monster will chase after a fight
 
 	private boolean attacked;
-	Coordinate playerPos;
+	private Direction nextDir;
 
+	
+	
+	
     public Monster(ColoredChar face)
     {
         super(face);
@@ -36,6 +36,7 @@ public class Monster extends Creature
         this.setXp(20);
         chaseTime = 0;
         attacked = false;
+        this.setPassable(false);
     }
 	public Monster() 
 	{
@@ -54,15 +55,33 @@ public class Monster extends Creature
     @Override
     public void act()
     {
-        if( attacked && (chaseTime < getAggressiveness()))
+
+    	try
+    	{
+	        if( attacked && (chaseTime < getAggressiveness()))
+	        {
+	        	nextDir = this.pos().directionTo(getWorld().getActor(Player.class).pos());// get player position
+	        	//if(  isFree(this.pos().x() + nextDir.dx(), this.pos().y() + nextDir.dy()	) )
+	        		move(nextDir);
+	        	chaseTime++;
+	        }
+	        else
+	        {
+	        	nextDir = Dice.global.choose(Arrays.asList(Direction.values()));
+	        	if ( isFree(  pos().x() + nextDir.dx(), pos().y() + nextDir.dy())	)
+	        		move(nextDir);  
+	        }
+        
+    	}
+        catch(InterruptedException e)
         {
-        	chaseTime++;
-        	playerPos = getWorld().getActor(Player.class).pos();	// get player position
-        	move(pos().directionTo(playerPos));
+            e.printStackTrace();
         }
-        else
-        	move(Dice.global.choose(Arrays.asList(Direction.values())));        
+        
+
     }
+    	
+    	
     public void isAttacked()
     {
     	chaseTime =0;

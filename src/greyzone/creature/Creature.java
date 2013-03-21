@@ -6,6 +6,7 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.lang.Math;
+import java.util.Collection;
 import java.util.Random;
 
 public abstract class Creature extends Actor
@@ -23,6 +24,28 @@ public abstract class Creature extends Actor
     {
         super(face);
     }
+    
+ 
+    /*
+     * @author dariush
+     * checks a given x,y coordinate for another actor. 
+     * if there is an actor there, check for isPassable.
+     * @return boolean
+     * @param x,y two ints
+     */
+    protected boolean isFree(int x, int y) throws InterruptedException
+    {
+    	boolean temp = true;   	
+	    Collection<? extends Actor> actors = this.world().getActorsAt(Actor.class , x, y);
+		for( Actor actor : actors )
+		{
+			if(  !actor.isPassable()  ) 
+				temp = false;	
+		}			
+    	return temp;
+    }
+    
+    
     
     @Override
     public void setPos(int x, int y)

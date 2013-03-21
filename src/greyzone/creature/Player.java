@@ -156,44 +156,22 @@ public class Player extends Creature implements Camera
                 }    
                 default:
                     Direction dir = Direction.keyToDir(key);
-                    if(dir != null)
+                    boolean temp; // this for the next if
+                    // the method isFree is implemented in Creature
+                    if(  temp = (dir != null && isFree( this.pos().x() + dir.dx(), this.pos().y() +  dir.dy())))
                     {
                     	move(dir);
-
-
 						// HP reducing takes place here
-                    	addStep();
-                 
+                    	addStep();                
                     	if (getStepCount() == 0)
                     		setHp(getHp() - 1);
-
                     	if (getHp()==0) expire();
-                    	}
-                    	break;	  	
+                    }
+                    if (temp)
+                     	getMonsters(dir);                 
+                    break;	  	
             }
-            contact();
-            
-            ///////////////////////////  handling of the items printing to console ///////
-            /*
-            
-            if(bufferedBoxesActive)
-            {
-            	while(this.getTerm().getKey() != 'c')
-            	{
-            		printToBufferBoxes(pathToCurrFrame, pathToCurrText);
-            		printToGameConsole("Press 'c' to continue");
-            	}
-            	bufferedBoxesActive = false;
-            }
-            if(gameTextConsoleActive)
-            {
-            	if(endGameTextConsoleTimer == gameTextConsoleTimer) gameTextConsoleActive = false;
-            	printToGameConsole(textForGameConsole);
-            	endGameTextConsoleTimer++;
-            }
-            
-            */
-            ////////////////////////// end of handling of the items printing to console /////
+            contact();            
         }
         catch(InterruptedException e)
         {
@@ -201,6 +179,20 @@ public class Player extends Creature implements Camera
         }
         
     }
+    
+    /*
+     * @author dariush 
+     * gets the monsters from the position in which the player is trying to move.
+     */
+    private void getMonsters(Direction dir) throws InterruptedException
+    {
+    	Collection<Monster>monsters = world().getActorsAt(Monster.class, pos().x() +dir.dx(), pos().y() +dir.dy());
+		for(Monster monster : monsters)
+		{
+			handleMonster(monster);
+		}
+    }
+
     
 	@Override
     public Collection<Coordinate> getViewField()

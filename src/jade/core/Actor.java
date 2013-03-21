@@ -28,6 +28,7 @@ public abstract class Actor extends Messenger
     private Actor holder;
     private Set<Actor> holds;
     private boolean active;
+    private boolean passable;
 
     /**
      * Constructs a new {@code Actor} with the given face.
@@ -40,6 +41,7 @@ public abstract class Actor extends Messenger
         expired = false;
         holds = new HashSet<Actor>();
         setActive(true);
+        setPassable(true);
         
     }
 
@@ -98,6 +100,14 @@ public abstract class Actor extends Messenger
 	public void setActive(boolean active) 
 	{
 		this.active = active;
+	}
+
+	public boolean isPassable() {
+		return passable;
+	}
+
+	public void setPassable(boolean passable) {
+		this.passable = passable;
 	}
 
 	/**
