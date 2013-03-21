@@ -131,6 +131,10 @@ public class TermPanel extends Terminal
 		}
     }
     
+    public void keyPressed(KeyEvent e) {
+    	screen.keyPressed(e);
+    }
+    
     public void bufferFile(String path)
     {
     	this.bufferFile(path,DEFAULT_ROWS);
