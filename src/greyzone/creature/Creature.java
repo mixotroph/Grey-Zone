@@ -121,8 +121,7 @@ public abstract class Creature extends Actor
 	/*
 	public void printMessage(Terminal term, String string)
 	{
-	    term.bufferString(10, 41, string , Color.cyan);
-	    term.refreshScreen();
+
 	}
 	*/
 	
