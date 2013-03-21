@@ -241,7 +241,7 @@ public abstract class World extends Messenger
      * Returns a {@code Collection<T extends Actor>} of all {@code Actor} of the given class at the
      * given location.
      * @param <T> the generic type of the class type to be returned
-     * @param cls the {@code Class<T extends Actor>} of the {@code Actor} to be returned
+     * @paCollection<Monster> monsters =  getWorld().getActorsAt(Monster.class,ram cls the {@code Class<T extends Actor>} of the {@code Actor} to be returned
      * @param pos the location being queried
      * @return a {@code Collection<T extends Actor>} of all {@code Actor} of the given class located
      *         at (x, y)
