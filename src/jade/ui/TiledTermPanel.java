@@ -67,7 +67,7 @@ public class TiledTermPanel extends TermPanel
         {
             int w = screen().tileWidth();
             int h = screen().tileHeight();
-            BufferedImage tileset = ImageIO.read(new File(tileSet));
+            BufferedImage tileset = ImageIO.read(TiledTermPanel.class.getClassLoader().getResourceAsStream(tileSet));
             BufferedImage tile = tileset.getSubimage(x  , y  , w, h);
             System.out.println("x:" + x*w+" y: "+y*h);
             screen().registerTile(ch, tile);
