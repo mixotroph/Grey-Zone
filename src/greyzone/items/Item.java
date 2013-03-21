@@ -5,9 +5,13 @@ import jade.util.datatype.ColoredChar;
 
 public abstract class Item extends Actor
 {
-	
 	private final String name;
 	
+	
+	public Item()
+	{
+		this(ColoredChar.create('I'), "Item");
+	}
 	public Item(ColoredChar face, String name) 
 	{
 		super(face);

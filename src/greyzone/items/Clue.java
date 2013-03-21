@@ -3,7 +3,6 @@ package greyzone.items;
 import greyzone.creature.Player;
 
 import java.awt.Color;
-
 import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 
@@ -30,7 +29,7 @@ public class Clue extends Item
 	
 
 	public Clue() {
-		this(ColoredChar.create('C'),"Clue1");
+		this(ColoredChar.create('I'),"Clue1");
 		
 	}
 	public Clue(ColoredChar face, String name) 
@@ -44,8 +43,10 @@ public class Clue extends Item
 	{
 		if(startTime && endTime == messageTimer -1)
 			this.expire();
-		
-		endTime = (endTime +1) % messageTimer;		
+		Terminal term = getWorld().getActor(Player.class).getTerm();
+		endTime = (endTime +1) % messageTimer;	
+	    term.bufferString(10, 41, "You have found another Clue !!", Color.cyan);
+	    term.refreshScreen();
 	}
 	
 	// this can be called at the end of a level
@@ -93,24 +94,43 @@ public class Clue extends Item
     	
 	}
 	@Override
+<<<<<<< HEAD
 	public String deliverFramePath() {
+=======
+	public String deliverTextForGameConsole() {
+>>>>>>> 4d687104fbf5d226442a5abae4c4dccadd83260f
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
+<<<<<<< HEAD
 	public String deliverTextPath() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public String deliverTextForGameConsole() {
+=======
+	public boolean hasText() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public String deliverFramePath() {
+>>>>>>> 4d687104fbf5d226442a5abae4c4dccadd83260f
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
+<<<<<<< HEAD
 	public boolean hasText() {
 		// TODO Auto-generated method stub
 		return false;
+=======
+	public String deliverTextPath() {
+		// TODO Auto-generated method stub
+		return null;
+>>>>>>> 4d687104fbf5d226442a5abae4c4dccadd83260f
 	}
 	@Override
 	public boolean hasTextPath() {

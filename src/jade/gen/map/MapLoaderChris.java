@@ -26,12 +26,13 @@ public class MapLoaderChris extends MapGenerator
     	trigger = new HashMap<Character,String>();
     	trigger.put('T', "greyzone.trigger.Trigger");
     	trigger.put('M', "greyzone.creature.Monster");
-    	trigger.put('S', "greyzone.trigger.Message");
+    	//trigger.put('S', "greyzone.trigger.Message");
     	
     	// Dariush: added to test the food, clue, notebook classes
     	trigger.put('F', "greyzone.items.Food");
     	trigger.put('N', "greyzone.items.Notebook");
     	trigger.put('I', "greyzone.items.Clue");    	
+    	trigger.put('J', "greyzone.items.Money");    	
     	    	
     	passable = new HashMap<Character,ColoredChar>();
     	passable.put('¤', ColoredChar.create('¤',color)); // normal passable char
@@ -40,6 +41,8 @@ public class MapLoaderChris extends MapGenerator
     	passable.put('F', ColoredChar.create('¤',color)); // 
     	passable.put('N', ColoredChar.create('¤',color)); //
     	passable.put('I', ColoredChar.create('¤',color)); //
+    	passable.put('S', ColoredChar.create('S',color)); //
+    	passable.put('J', ColoredChar.create('¤',color));    
     }
 
     /**
