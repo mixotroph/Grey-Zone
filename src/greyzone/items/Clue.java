@@ -7,7 +7,7 @@ public class Clue extends Actor
 {
 
 	public Clue() {
-		this(ColoredChar.create('Y'));
+		this(ColoredChar.create('C'));
 	}
 	public Clue(ColoredChar face) 
 	{

@@ -282,15 +282,17 @@ public class Player extends Creature implements Camera
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
 		setHp(getHp()+10);
-		this.appendMessage("Yummy. You found money! You like that!");
+		this.appendMessage("You found a clue! You have to find "+ (cluesNeeded - cluesFound)
+							+ " more.");
+		cluesFound++;
 		clue.expire();	
 
 	}
 	
 	private void handleNotebook(Notebook notebook)
 	{
-
-		this.appendMessage("You found notebook! You have to find "+ (cluesNeeded - cluesFound)
+		if ( this.cluesFound < 5)
+			this.appendMessage("You found notebook! You have to find "+ (cluesNeeded - cluesFound)
 							+ " more.");
 		cluesFound++;
 		notebook.expire();	
@@ -307,13 +309,13 @@ public class Player extends Creature implements Camera
 	private void handleTrigger(Trigger trigger)
 	{		
 		//if (cluesFound >= cluesNeeded)
-		if ( this.getHp() <= 25 )
+		if ( this.cluesFound > 5)
 		{
 			term.setMenu("nextLevel",true);
 		}
 		else
 		{
-			System.out.println("You haven\'t found everything yet");
+			this.appendMessage("You haven\'t found everything yet");
 		}
 	}// end handleTrigger()
 
@@ -325,19 +327,6 @@ public class Player extends Creature implements Camera
 		}
 	}
 	
-	
-	
-	
-	/*
-	 * @author dariush
-	 * @param text is printed to the bottom of the game console for {@code gameTextConsoleTimer} number
-	 * of {@code tick}s.
-	 */
-	private void printToGameConsole(String text)
-	{
-	    term.bufferString(10, 42, text, Color.cyan);
-	    term.refreshScreen();
-	}
 	
 	
 }// end Player Class

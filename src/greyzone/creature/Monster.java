@@ -32,8 +32,8 @@ public class Monster extends Creature
     public Monster(ColoredChar face)
     {
         super(face);
-        this.setHp(20);
-        this.setXp(20);
+        this.setHp(2);
+        this.setXp(2);
         origHp = this.getHp();
         chaseTime = 0;
     }
