@@ -20,22 +20,22 @@ import jade.util.datatype.Direction;
 
 public class Monster extends Creature
 {
-	private int origHp;			// used to buffer the current hitpoint state to monitor for a drop
 	private int chaseTime; 				// how long the {@code Monster} has left to chase {@code Player} since last fight	
-	private int aggressiveness = 10; 	// number of {@code tick()}s the monster will chase after a fight
+	private int aggressiveness = 5; 	// number of {@code tick()}s the monster will chase after a fight
 	
 	private int biasMax = 20;
 	private int biasMin = 10;
 
-	
+	private boolean attacked;
+	Coordinate playerPos;
 
     public Monster(ColoredChar face)
     {
         super(face);
         this.setHp(20);
         this.setXp(20);
-        origHp = this.getHp();
         chaseTime = 0;
+        attacked = false;
     }
 	public Monster() 
 	{
@@ -54,37 +54,19 @@ public class Monster extends Creature
     @Override
     public void act()
     {
-
-        if( isAttacked() || chaseTime > 0)
+        if( attacked && (chaseTime < getAggressiveness()))
         {
-        	Coordinate coord = getWorld().getActor(Player.class).pos();	
-        	this.move(this.pos().directionTo(coord));
-        	chaseTime = (chaseTime +1) % getAggressiveness();
+        	chaseTime++;
+        	playerPos = getWorld().getActor(Player.class).pos();	// get player position
+        	move(pos().directionTo(playerPos));
         }
         else
         	move(Dice.global.choose(Arrays.asList(Direction.values())));        
- 
-        
     }
-
-    /*
-     * if there is a drop in Hit Points then {@code isAttacked} returns true
-     * and sets the {@code chaseTime} to the defined level of {@code aggressiveness}
-     * Otherwise, it returns a false. 
-     * @author dariush
-     * @return boolean
-     */
-    private boolean isAttacked()
+    public void isAttacked()
     {
-    	
-    	System.out.println("a monster has been attacked");
-		if(!(this.getHp() == origHp))
-		{
-			chaseTime = getAggressiveness();
-			origHp = this.getHp();
-			return true;
-		}
-		return false;
+    	chaseTime =0;
+    	attacked = true;
     }
     
 
