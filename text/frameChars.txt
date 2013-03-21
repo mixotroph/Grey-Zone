@@ -1,6 +1,0 @@
-
-frame: 	ABC
-		DEF
-		GHI
-
-Colour: BROWN
