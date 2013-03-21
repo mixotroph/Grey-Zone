@@ -20,9 +20,8 @@ import jade.util.datatype.Direction;
 
 public class Monster extends Creature
 {
-	private int origHp;			// used to buffer the current hitpoint state to monitor for a drop
 	private int chaseTime; 				// how long the {@code Monster} has left to chase {@code Player} since last fight	
-	private int aggressiveness = 10; 	// number of {@code tick()}s the monster will chase after a fight
+	private int aggressiveness = 5; 	// number of {@code tick()}s the monster will chase after a fight
 	
 	private int biasMax = 20;
 	private int biasMin = 10;
@@ -35,7 +34,6 @@ public class Monster extends Creature
         super(face);
         this.setHp(20);
         this.setXp(20);
-        origHp = this.getHp();
         chaseTime = 0;
         attacked = false;
     }
@@ -56,22 +54,18 @@ public class Monster extends Creature
     @Override
     public void act()
     {
-
-        if( attacked )
+        if( attacked && (chaseTime < getAggressiveness()))
         {
-        	System.out.println("this is in monster in act()");
+        	chaseTime++;
         	playerPos = getWorld().getActor(Player.class).pos();	// get player position
         	move(pos().directionTo(playerPos));
-        	//chaseTime = (chaseTime +1) % getAggressiveness();
         }
         else
         	move(Dice.global.choose(Arrays.asList(Direction.values())));        
- 
-        
     }
-
     public void isAttacked()
     {
+    	chaseTime =0;
     	attacked = true;
     }
     
