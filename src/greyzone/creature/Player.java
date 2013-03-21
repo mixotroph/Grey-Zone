@@ -274,7 +274,7 @@ public class Player extends Creature implements Camera
     	if(monster.face().toString().equals("Z")||monster.face().toString().equals("S")){ 
 	    	isScientist=true;
     	}
-    	attack(monster);
+    	// attack(monster);
     
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }

@@ -94,43 +94,24 @@ public class Clue extends Item
     	
 	}
 	@Override
-<<<<<<< HEAD
 	public String deliverFramePath() {
-=======
-	public String deliverTextForGameConsole() {
->>>>>>> 4d687104fbf5d226442a5abae4c4dccadd83260f
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-<<<<<<< HEAD
 	public String deliverTextPath() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
 	public String deliverTextForGameConsole() {
-=======
-	public boolean hasText() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	@Override
-	public String deliverFramePath() {
->>>>>>> 4d687104fbf5d226442a5abae4c4dccadd83260f
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-<<<<<<< HEAD
 	public boolean hasText() {
 		// TODO Auto-generated method stub
 		return false;
-=======
-	public String deliverTextPath() {
-		// TODO Auto-generated method stub
-		return null;
->>>>>>> 4d687104fbf5d226442a5abae4c4dccadd83260f
 	}
 	@Override
 	public boolean hasTextPath() {
@@ -142,4 +123,5 @@ public class Clue extends Item
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 }
