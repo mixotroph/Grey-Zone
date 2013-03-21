@@ -27,7 +27,8 @@ public class Monster extends Creature
 	private int biasMax = 20;
 	private int biasMin = 10;
 
-	
+	private boolean attacked;
+	Coordinate playerPos;
 
     public Monster(ColoredChar face)
     {
@@ -36,6 +37,7 @@ public class Monster extends Creature
         this.setXp(20);
         origHp = this.getHp();
         chaseTime = 0;
+        attacked = false;
     }
 	public Monster() 
 	{
@@ -55,11 +57,12 @@ public class Monster extends Creature
     public void act()
     {
 
-        if( isAttacked() || chaseTime > 0)
+        if( attacked )
         {
-        	Coordinate coord = getWorld().getActor(Player.class).pos();	
-        	this.move(this.pos().directionTo(coord));
-        	chaseTime = (chaseTime +1) % getAggressiveness();
+        	System.out.println("this is in monster in act()");
+        	playerPos = getWorld().getActor(Player.class).pos();	// get player position
+        	move(pos().directionTo(playerPos));
+        	//chaseTime = (chaseTime +1) % getAggressiveness();
         }
         else
         	move(Dice.global.choose(Arrays.asList(Direction.values())));        
@@ -67,24 +70,9 @@ public class Monster extends Creature
         
     }
 
-    /*
-     * if there is a drop in Hit Points then {@code isAttacked} returns true
-     * and sets the {@code chaseTime} to the defined level of {@code aggressiveness}
-     * Otherwise, it returns a false. 
-     * @author dariush
-     * @return boolean
-     */
-    private boolean isAttacked()
+    public void isAttacked()
     {
-    	
-    	System.out.println("a monster has been attacked");
-		if(!(this.getHp() == origHp))
-		{
-			chaseTime = getAggressiveness();
-			origHp = this.getHp();
-			return true;
-		}
-		return false;
+    	attacked = true;
     }
     
 

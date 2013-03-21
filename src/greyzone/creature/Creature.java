@@ -63,8 +63,6 @@ public abstract class Creature extends Actor
 	 * @author Flo
 	 */
 	private static int hit(int xp){
-
-		System.out.println("this is in creature in hit");
 		
 	 	Random rnd = new Random();
 
@@ -84,6 +82,8 @@ public abstract class Creature extends Actor
 	 * @author Flo
 	 */
 	public void attack(Monster enemy){
+		
+		enemy.isAttacked();
 
 		// XP and HP of enemy
 		int enXP = enemy.getXp();
