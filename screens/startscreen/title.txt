@@ -1,9 +1,9 @@
-                                                                                                                                                                  
-                                                                                                                                      
+                                                                                 
+                                                                                 
  :                                                                             : 
  :                                                                             : 
  :                                                                             : 
- :                                                                             :
+ :                                                                             : 
  :                                                                             : 
  :                   §^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$                   : 
  :                   [                                     ]                   : 
@@ -14,30 +14,69 @@
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
  :                   %°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&                   : 
- :                                                                             :                                                             
  :                                                                             : 
  :                                                                             : 
- :                                                                             :                                                             
+ :                                                                             : 
+ :                                                                             : 
  :                                                                             : 
  :                                Version0.0.1v1                               : 
  :                                                                             : 
- :                                                                             :                                                 
- :                              a rogue-like game                              :                                                           
+ :                                                                             : 
+ :                              a rogue-like game game                         : 
  :                                                                             : 
  :                                                                             : 
  :                                                                             : 
  :                                                                             : 
- :                                                                             :      
  :                                                                             : 
  :                                                                             : 
- :                                                                             :                                                                            
- :                                                                             :   
+ :                                                                             : 
+ :                                                                             : 
+ :                                                                             : 
  :                          *** PRESS c TO CONTINUE ***                        : 
  :                                                                             : 
  :                                                                             : 
  :                                                                             : 
- :                                                                             :
- :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ :                                                                             : 
+ ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+                                                                                 
+ ::::::::::::::::::::§^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$::::::::::::::::::::                                                   
+ :                   [                                     ]                   : 
+ :                   [ CONTROLS:                           ]                   : 
+ :                   [ ----------------------------------  ]                   : 
+ :                   [                                     ]                   : 
+ :                   [        /\                           ]                   : 
+ :                   [         |                           ]                   : 
+ :                   [         W                           ]                   : 
+ :                   [   <- A      D ->                    ]                   : 
+ :                   [         S                           ]                   : 
+ :                   [         |                           ]                   : 
+ :                   [        \/                           ]                   : 
+ :                   [                                     ]                   :  
+ :                   [                                     ]                   : 
+ :                   [ H : Help                            ]                   : 
+ :                   [ q : Quit                            ]                   : 
+ :                   [ c : Continue                        ]                   : 
+ :                   [                                     ]                   : 
+ :                   [                                     ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ FIGHT:                              ]                   : 
+ :                   [ ----------------------------------- ]                   : 
+ :                   [ The higher you experience           ]                   :
+ :                   [ and hit points are, the easier      ]                   : 
+ :                   [ the fights will be for you. With    ]                   : 
+ :                   [ every won fight your experience     ]                   : 
+ :                   [ will increase and if you kill       ]                   : 
+ :                   [ quick, you will get a bonus.        ]                   : 
+ :                   [                                     ]                   : 
+ :                   [                                     ]                   : 
+ :                   [ ----------------------------------- ]                   : 
+ :                   [ Good luck                           ]                   : 
+ :                   [ and let your heart guide your hand! ]                   : 
+ :                   [                                     ]                   : 
+ :                   [                                     ]                   : 
+ :                   [                                     ]                   : 
+ :                   [                                     ]                   : 
+ ::::::::::::::::::::%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&:::::::::::::::::::: 
                                                                                 
  ::::::::::::::::::::§^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^$::::::::::::::::::::                                                   
  :                   [                                     ]                   : 
@@ -56,10 +95,10 @@
  :                   [ time-space-decoder to break the     ]                   : 
  :                   [ space-time continuum and open my    ]                   : 
  :                   [ mind a gate to the devil's world.   ]                   : 
- :                   [ Finally, there are only view        ]                   : 
- :                   [ question's left for me: Are we all  ]                   : 
- :                   [ obsessed by daemons? Do we have our ]                   : 
- :                   [ own will? These are my last words.  ]                   : 
+ :                   [ Finally, I have only a view         ]                   : 
+ :                   [ questions left: Are we all obsessed ]                   : 
+ :                   [ by daemons? Do we have our own      ]                   : 
+ :                   [ will? These are my last words.      ]                   : 
  :                   [                                     ]                   : 
  :                   [ I conduct the experiment now.       ]                   :
  :                   [                                     ]                   : 
@@ -93,12 +132,12 @@
  :                   [ a secret of live. A secret, that has]                   : 
  :                   [ been never brought to light before. ]                   : 
  :                   [ The secret of the world after death,]                   : 
- :                   [ the truth about good and bad."      ]                   : 
+ :                   [ the truth about good and evil."     ]                   : 
  :                   [                                     ]                   : 
  :                   [ Dr. Eisenhower floats to the        ]                   : 
  :                   [ time-space-decoder,  sits down and  ]                   :
  :                   [ puts on the helmed."Please turn it  ]                   : 
- :                   [ on, Victor. he new age is coming."  ]                   : 
+ :                   [ on, Victor. The new age is coming." ]                   : 
  :                   [                                     ]                   : 
  :                   [ Dr. Eisenhower's assistant releases ]                   :  
  :                   [ the lever.                          ]                   : 
@@ -170,9 +209,9 @@
  :                   [ and flips towards Dr Eisenhower's   ]                   :  
  :                   [ waist. Despite shock and paralysis, ]                   : 
  :                   [ Dr. Eisenhower is well.The devil    ]                   : 
- :                   [ repeats it a few times but fails.   ]                   : 
- :                   [ Again and again. And Dr. Eisenhower ]                   : 
- :                   [ did not suffer any damage.          ]                   : 
+ :                   [ repeats it a few times, but fails.  ]                   : 
+ :                   [ Again and again. Dr. Eisenhower     ]                   : 
+ :                   [ does not suffer any damage.         ]                   : 
  :                   [                                     ]                   : 
  :                   [ The Devil roars:                    ]                   : 
  :                   [ "What´s wrong with you?" He sits    ]                   : 
@@ -185,15 +224,15 @@
  :                   [                                     ]                   : 
  :                   [ "No! What if I don't?"              ]                   : 
  :                   [ "HA! Stupid creature! Otherwise you ]                   : 
- :                   [  stay alone, without any human soul.]                   : 
+ :                   [  stay alone, without any human soul!]                   : 
  :                   [  You stay in hell for all times.    ]                   : 
  :                   [  Is that want you want?"            ]                   :
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
- :                   [ Will you do like the devil said?    ]                   : 
+ :                   [ - "No! Let me live!" (press y)      ]                   : 
  :                   [                                     ]                   : 
- :                   [           ('y'es or 'n'o)           ]                   : 
- :                   [                                     ]                   : 
- :                   [                                     ]                   : 
+ :                   [ - "I would never surrender my work! ]                   : 
+ :                   [    It's too important for mankind!" ]                   : 
+ :                   [    (press n)                        ]                   : 
  :                   [                                     ]                   : 
  ::::::::::::::::::::%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&:::::::::::::::::::: 
