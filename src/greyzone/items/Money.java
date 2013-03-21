@@ -3,12 +3,14 @@ package greyzone.items;
 import jade.core.Actor;
 import jade.util.datatype.ColoredChar;
 
-public class Money extends Actor{
+public class Money extends Actor
+{
 
 	public Money() {
-		this(ColoredChar.create('F'));
+		this(ColoredChar.create('Y'));
 	}
-	public Money(ColoredChar face) {
+	public Money(ColoredChar face) 
+	{
 		super(face);
 		// TODO Auto-generated constructor stub
 	}
@@ -18,7 +20,5 @@ public class Money extends Actor{
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 }

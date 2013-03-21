@@ -76,42 +76,6 @@ public abstract class CoreTest
         @Override
         public void act()
         {}
-
-		@Override
-		public String deliverFramePath() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String deliverTextPath() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public String deliverTextForGameConsole() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public boolean hasText() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean hasTextPath() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean hasFramePath() {
-			// TODO Auto-generated method stub
-			return false;
-		}
     }
 
     public static class ActorA extends ConcreteActor

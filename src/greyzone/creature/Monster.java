@@ -34,7 +34,7 @@ public class Monster extends Creature
         super(face);
         this.setHp(20);
         this.setXp(20);
-        origStrength = this.getHp();
+        origHp = this.getHp();
         chaseTime = 0;
     }
 	public Monster() 
@@ -87,8 +87,5 @@ public class Monster extends Creature
 		return false;
     }
     
-    
-    
 
-        
 }

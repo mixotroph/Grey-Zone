@@ -324,7 +324,7 @@ public abstract class Actor extends Messenger
 	public World getWorld() {
 		return world;
 	}
-	
+
 	
 }
 
