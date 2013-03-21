@@ -13,6 +13,12 @@ public abstract class Creature extends Actor
 	private int xp; // experience
 	private int hp; // hit-points
 	
+	//number of contacts to player
+	//evaluates if player has done an "fast kill" 
+	private int numCont = 0;
+
+
+	
     public Creature(ColoredChar face)
     {
         super(face);
@@ -37,20 +43,14 @@ public abstract class Creature extends Actor
 	public void setHp(int hp) {
 		this.hp = hp;
 	} 
-	
-	//number of contacts to player
-	//evaluates if player has done an "fast kill" 
-	private int numCont = 0;
-
+	//get current number of ecounters with player
+	public int getNumCont(){
+		return numCont;
+	}
 
 	//increments "numCont" by one
 	public void incremNumCont(){
 		numCont++;
-	}
-
-	//get current number of ecounters with player
-	public int getNumCont(){
-		return numCont;
 	}
 
 
@@ -64,11 +64,13 @@ public abstract class Creature extends Actor
 	 */
 	private static int hit(int xp){
 
+		System.out.println("this is in creature in hit");
+		
 	 	Random rnd = new Random();
 
 		//dummy-values for weapon ("Testinator") and maximal experience points
 		double weapPrec = 0.5;	//e [0,1]
-		int weapDamage = 5;		//e N\{0}
+		int weapDamage = 10;		//e N\{0}
 		int maxXP = 30;			//e N\{0}
 
 		//calculate amount of damage for hit
@@ -76,32 +78,12 @@ public abstract class Creature extends Actor
 	} 
 
 
-
-
-
-
-
 	/**
 	 * This method simulates a fight between the player and a
 	 * creature
 	 * @author Flo
 	 */
-	/*	
-	
 	public void attack(Monster enemy){
-
-
-	  //if enemy won: adjust attributes and print message
-	  else{
-	    this.expire();
-	    //print message: "You lost"
-	    System.out.println("You lost");
-	  }
-	}
-
-	public void printMessage(Terminal term, String string)
-	{
-
 
 		// XP and HP of enemy
 		int enXP = enemy.getXp();
@@ -125,33 +107,40 @@ public abstract class Creature extends Actor
 			//if you performed a "fast kill" on the enemy
 			if(enemy.getNumCont() < 4){
 
-				appendMessage("You went BERSERK!! +2XP");
+				appendMessage("You have gone BERSERK!! +2XP");
 				xp += 2;
 				enemy.expire();
 			}
 
 			//if you killed the enemy with more than 3 hits
 			else{
-				appendMessage("You killed the hell out'a that one. +1XP");
+				appendMessage("You killed that one for sure! +1XP");
 				xp++;
 				enemy.expire();			
 			}
 		}
 		else{
+			int hitEnem = hit(enXP);
+			
+			plHP -= hitEnem;
+			
 			//if the player died
 			if(plHP < 0){
-				appendMessage("You're getting ripped appart!");
+				appendMessage("You get ripped!");
 				this.expire();
 			}
 
 			//if neigther you nor the enemy died increment the 
 			//contact counter of the enemy
 			else{
-
+				appendMessage("Damage dealt: "+hitPlayer+"; Damage taken: "+hitEnem);
+				setHp(plHP);
 				enemy.incremNumCont();
 			}
 		}
 	}
-	*/
+
+
+
 	
 }

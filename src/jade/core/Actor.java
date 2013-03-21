@@ -325,12 +325,6 @@ public abstract class Actor extends Messenger
 		return world;
 	}
 	
-	public abstract String deliverFramePath();
-	public abstract String deliverTextPath();
-	public abstract String deliverTextForGameConsole();
-	public abstract boolean hasText();
-	public abstract boolean hasTextPath();
-	public abstract boolean hasFramePath();
 	
 }
 

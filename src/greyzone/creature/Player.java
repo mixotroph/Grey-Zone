@@ -291,23 +291,7 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-		if( clue.hasText() )
-		{
-			textForGameConsole = clue.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( clue.hasFramePath() )
-		{
-			pathToCurrFrame = clue.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( clue.hasTextPath())
-		{
-			pathToCurrText = clue.deliverTextPath();
-		}
-		clue.expire();
+
 	}
 	
 	
@@ -329,46 +313,13 @@ public class Player extends Creature implements Camera
 	 */
 	private void handleFood(Food food)
 	{
-		if( food.hasText() )
-		{
-			textForGameConsole = food.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( food.hasFramePath() )
-		{
-			pathToCurrFrame = food.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( food.hasTextPath())
-		{
-			pathToCurrText = food.deliverTextPath();
-		}
-		this.setHp(getHp() + food.getHitPointsToPlayer()); 
-		food.expire();
+
 	}
 	
 	
 	private void handleNotebook(Notebook notebook)
 	{
-		if( notebook.hasText() )
-		{
-			textForGameConsole = notebook.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( notebook.hasFramePath() )
-		{
-			pathToCurrFrame = notebook.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( notebook.hasTextPath())
-		{
-			pathToCurrText = notebook.deliverTextPath();
-		}
-		notebook.expire();
+
 	}
 	
 	
@@ -419,51 +370,6 @@ public class Player extends Creature implements Camera
 	    term.refreshScreen();
 	}
 	
-	
-	
-	private void resetGameTextConsoleTimer()
-	{
-		gameTextConsoleTimer = 0;
-	}
-	
-	
-	
-
-	@Override
-	public String deliverTextForGameConsole() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasText() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String deliverFramePath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String deliverTextPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasTextPath() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasFramePath() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 }// end Player Class
 

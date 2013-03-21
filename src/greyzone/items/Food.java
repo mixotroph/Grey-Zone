@@ -23,48 +23,5 @@ public class Food extends Item
 			
 			
 		}
-		
-		@Override
-		public String deliverFramePath() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		@Override
-		public String deliverTextPath() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		
-		@Override
-		public String deliverTextForGameConsole() 
-		{		
-			return "Yummy !! Food !!" + " You got " + addedHitPoints + " Hit Points !";
-		}
-		@Override
-		public boolean hasText() 
-		{
-			return true;
-		}
-		
-		
-		@Override
-		public boolean hasTextPath() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-		@Override
-		public boolean hasFramePath() {
-			// TODO Auto-generated method stub
-			return false;
-		}		
-		
-		
-		// method to be called from player to get hitpoints
-		public int getHitPointsToPlayer()
-		{
-			return addedHitPoints;
-		}
-		
-		
+
 }
