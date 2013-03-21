@@ -6,6 +6,7 @@ import jade.util.datatype.ColoredChar;
 
 import java.awt.Color;
 import java.lang.Math;
+import java.util.Collection;
 import java.util.Random;
 
 public abstract class Creature extends Actor
@@ -23,7 +24,24 @@ public abstract class Creature extends Actor
     {
         super(face);
     }
-    
+    /*
+     * @author dariush
+     * checks a given x,y coordinate for another actor. 
+     * if there is an actor there, check for isPassable.
+     * @return boolean
+     * @param x,y two ints
+     */
+    protected boolean isFree(int x, int y) throws InterruptedException
+    {
+    	boolean temp = true;   	
+	    Collection<? extends Actor> actors = this.world().getActorsAt(Actor.class , x, y);
+		for( Actor actor : actors )
+		{
+			if(  !actor.isPassable()  ) 
+				temp = false;	
+		}			
+    	return temp;
+    } 
     @Override
     public void setPos(int x, int y)
     {
@@ -52,9 +70,6 @@ public abstract class Creature extends Actor
 	public void incremNumCont(){
 		numCont++;
 	}
-
-
-
 	/**
 	 * This function calculates the damage of a single hit in
 	 * the {@code attack} method.
@@ -63,8 +78,6 @@ public abstract class Creature extends Actor
 	 * @author Flo
 	 */
 	private static int hit(int xp){
-
-		System.out.println("this is in creature in hit");
 		
 	 	Random rnd = new Random();
 
@@ -76,14 +89,14 @@ public abstract class Creature extends Actor
 		//calculate amount of damage for hit
 		return (int)Math.round((rnd.nextDouble()*weapPrec + (1/Math.exp(rnd.nextDouble()*(maxXP +1-xp)))*(1 - weapPrec))*weapDamage);
 	} 
-
-
 	/**
 	 * This method simulates a fight between the player and a
 	 * creature
 	 * @author Flo
 	 */
 	public void attack(Monster enemy){
+		
+		enemy.isAttacked();
 
 		// XP and HP of enemy
 		int enXP = enemy.getXp();
