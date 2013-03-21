@@ -38,12 +38,12 @@ public class StoryHandler extends Creature implements Camera
                 	nextSlide();
                     break;     
                     
-                case 'h':
+                case 'n':
                 	term.setMenu("hell",true);
                 	expire();
                     break; 
                     
-                case 'l':
+                case 'y':
                 	expire();
                     break; 
                     
@@ -59,12 +59,48 @@ public class StoryHandler extends Creature implements Camera
 
 	private void nextSlide() {
 		Coordinate slidePos = this.pos();
-		if(slidePos.y() <= 50)
+		if(slidePos.y() <= 160)
 			this.move(0, 40);
 	}
 
 	@Override
 	public Collection<Coordinate> getViewField() {
 		return fov.getViewField(world(), pos(), 19);
+	}
+
+	@Override
+	public String deliverFramePath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deliverTextPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deliverTextForGameConsole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasText() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasTextPath() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasFramePath() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

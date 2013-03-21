@@ -63,14 +63,10 @@ public class Monster extends Creature
         {
         	Coordinate coord = getWorld().getActor(Player.class).pos();	
         	this.move(this.pos().directionTo(coord));
-        	chaseTime = (chaseTime + 1) % getAggressiveness();
-
+        	chaseTime = (chaseTime +1) % getAggressiveness();
         }
         else
-        {
-        	move(Dice.global.choose(Arrays.asList(Direction.values())));
-        }
-        
+        	move(Dice.global.choose(Arrays.asList(Direction.values())));        
         if(startTime && endTime > messageTimer-1)
         	this.expire();
         endTime = (endTime +1) % messageTimer;
@@ -98,7 +94,6 @@ public class Monster extends Creature
      */
     private boolean isAttacked()
     {
-    	// the strength of a monster is never deminished by the attack() method in creature class
 		if(!(this.getHp() == origStrength))
 		{
 			chaseTime = getAggressiveness();
@@ -107,5 +102,39 @@ public class Monster extends Creature
 		}
 		return false;
     }
+    
+    
+    
+    
+	@Override
+	public String deliverFramePath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String deliverTextPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String deliverTextForGameConsole() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean hasText() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean hasTextPath() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean hasFramePath() {
+		// TODO Auto-generated method stub
+		return false;
+	}
         
 }
