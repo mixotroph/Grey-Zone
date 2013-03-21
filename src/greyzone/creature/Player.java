@@ -7,7 +7,6 @@ import greyzone.items.Money;
 import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
 
-import java.awt.Color;
 import java.util.Collection;
 import jade.core.Actor;
 import jade.fov.RayCaster;
@@ -34,7 +33,7 @@ public class Player extends Creature implements Camera
      *  these are need for printing to the bufferedboxes and for printing to gameConsole for 
      *  {@code gameTextConsoleTimer} number of {@code tick}s.
      *  @author dariush
-     */
+
     private boolean bufferedBoxesActive;
     private boolean gameTextConsoleActive;
     private int endGameTextConsoleTimer;
@@ -42,6 +41,8 @@ public class Player extends Creature implements Camera
     private String pathToCurrFrame;
     private String pathToCurrText;
     private String textForGameConsole;
+     */
+    
     
 	/*
 	 * hpDec 
@@ -52,8 +53,8 @@ public class Player extends Creature implements Camera
     private int stepCount =0;
     private int hpDec = 10; // hp decremented every hitpointDec steps
     private int bodyCount=0;
-    private int numOfCluesNeeded = 5;
-	private int numOfCluesFound = 0;
+    private int cluesNeeded = 5;
+	private int cluesFound = 0;
 
     
 
@@ -172,7 +173,7 @@ public class Player extends Creature implements Camera
             contact();
             
             ///////////////////////////  handling of the items printing to console ///////
-            
+            /*
             
             if(bufferedBoxesActive)
             {
@@ -190,7 +191,7 @@ public class Player extends Creature implements Camera
             	endGameTextConsoleTimer++;
             }
             
-            
+            */
             ////////////////////////// end of handling of the items printing to console /////
         }
         catch(InterruptedException e)
@@ -198,6 +199,12 @@ public class Player extends Creature implements Camera
             e.printStackTrace();
         }
         
+    }
+    
+	@Override
+    public Collection<Coordinate> getViewField()
+    {
+        return fov.getViewField(world(), pos(), 5);
     }
     
     public void contact() throws InterruptedException 
@@ -248,23 +255,17 @@ public class Player extends Creature implements Camera
     	}
 	}// end react
 
+    
+    ///////////////////////////// handle methods ////////////////////////////
 
-    private void handleMoney(Money money) {
+    private void handleMoney(Money money) 
+    {
 		setHp(getHp()+10);
 		this.appendMessage("Yummy. You found money! You like that!");
-    	money.expire();
-		
+    	money.expire();	
 	}
 
-	@Override
-    public Collection<Coordinate> getViewField()
-    {
-        return fov.getViewField(world(), pos(), 5);
-    }
-    
-    
-    
-    
+
     
 	
     private void handleMonster(Monster monster)
@@ -274,196 +275,55 @@ public class Player extends Creature implements Camera
     	if(monster.face().toString().equals("Z")||monster.face().toString().equals("S")){ 
 	    	isScientist=true;
     	}
-    	attack(monster);
+    	// attack(monster);
     
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
     
-    
-    
-    
-    
-    
-	/*
-	 * The string for the blockbuffer is printed to screen with the appropriate text.txt provided by clue.
-	 * The {@code Clue} is at the moment NOT attach()ed, that means NOT held, to the {@code Player}, instead, it is expire()ed.
-	 * @param gets a clue
-	 */
+
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-		if( clue.hasText() )
-		{
-			textForGameConsole = clue.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( clue.hasFramePath() )
-		{
-			pathToCurrFrame = clue.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( clue.hasTextPath())
-		{
-			pathToCurrText = clue.deliverTextPath();
-		}
-		clue.expire();
-	}
-	
-	
-	
-	
-	
-	/*
-	 * The appropriate text.txt is loaded to the screen 
-	 * The string for the {@code blockBoxes()} is printed to screen 
-	 * The {@code Notebook} is at the moment NOT attach()ed to, that means NOT held by, the {@code Player}
-	 * @param {@code Notebook}
-	 */
 
-	/*
-	 * The string for the {@code blockBuffer()} is printed to screen
-	 * The the {@code Player} hit points are increased by the amount in {@code Food}
-	 * {@code Food} is expire()ed. 
-	 * @param {@code Food} 
-	 */
-	private void handleFood(Food food)
-	{
-		if( food.hasText() )
-		{
-			textForGameConsole = food.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( food.hasFramePath() )
-		{
-			pathToCurrFrame = food.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( food.hasTextPath())
-		{
-			pathToCurrText = food.deliverTextPath();
-		}
-		this.setHp(getHp() + food.getHitPointsToPlayer()); 
-		food.expire();
+		this.appendMessage("You found a clue! Look for " + (cluesNeeded - cluesFound)
+							+ " more.");
+		cluesNeeded++;
+		clue.expire();	
 	}
 	
 	
 	private void handleNotebook(Notebook notebook)
 	{
-		if( notebook.hasText() )
-		{
-			textForGameConsole = notebook.deliverTextForGameConsole();
-			gameTextConsoleActive = true;
-			resetGameTextConsoleTimer();
-		}
-		if( notebook.hasFramePath() )
-		{
-			pathToCurrFrame = notebook.deliverFramePath();
-			bufferedBoxesActive = true;
-			
-		}
-		if( notebook.hasTextPath())
-		{
-			pathToCurrText = notebook.deliverTextPath();
-		}
-		notebook.expire();
+		this.appendMessage("You found notebook! You have to find "+ (cluesNeeded - cluesFound)
+							+ " more.");
+		cluesNeeded ++;
+		notebook.expire();	
 	}
 	
 	
 	
 	
-	/*
-	 * call the length() method on the {@code Player}'s held items
-	 * if this number is greater or equal to {@code Clue}s in the level
-	 * 			then: remove() {@code Player} from the {@code World} and
-	 * 					attach to the next 
-	 * param {@code Trigger}
-	 */
+    private void handleFood(Food food) 
+    {
+		setHp(getHp()+10);
+		this.appendMessage("Yummy. You found food! You like that!");
+    	food.expire();		
+	}
+	
+
 	private void handleTrigger(Trigger trigger)
 	{		
-		//if (numOfCluesFound >= numOfCluesNeeded)
+		//if (cluesFound >= cluesNeeded)
 		if ( this.getHp() <= 25 )
 		{
 			term.setMenu("nextLevel",true);
 		}
 		else
 		{
-			System.out.println("im not ready yet");
+			System.out.println("You haven\'t found everything yet");
 		}
 	}// end handleTrigger()
 	
-	
-		
-	
-	private void printToBufferBoxes(String framePath, String textPath)
-	{
-		{
-			term.bufferBoxes(getWorld(), framePath, textPath);			
-			term.refreshScreen();
-		}
-	}
-	
-	
-	
-	
-	/*
-	 * @author dariush
-	 * @param text is printed to the bottom of the game console for {@code gameTextConsoleTimer} number
-	 * of {@code tick}s.
-	 */
-	private void printToGameConsole(String text)
-	{
-	    term.bufferString(10, 42, text, Color.cyan);
-	    term.refreshScreen();
-	}
-	
-	
-	
-	private void resetGameTextConsoleTimer()
-	{
-		gameTextConsoleTimer = 0;
-	}
-	
-	
-	
 
-	@Override
-	public String deliverTextForGameConsole() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasText() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String deliverFramePath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String deliverTextPath() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean hasTextPath() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean hasFramePath() {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 }// end Player Class
 
