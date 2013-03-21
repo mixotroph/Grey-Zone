@@ -3,6 +3,7 @@ package greyzone.creature;
 
 import greyzone.items.Clue;
 import greyzone.items.Food;
+import greyzone.items.Money;
 import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
 
@@ -128,7 +129,6 @@ public class Player extends Creature implements Camera
     @Override
     public void act()      	
     {	
-		Actor actor;
         try
         {
             char key;
@@ -240,10 +240,23 @@ public class Player extends Creature implements Camera
           	Trigger trigger =  getWorld().getActorAt(Trigger.class, pos());
     		if (trigger != null) handleTrigger(trigger);
     	}
+    	
+    	if (ac=="greyzone.items.Money")
+    	{
+          	Money money =  getWorld().getActorAt(Money.class, pos());
+    		if (money != null) handleMoney(money);
+    	}
 	}// end react
 
 
-    @Override
+    private void handleMoney(Money money) {
+		setHp(getHp()+10);
+		this.appendMessage("Yummy. You found money! You like that!");
+    	money.expire();
+		
+	}
+
+	@Override
     public Collection<Coordinate> getViewField()
     {
         return fov.getViewField(world(), pos(), 5);

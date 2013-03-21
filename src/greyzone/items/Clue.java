@@ -3,8 +3,6 @@ package greyzone.items;
 import greyzone.creature.Player;
 
 import java.awt.Color;
-
-import jade.core.Actor;
 import jade.ui.Terminal;
 import jade.util.datatype.ColoredChar;
 

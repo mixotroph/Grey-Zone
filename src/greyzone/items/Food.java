@@ -1,9 +1,5 @@
 package greyzone.items;
 
-import java.awt.Color;
-
-import greyzone.creature.Player;
-import jade.ui.Terminal;
 import jade.util.Dice;
 import jade.util.datatype.ColoredChar;
 
@@ -28,8 +24,6 @@ public class Food extends Item
 			
 		}
 		
-
-
 		@Override
 		public String deliverFramePath() {
 			// TODO Auto-generated method stub

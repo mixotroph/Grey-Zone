@@ -6,8 +6,6 @@ import jade.util.datatype.ColoredChar;
 import jade.util.datatype.Coordinate;
 import jade.util.datatype.Direction;
 import jade.util.datatype.MutableCoordinate;
-
-import java.awt.Color;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

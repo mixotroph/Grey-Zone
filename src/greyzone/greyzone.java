@@ -6,26 +6,23 @@ import greyzone.level.Layer;
 import greyzone.level.Level;
 import jade.core.World;
 import jade.ui.TiledTermPanel;
-
 import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 
 public class greyzone
 {
 
 	private static LinkedList<String> levelPaths = new LinkedList<String>();
-	private static String decission;
 
-	private static void getLevel(String decission) {
+	private static void getLevel(String decision) {
 		
 		BufferedReader in = null;
 		try
 		{
-			in = new BufferedReader(new FileReader(decission));
+			in = new BufferedReader(new FileReader(decision));
 			String textRow = null;
 			while ((textRow = in.readLine()) != null) {
 				levelPaths.add(textRow); 
@@ -106,10 +103,13 @@ public class greyzone
 		/*
 		 *  main game loop
 		 */
+		int c = 0;
+		String messageBuffer = ""; 
 		while(!player.expired()) 
 		{
 			term.recallBuffer();
 			term.bufferStatusBar(player);
+			term.bufferString(10,40,world.retrieveMessages().toString());
 			//if buffer is cleared only current fov is displayed
 
 			term.clearBuffer();
@@ -139,14 +139,15 @@ public class greyzone
 			 */
 			if (term.getMenu("nextLevel"))
 			{ 
-				if (nextLevel() != null) {
+				String path = nextLevel();
+				if (path != null) {
 					term.setMenu("nextLevel", false);
 					world.removeActor(player);
 
 					if (term.getMenu("hell"))
-						world = new Level(72, 40, nextLevel(), Color.RED);
+						world = new Level(72, 40, path, Color.RED);
 					else 
-						world = new Level(72, 40, nextLevel(), Color.ORANGE);
+						world = new Level(72, 40, path, Color.ORANGE);
 					world.addActor(player,4,4);
 
 					term.clearBuffer();
@@ -157,6 +158,12 @@ public class greyzone
 					player.expire();
 				}	
 			}
+		
+			String messages = player.retrieveMessages().toString();
+			messageBuffer = messages; 
+			term.bufferString(8,41,messageBuffer,Color.CYAN);
+
+			
 			// last but not least
 			term.refreshScreen();
 			world.tick();
