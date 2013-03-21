@@ -1,2 +1,6 @@
-maps/test.txt
-maps/test1.txt
+maps/map7.txt
+maps/map6.txt
+maps/map8.txt
+maps/map9.txt
+maps/map10.txt
+

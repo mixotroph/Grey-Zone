@@ -63,7 +63,7 @@ public class Player extends Creature implements Camera
         this.term = term;
         fov = new RayCaster();
         setXp(0);
-        setHp(30); // hp at beginning of game
+        setHp(40); // hp at beginning of game
     }
     
     ////////////////////////////////////////////////////////////////
