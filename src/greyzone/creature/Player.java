@@ -7,6 +7,7 @@ import greyzone.items.Money;
 import greyzone.items.Notebook;
 import greyzone.trigger.Trigger;
 
+import java.awt.Color;
 import java.util.Collection;
 import jade.core.Actor;
 import jade.fov.RayCaster;
@@ -265,9 +266,6 @@ public class Player extends Creature implements Camera
     	money.expire();	
 	}
 
-
-    
-	
     private void handleMonster(Monster monster)
     {
 
@@ -275,7 +273,7 @@ public class Player extends Creature implements Camera
     	if(monster.face().toString().equals("Z")||monster.face().toString().equals("S")){ 
 	    	isScientist=true;
     	}
-    	// attack(monster);
+    	attack(monster);
     
 	    if (isScientist) setBodyCount(getBodyCount()+1);	
     }
@@ -283,32 +281,28 @@ public class Player extends Creature implements Camera
 
 	private void handleClue(Clue clue) throws InterruptedException
 	{	
-
-		this.appendMessage("You found a clue! Look for " + (cluesNeeded - cluesFound)
-							+ " more.");
-		cluesNeeded++;
+		setHp(getHp()+10);
+		this.appendMessage("Yummy. You found money! You like that!");
 		clue.expire();	
+
 	}
-	
 	
 	private void handleNotebook(Notebook notebook)
 	{
+
 		this.appendMessage("You found notebook! You have to find "+ (cluesNeeded - cluesFound)
 							+ " more.");
-		cluesNeeded ++;
+		cluesFound++;
 		notebook.expire();	
-	}
-	
-	
-	
-	
+
+	}	
+
     private void handleFood(Food food) 
     {
 		setHp(getHp()+10);
 		this.appendMessage("Yummy. You found food! You like that!");
     	food.expire();		
 	}
-	
 
 	private void handleTrigger(Trigger trigger)
 	{		
@@ -322,8 +316,29 @@ public class Player extends Creature implements Camera
 			System.out.println("You haven\'t found everything yet");
 		}
 	}// end handleTrigger()
-	
 
+	private void printToBufferBoxes(String framePath, String textPath)
+	{
+		{
+			term.bufferBoxes(getWorld(), framePath, textPath);			
+			term.refreshScreen();
+		}
+	}
+	
+	
+	
+	
+	/*
+	 * @author dariush
+	 * @param text is printed to the bottom of the game console for {@code gameTextConsoleTimer} number
+	 * of {@code tick}s.
+	 */
+	private void printToGameConsole(String text)
+	{
+	    term.bufferString(10, 42, text, Color.cyan);
+	    term.refreshScreen();
+	}
+	
 	
 }// end Player Class
 
