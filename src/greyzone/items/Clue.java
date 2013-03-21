@@ -19,6 +19,7 @@ public class Clue extends Actor
 	public void act() {
 		// TODO Auto-generated method stub
 		
+
 	}
 
 }
