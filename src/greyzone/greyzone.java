@@ -45,7 +45,7 @@ public class greyzone
 
 	public static void main(String[] args) throws InterruptedException
 	{
-		System.out.println("Start");		/*
+		/*
 		HashMap<String, Boolean> switches = new HashMap<String, Boolean>();
 
 		for (String sw : args) {
@@ -54,6 +54,7 @@ public class greyzone
 		System.out.println(switches.toString());
 		*/
 		
+		Iterable<String> messages;
 		TiledTermPanel term = TiledTermPanel.getFramedTerminal("Grey Zone");
 		term.loadTextureSet("textures/frames.png","textures/frames2.png");
 		term.registerMenu();
@@ -158,10 +159,10 @@ public class greyzone
 					player.expire();
 				}	
 			}
-		
-			String messages = player.retrieveMessages().toString();
-			messageBuffer = messages; 
-			term.bufferString(8,41,messageBuffer,Color.CYAN);
+			
+			messages = player.retrieveMessages();
+			for (String msg : messages)
+				term.bufferString(8,41,msg,Color.CYAN);
 			
 			// last but not least
 			term.refreshScreen();
