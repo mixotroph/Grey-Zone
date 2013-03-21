@@ -45,7 +45,7 @@ public class greyzone
 
 	public static void main(String[] args) throws InterruptedException
 	{
-		/*
+		System.out.println("Start");		/*
 		HashMap<String, Boolean> switches = new HashMap<String, Boolean>();
 
 		for (String sw : args) {
@@ -103,7 +103,7 @@ public class greyzone
 		/*
 		 *  main game loop
 		 */
-		int c = 0;
+
 		String messageBuffer = ""; 
 		while(!player.expired()) 
 		{
@@ -162,7 +162,6 @@ public class greyzone
 			String messages = player.retrieveMessages().toString();
 			messageBuffer = messages; 
 			term.bufferString(8,41,messageBuffer,Color.CYAN);
-
 			
 			// last but not least
 			term.refreshScreen();
