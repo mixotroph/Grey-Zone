@@ -242,13 +242,13 @@ public class TiledTermPanel extends TermPanel
     public void bufferStatusBar(Player player) {
     	X_OFFSET=8;
     	bufferString(1, 39,"h: help");
-     	bufferString(1, 5, "steps:");
-     	bufferString(1, 6, ""+player.getStepCount());
-     	bufferString(1, 8, "hp:");
-     	bufferString(1, 9, ""+(int)player.getHp());
-     	bufferString(1 , 11, "xp:");
-     	bufferString(1,  12, ""+ (int)player.getXp());
-
+     	//bufferString(1, 5, "steps:");
+     	//bufferString(1, 6, ""+player.getStepCount());
+     	bufferString(1, 5, "hp:");
+     	bufferString(1, 6, ""+(int)player.getHp());
+     	bufferString(1 , 8, "xp:");
+     	bufferString(1,  9, ""+ (int)player.getXp());
+    
     }
     
     /**

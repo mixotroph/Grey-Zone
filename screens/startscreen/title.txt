@@ -230,11 +230,11 @@
  :                   [  Is that want you want?"            ]                   : 
  :                   [                                     ]                   : 
  :                   [                                     ]                   : 
- :                   [ - "No! Let me live!" (press y)      ]                   : 
+ :                   [ - "No! Let me live!" (press n)      ]                   : 
  :                   [                                     ]                   : 
  :                   [ - "I would never surrender my work! ]                   : 
  :                   [    It's too important for mankind!" ]                   : 
- :                   [    (press n)                        ]                   : 
+ :                   [    (press y)                        ]                   : 
  :                   [                                     ]                   : 
  ::::::::::::::::::::%°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°°&:::::::::::::::::::: 
                                                                                  
