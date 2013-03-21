@@ -5,6 +5,7 @@ import jade.util.datatype.ColoredChar;
 
 public class Food extends Actor{
 
+
 	public Food() {
 		this(ColoredChar.create('F'));
 	}

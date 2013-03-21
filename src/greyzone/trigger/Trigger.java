@@ -23,6 +23,7 @@ public class Trigger extends Actor
 
 	@Override
 	public void act() {
+
 	}
 	
 }

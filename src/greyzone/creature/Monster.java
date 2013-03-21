@@ -20,16 +20,13 @@ import jade.util.datatype.Direction;
 
 public class Monster extends Creature
 {
-	private int origStrength;			// used to buffer the current hitpoint state to monitor for a drop
+	private int origHp;			// used to buffer the current hitpoint state to monitor for a drop
 	private int chaseTime; 				// how long the {@code Monster} has left to chase {@code Player} since last fight	
 	private int aggressiveness = 10; 	// number of {@code tick()}s the monster will chase after a fight
 	
 	private int biasMax = 20;
 	private int biasMin = 10;
-	
-	private int messageTimer = 4;
-	private boolean startTime;
-	private int endTime;
+
 	
 
     public Monster(ColoredChar face)
@@ -37,7 +34,7 @@ public class Monster extends Creature
         super(face);
         this.setHp(20);
         this.setXp(20);
-        origStrength = this.getHp();
+        origHp = this.getHp();
         chaseTime = 0;
     }
 	public Monster() 
@@ -58,7 +55,6 @@ public class Monster extends Creature
     public void act()
     {
 
-        // this can't work if the attack() method always finishes a fight immediately, meaning in one tick()
         if( isAttacked() || chaseTime > 0)
         {
         	Coordinate coord = getWorld().getActor(Player.class).pos();	
@@ -67,24 +63,10 @@ public class Monster extends Creature
         }
         else
         	move(Dice.global.choose(Arrays.asList(Direction.values())));        
-        if(startTime && endTime > messageTimer-1)
-        	this.expire();
-        endTime = (endTime +1) % messageTimer;
-        
+ 
         
     }
-    
-    
-	// print a message to the term.terminal
-    public void printMessage() throws InterruptedException
-    {
-	    Terminal term = getWorld().getActor(Player.class).getTerm();
-	    term.bufferString(10, 41, "A Monster is Attacking ! ", Color.cyan);
-	    term.refreshScreen();
-    	startTime = true;
-    	endTime = 0; // starts at 0 and ends at {@code messageTimer}
-    }
-    
+
     /*
      * if there is a drop in Hit Points then {@code isAttacked} returns true
      * and sets the {@code chaseTime} to the defined level of {@code aggressiveness}
@@ -94,14 +76,16 @@ public class Monster extends Creature
      */
     private boolean isAttacked()
     {
-		if(!(this.getHp() == origStrength))
+    	
+    	System.out.println("a monster has been attacked");
+		if(!(this.getHp() == origHp))
 		{
 			chaseTime = getAggressiveness();
-			origStrength = this.getHp();
+			origHp = this.getHp();
 			return true;
 		}
 		return false;
     }
     
- 
+
 }
