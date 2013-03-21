@@ -59,7 +59,7 @@ public class StoryHandler extends Creature implements Camera
 
 	private void nextSlide() {
 		Coordinate slidePos = this.pos();
-		if(slidePos.y() <= 160)
+		if(slidePos.y() <= 200)
 			this.move(0, 40);
 	}
 
