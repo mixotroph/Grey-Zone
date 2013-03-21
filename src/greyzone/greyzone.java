@@ -104,20 +104,16 @@ public class greyzone
 		/*
 		 *  main game loop
 		 */
-
-		String messageBuffer = ""; 
 		while(!player.expired()) 
 		{
 			term.recallBuffer();
 			term.bufferStatusBar(player);
-			term.bufferString(10,40,world.retrieveMessages().toString());
 			//if buffer is cleared only current fov is displayed
-
 			term.clearBuffer();
 			term.bufferStatusBar(player);
 
 			term.bufferFov(player); 
-			term.saveBuffer();
+			//term.saveBuffer();
 			
 			/*
 			 * handles the wish to see all
@@ -131,8 +127,11 @@ public class greyzone
 			/*
 			 * displays the menue 
 			 */
-			if (term.getMenu("menu")){ 
-				term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt");   
+			if (term.getMenu("menu"))
+			{ 	
+				term.saveBuffer();
+				term.clearBuffer();
+				term.bufferBoxes(world, "screens/menu/menu-frame.txt","screens/menu/menu.txt",Color.lightGray);   
 			}
 			
 			/*
@@ -152,7 +151,7 @@ public class greyzone
 					world.addActor(player,4,4);
 
 					term.clearBuffer();
-					term.saveBuffer();
+					//term.saveBuffer();
 					term.bufferBoxes(world, "screens/betweenLevel/btwL-frame.txt","screens/betweenLevel/btwL.txt");
 				}
 				else {

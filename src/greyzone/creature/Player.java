@@ -140,7 +140,8 @@ public class Player extends Creature implements Camera
                 case 'q':
                     expire();
                     break;
-                case ((char)27): // ESC-key
+                case ((char)27):// ESC-key
+                case 'h':
                 {
                 	if(term.getMenu("menu")==false)
                 		term.setMenu("menu",true);

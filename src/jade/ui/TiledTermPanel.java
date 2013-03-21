@@ -102,7 +102,7 @@ public class TiledTermPanel extends TermPanel
         registerTile(path2, 96, 0, ColoredChar.create('^',Color.LIGHT_GRAY));
         registerTile(path2, 112, 0, ColoredChar.create('$',Color.LIGHT_GRAY));
         registerTile(path2, 81, 16, ColoredChar.create('[',Color.LIGHT_GRAY));
-        registerTile(path2, 96, 16, ColoredChar.create('\'',Color.LIGHT_GRAY));
+        //registerTile(path2, 96, 16, ColoredChar.create('\'',Color.LIGHT_GRAY));
         registerTile(path2, 112, 16, ColoredChar.create(']',Color.LIGHT_GRAY));
         registerTile(path2, 81, 32, ColoredChar.create('%',Color.LIGHT_GRAY));
         registerTile(path2, 96, 32, ColoredChar.create('°',Color.LIGHT_GRAY));
@@ -155,6 +155,7 @@ public class TiledTermPanel extends TermPanel
         registerTile("textures/hell.png", 48, 16, ColoredChar.create('{',Color.RED));
         registerTile("textures/hell.png", 16, 16, ColoredChar.create('¤',Color.RED));
         registerTile("textures/hell.png", 80, 0, ColoredChar.create('S',Color.RED));
+        registerTile("textures/hell.png", 96, 0, ColoredChar.create('C'));
         
     }
 
@@ -240,7 +241,7 @@ public class TiledTermPanel extends TermPanel
      */
     public void bufferStatusBar(Player player) {
     	X_OFFSET=8;
-    	bufferString(1, 39,"H: Help");
+    	bufferString(1, 39,"h: help");
      	bufferString(1, 5, "steps:");
      	bufferString(1, 6, ""+player.getStepCount());
      	bufferString(1, 8, "hp:");
@@ -256,9 +257,9 @@ public class TiledTermPanel extends TermPanel
     //@Override
     public void bufferBoxes(World world, String pathToframe, String pathTotext, Color color) 
     {
-    	//Player player = world.getActor(Player.class);
+
     	// first, buffer frame and background
-    	this.recallBuffer();
+    	//this.recallBuffer();
     	this.bufferFile(pathToframe);	
     	
     	//this.bufferWorld(world);
