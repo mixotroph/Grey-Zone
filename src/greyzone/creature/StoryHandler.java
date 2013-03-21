@@ -38,12 +38,12 @@ public class StoryHandler extends Creature implements Camera
                 	nextSlide();
                     break;     
                     
-                case 'n':
+                case 'y':
                 	term.setMenu("hell",true);
                 	expire();
                     break; 
                     
-                case 'y':
+                case 'n':
                 	expire();
                     break; 
                     

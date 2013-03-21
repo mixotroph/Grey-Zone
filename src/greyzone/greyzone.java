@@ -60,7 +60,7 @@ public class greyzone
 		term.registerMenu();
 		
 		StoryHandler story = new StoryHandler(term);
-		World layer = new Layer(80,200, story);
+		World layer = new Layer(80,300, story);
 		story.setPos(40, 19);
 		term.registerCamera(story, 40,20);
 
