@@ -1,0 +1,21 @@
+Controls:
+		/\
+		|
+		W
+	<-A		D->
+		S
+		|
+		\/
+
+H: Help
+q: Quit
+c: Continue
+---------------------------------------------
+Fight:
+The higher you experience and hit points are,
+the easier the fights will be for you. With
+every won fight your experience will 
+increase and if you kill quick, you will
+get a bonus.
+---------------------------------------------
+Good luck and let your heart guide your hand!
