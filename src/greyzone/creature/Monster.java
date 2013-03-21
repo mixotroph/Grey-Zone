@@ -44,9 +44,9 @@ public class Monster extends Creature
     	{
 	        if( attacked && (chaseTime < getAggressiveness()))
 	        {
-	        	// pos(a).getDirectionTo(pos(b)): gets the next coord on the best path from a to b
+	        	//pos(a).getDirectionTo(pos(b)): gets the next coord on the best path from a to b
 	        	nextDir = this.pos().directionTo(getWorld().getActor(Player.class).pos());// get player position
-	        	//if(  isFree(this.pos().x() + nextDir.dx(), this.pos().y() + nextDir.dy()	) )
+	        	if(  isFree(this.pos().x() + nextDir.dx(), this.pos().y() + nextDir.dy()	) )
 	        		move(nextDir);
 	        	chaseTime++;
 	        }
